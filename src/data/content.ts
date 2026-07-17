@@ -24,7 +24,7 @@ export const curriculum: CurriculumStage[] = [
     week: 'Stage 2',
     title: 'Hanja Bridge - Visual Association',
     summary:
-      'Bridge the gap between sounds and deep meaning. Using Malmoa’s Wadiz-proven method, learn 150 core Hanja characters via rich illustrations and memorable stories.',
+      'Bridge the gap between sounds and deep meaning. Using Malmoa’s Wadiz-proven method, learn 120 core 1st & 2nd grade Hanja characters via rich illustrations and 어원모아 (Origin Mnemonic) stories.',
     outcomes: [
       'Understand the visual origins of core Hanja characters',
       'Associate characters with their primary meanings and Korean sounds',
@@ -34,9 +34,9 @@ export const curriculum: CurriculumStage[] = [
   {
     id: 'vocabulary',
     week: 'Stage 3',
-    title: 'Contextual Hanja Vocabulary',
+    title: 'Subject-wise Hanja Vocabulary',
     summary:
-      'Expand your vocabulary exponentially. Master 12 subject areas and 660 critical Hanja-based Korean words using our fast direct-reading methodology.',
+      'Expand your vocabulary exponentially. Master 37 subject areas and 1,840 essential Hanja-based Korean words using our fast direct-reading (직독직해) methodology.',
     outcomes: [
       'Deconstruct complex Korean words to figure out meanings instantly',
       'Grow your vocabulary from 500 words to over 3,000 words in 12 weeks',
@@ -96,39 +96,74 @@ export type HanjaCharacter = {
   derivatives: DerivativeWord[]
 }
 
-export const hanjaDemo: HanjaCharacter = {
-  character: '木',
-  reading: 'mok (목)',
-  meaning: 'tree / wood',
-  story:
-    'Visualize a tree trunk rising from the earth, with branches stretching out wide to the left and right, and roots anchoring it firmly below. The character 木 is a direct sketch of this majestic shape, locking the meaning "tree" or "wood" in your memory.',
-  derivatives: [
-    {
-      hanja: '木材',
-      hangul: '목재 (mok-jae)',
-      english: 'Wood / Timber',
-      explanation: '木 (tree) + 材 (material) = Timber used for construction.',
-    },
-    {
-      hanja: '木曜日',
-      hangul: '목요일 (mok-yo-il)',
-      english: 'Thursday',
-      explanation: '木 (tree/planet Jupiter) + 曜日 (day of the week) = Thursday.',
-    },
-    {
-      hanja: '樹木',
-      hangul: '수목 (su-mok)',
-      english: 'Trees / Shrubbery',
-      explanation: '樹 (standing tree) + 木 (tree) = Forest trees or green vegetation.',
-    },
-    {
-      hanja: '伐木',
-      hangul: '벌목 (beol-mok)',
-      english: 'Lumbering / Logging',
-      explanation: '伐 (cut down) + 木 (tree) = Felling trees or logging timber.',
-    },
-  ],
-}
+export const hanjaList: HanjaCharacter[] = [
+  {
+    character: '木',
+    reading: 'mok (목)',
+    meaning: 'tree / wood',
+    story:
+      'Visualize a tree trunk rising from the earth, with branches stretching out wide to the left and right, and roots anchoring it firmly below. The character 木 is a direct sketch of this shape, locking the meaning "tree" or "wood" in your memory.',
+    derivatives: [
+      {
+        hanja: '木材',
+        hangul: '목재 (mok-jae)',
+        english: 'Wood / Timber',
+        explanation: '木 (tree) + 材 (material) = Timber used for construction.',
+      },
+      {
+        hanja: '木曜日',
+        hangul: '목요일 (mok-yo-il)',
+        english: 'Thursday',
+        explanation: '木 (tree/planet Jupiter) + 曜日 (day of the week) = Thursday.',
+      },
+      {
+        hanja: '樹木',
+        hangul: '수목 (su-mok)',
+        english: 'Trees / Shrubbery',
+        explanation: '樹 (standing tree) + 木 (tree) = Forest trees or green vegetation.',
+      },
+      {
+        hanja: '伐木',
+        hangul: '벌목 (beol-mok)',
+        english: 'Lumbering / Logging',
+        explanation: '伐 (cut down) + 木 (tree) = Felling trees or logging timber.',
+      },
+    ],
+  },
+  {
+    character: '調',
+    reading: 'jo (조)',
+    meaning: 'harmonize / tune / rate',
+    story:
+      'Visualize speaking (言) to align opinions, combined with a cycle (周) representing circulation or completeness. In Korean vocabulary, 調 acts as a root meaning to coordinate, adjust, or harmonize.',
+    derivatives: [
+      {
+        hanja: '色調',
+        hangul: '색조 (saek-jo)',
+        english: 'Color Tone / Hue',
+        explanation: '色 (color) + 調 (harmony/tone) = The overall harmony or tone of colors.',
+      },
+      {
+        hanja: '步調',
+        hangul: '보조 (bo-jo)',
+        english: 'Pace / Matching Steps',
+        explanation: '步 (step) + 調 (rate/harmony) = Keeping pace or matching step speed.',
+      },
+      {
+        hanja: '語調',
+        hangul: '어조 (eo-jo)',
+        english: 'Tone of Voice',
+        explanation: '語 (speech) + 調 (tune/tone) = The tone, pitch, or manner in speech.',
+      },
+      {
+        hanja: '高調',
+        hangul: '고조 (go-jo)',
+        english: 'Intensification / Climax',
+        explanation: '高 (high) + 調 (tone/rate) = Elevating the tone, mood, or energy to a high level.',
+      },
+    ],
+  },
+]
 
 export const WAITLIST_KEY = 'malmoa-waitlist'
 export const BOARD_KEY = 'malmoa-board'
