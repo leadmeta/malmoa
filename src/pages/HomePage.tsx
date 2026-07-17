@@ -158,6 +158,106 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Wadiz Campaign Gallery & Media Archive */}
+      <section className="section shell wadiz-gallery-section" style={{ background: 'color-mix(in srgb, var(--paper-cool) 30%, white)', padding: '4rem 2rem', borderRadius: '32px', border: '1px solid var(--line)', margin: '3rem auto' }}>
+        <p className="section-label" style={{ textAlign: 'center' }}>Wadiz Media Archive</p>
+        <h2 style={{ textAlign: 'center', marginBottom: '1rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
+          Real Campaign Assets & Tacit Materials
+        </h2>
+        <p style={{ textAlign: 'center', maxWidth: '44rem', margin: '0 auto 3rem auto', color: 'var(--ink-soft)' }}>
+          Explore the actual study materials, interactive GIFs, and short clips that drove our 2,300%+ funding success on Wadiz. See the direct-reading system in motion.
+        </p>
+
+        {/* Media Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          
+          {/* Item 1: Animated Sticker Loop (GIF) */}
+          <div style={{ background: 'white', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem', boxShadow: '0 4px 15px rgba(0,0,0,0.01)', transition: 'all 0.25s ease' }} className="board-post-card">
+            <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>✨ Interactive Sticker Play (Wadiz GIF)</h4>
+            <img 
+              src="/wadiz-assets/wadiz_8.gif" 
+              alt="Mnemonic sticker application" 
+              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px' }} 
+            />
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', marginTop: '0.75rem', lineHeight: 1.4 }}>
+              Tactile Mnemonic stickers trigger visual association, forcing active recall of Hanja root meanings.
+            </p>
+          </div>
+
+          {/* Item 2: Real Class Video (MP4) */}
+          <div style={{ background: 'white', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem', boxShadow: '0 4px 15px rgba(0,0,0,0.01)', transition: 'all 0.25s ease' }} className="board-post-card">
+            <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>🎥 Real Study Demonstration</h4>
+            <video 
+              src="/wadiz-assets/wadiz_6.mp4" 
+              controls 
+              loop 
+              muted 
+              autoPlay 
+              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px' }} 
+            />
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', marginTop: '0.75rem', lineHeight: 1.4 }}>
+              Demonstration clip showing children and adults mapping visual roots to intermediate 어휘 (vocabulary).
+            </p>
+          </div>
+
+          {/* Item 3: Satisfaction Graphic (PNG) */}
+          <div style={{ background: 'white', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem', boxShadow: '0 4px 15px rgba(0,0,0,0.01)', transition: 'all 0.25s ease' }} className="board-post-card">
+            <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>⭐️ Backer Satisfaction Score</h4>
+            <img 
+              src="/wadiz-assets/wadiz_1.png" 
+              alt="Backer satisfaction 5.0" 
+              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px' }} 
+            />
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', marginTop: '0.75rem', lineHeight: 1.4 }}>
+              A perfect 5.0 satisfaction score across our campaigns. Backed by hundreds of eager Korean learners.
+            </p>
+          </div>
+
+          {/* Item 4: Rote Memorization VS Mnemonic (PNG) */}
+          <div style={{ background: 'white', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem', boxShadow: '0 4px 15px rgba(0,0,0,0.01)', transition: 'all 0.25s ease' }} className="board-post-card">
+            <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>📈 The Core Methodology Card</h4>
+            <img 
+              src="/wadiz-assets/wadiz_4.png" 
+              alt="Hanja root mapping comparison" 
+              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px' }} 
+            />
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', marginTop: '0.75rem', lineHeight: 1.4 }}>
+              Traditional rote writing compared against Malmoa\'s visual association meaning networks.
+            </p>
+          </div>
+
+          {/* Item 5: Direct Reading Concept (GIF) */}
+          <div style={{ background: 'white', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem', boxShadow: '0 4px 15px rgba(0,0,0,0.01)', transition: 'all 0.25s ease' }} className="board-post-card">
+            <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>⚡️ Direct Meaning Matching (GIF)</h4>
+            <img 
+              src="/wadiz-assets/wadiz_12.gif" 
+              alt="Direct reading animation" 
+              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px' }} 
+            />
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', marginTop: '0.75rem', lineHeight: 1.4 }}>
+              Watch how our digital bridge automatically structures Chinese radicals into readable Korean words.
+            </p>
+          </div>
+
+          {/* Item 6: Children Literacy Class (MP4) */}
+          <div style={{ background: 'white', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem', boxShadow: '0 4px 15px rgba(0,0,0,0.01)', transition: 'all 0.25s ease' }} className="board-post-card">
+            <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '1.05rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>🎥 Classroom Sticker Activity</h4>
+            <video 
+              src="/wadiz-assets/wadiz_15.mp4" 
+              controls 
+              loop 
+              muted 
+              autoPlay 
+              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px' }} 
+            />
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', marginTop: '0.75rem', lineHeight: 1.4 }}>
+              Live clip from our offline literacy classrooms where learners match sticker shapes to words.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
       <section className="section shell demos-teaser">
         <p className="section-label">Try it Now</p>
         <h2>Feel the difference in just 2 minutes.</h2>
