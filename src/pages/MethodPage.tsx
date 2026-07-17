@@ -53,6 +53,16 @@ export function MethodPage() {
         <p className="lede" style={{ marginBottom: '2rem' }}>
           Our physical workbook package, funded 2 times by hundreds of enthusiastic backers, is built for tactile, active learning.
         </p>
+
+        {/* Real Wadiz Textbook Image Asset */}
+        <div style={{ marginBottom: '2.5rem', maxWidth: '640px' }}>
+          <img
+            src="/textbook_package.png"
+            alt="Malmoa Mnemonic Textbook & Stickers Kit"
+            style={{ width: '100%', height: 'auto', borderRadius: '24px', border: '1px solid var(--line)', boxShadow: '0 8px 24px rgba(0,0,0,0.03)' }}
+          />
+        </div>
+
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
           <div style={{ background: 'color-mix(in srgb, var(--paper-cool) 40%, white)', padding: '1.5rem', borderRadius: 'var(--radius)', border: '1px solid var(--line)' }}>
             <h4 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-display)', fontSize: '1.2rem' }}>4 Core Workbooks</h4>

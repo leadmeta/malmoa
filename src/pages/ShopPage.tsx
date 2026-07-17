@@ -107,6 +107,13 @@ export function ShopPage() {
             <div style={{ display: 'inline-block', background: 'color-mix(in srgb, var(--teal) 12%, white)', color: 'var(--teal-deep)', padding: '0.3rem 0.75rem', borderRadius: '999px', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '1rem', textTransform: 'uppercase' }}>
               Wadiz Bestseller
             </div>
+            <div style={{ margin: '0.5rem 0 1.25rem 0' }}>
+              <img
+                src="/textbook_package.png"
+                alt="Wadiz Mnemonic Workbook Package"
+                style={{ width: '100%', height: '170px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)' }}
+              />
+            </div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', margin: '0 0 0.5rem 0' }}>
               Mnemonic Workbook Package
             </h3>

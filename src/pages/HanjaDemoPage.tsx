@@ -231,25 +231,20 @@ export function HanjaDemoPage() {
               <span style={{ fontSize: '1.15rem', marginTop: '0.5rem', fontWeight: 'bold', color: 'var(--teal)' }}>{selectedHanja.reading}</span>
             </div>
             
-            <div style={{ width: '190px', height: '190px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white', borderRadius: '50%', border: '3px dashed var(--line)', boxShadow: '0 8px 20px rgba(0,0,0,0.02)' }}>
-              {selectedHanja.character === '木' ? (
-                <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0px 4px 6px rgba(13,115,119,0.2))' }}>
-                  <path d="M12 22V12" strokeWidth="2.5" />
-                  <path d="M12 12L7 9" strokeWidth="2" />
-                  <path d="M12 14L17 11" strokeWidth="2" />
-                  <path d="M12 8L4 5" />
-                  <path d="M12 8L20 5" />
-                  <path d="M12 12V4" />
-                  <path d="M8 22c0-2.5 1.5-3.5 4-3.5s4 1 4 3.5" />
-                </svg>
-              ) : (
-                <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0px 4px 6px rgba(13,115,119,0.2))' }}>
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" strokeWidth="2" />
-                  <path d="M8 10h8" />
-                  <path d="M8 14h6" />
-                  <path d="M12 7h.01" />
-                </svg>
-              )}
+            {/* Dynamic Mnemonic Image Asset from Wadiz Campaign */}
+            <div>
+              <img
+                src={selectedHanja.character === '木' ? '/hanja_tree_mnemonic.png' : '/hanja_tune_mnemonic.png'}
+                alt={`${selectedHanja.character} visual mnemonic`}
+                style={{
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '24px',
+                  objectFit: 'cover',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
+                  border: '3px solid white',
+                }}
+              />
             </div>
           </div>
 
