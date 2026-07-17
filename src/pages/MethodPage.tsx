@@ -46,7 +46,7 @@ export function MethodPage() {
         </article>
       </div>
 
-      <section className="textbook-details section">
+      <section className="section textbook-details">
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: '1rem' }}>
           What is in the Malmoa Mnemonic Kit?
         </h2>
@@ -57,7 +57,7 @@ export function MethodPage() {
         {/* Real Wadiz Textbook Image Asset */}
         <div style={{ marginBottom: '2.5rem', maxWidth: '640px' }}>
           <img
-            src="/textbook_package.png"
+            src="/wadiz-assets/asset1.jpg"
             alt="Malmoa Mnemonic Textbook & Stickers Kit"
             style={{ width: '100%', height: 'auto', borderRadius: '24px', border: '1px solid var(--line)', boxShadow: '0 8px 24px rgba(0,0,0,0.03)' }}
           />

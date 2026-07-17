@@ -109,7 +109,7 @@ export function ShopPage() {
             </div>
             <div style={{ margin: '0.5rem 0 1.25rem 0' }}>
               <img
-                src="/textbook_package.png"
+                src="/wadiz-assets/asset1.jpg"
                 alt="Wadiz Mnemonic Workbook Package"
                 style={{ width: '100%', height: '170px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)' }}
               />

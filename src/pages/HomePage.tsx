@@ -52,12 +52,22 @@ export function HomePage() {
       <section className="section shell home-method">
         <p className="section-label">Our Philosophy</p>
         <h2>Stories you remember. Literacy that lasts.</h2>
-        <p className="lede">
+        <p className="lede" style={{ marginBottom: '1.5rem' }}>
           Since 2020, Malmoa has researched Korean literacy for global learners. After
           two highly successful crowdfunding campaigns on Wadiz, we have digitized our
           proven visual workbook system. Now, you can build a sustainable bridge from basic Hangul letters
           to advanced vocabulary.
         </p>
+
+        {/* Real Wadiz Philosophy Card */}
+        <div style={{ margin: '1.5rem 0 2.5rem 0', textAlign: 'center' }}>
+          <img
+            src="/wadiz-assets/asset2.jpg"
+            alt="Philosophy of Literacy and Vocabulary"
+            style={{ maxWidth: '500px', width: '100%', borderRadius: '16px', border: '1px solid var(--line)', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}
+          />
+        </div>
+
         <div className="method-strip">
           <article>
             <div className="step-num">01</div>
@@ -75,7 +85,44 @@ export function HomePage() {
             <p>Use root meanings to deconstruct and learn dozens of advanced words from a single Hanja root.</p>
           </article>
         </div>
-        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+
+        {/* Real Wadiz Video and Kit Demo Section */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2.5rem', marginTop: '3.5rem', alignItems: 'start' }}>
+          {/* 1. Real Wadiz Campaign Video */}
+          <div>
+            <h4 style={{ margin: '0 0 0.75rem 0', fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--teal-deep)' }}>
+              🎥 Watch the Mnemonic Stickers in Action
+            </h4>
+            <p style={{ fontSize: '0.92rem', color: 'var(--ink-soft)', marginBottom: '1rem', lineHeight: 1.5 }}>
+              See how global students apply our colorful mnemonic stickers directly onto the workbook pages to trigger active retrieval.
+            </p>
+            <video
+              src="/wadiz-assets/asset3.mp4"
+              controls
+              loop
+              muted
+              autoPlay
+              style={{ width: '100%', borderRadius: '16px', border: '1px solid var(--line)', boxShadow: '0 8px 24px rgba(0,0,0,0.05)' }}
+            />
+          </div>
+
+          {/* 2. Real Mnemonic Workbook & Stickers */}
+          <div>
+            <h4 style={{ margin: '0 0 0.75rem 0', fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--teal-deep)' }}>
+              📚 The Complete Mnemonic Study Kit
+            </h4>
+            <p style={{ fontSize: '0.92rem', color: 'var(--ink-soft)', marginBottom: '1rem', lineHeight: 1.5 }}>
+              Our 2x successful Wadiz campaign kit featuring 4 core workbooks, 170+ association stickers, and intermediate vocabulary maps.
+            </p>
+            <img
+              src="/wadiz-assets/asset1.jpg"
+              alt="Wadiz campaign textbook kit"
+              style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid var(--line)', boxShadow: '0 8px 24px rgba(0,0,0,0.05)' }}
+            />
+          </div>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
           <Link className="btn btn-secondary" to="/method">
             Explore the Method Details →
           </Link>
