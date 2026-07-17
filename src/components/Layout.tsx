@@ -44,6 +44,21 @@ export function Layout() {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/news" onClick={close}>
+                📰 News
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/typing-game" onClick={close}>
+                ⌨️ Typing Game
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/ranking" onClick={close}>
+                🏆 Rankings
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/board" onClick={close}>
                 Community
               </NavLink>

@@ -8,6 +8,9 @@ import { HanjaDemoPage } from './pages/HanjaDemoPage'
 import { WaitlistPage } from './pages/WaitlistPage'
 import { BoardPage } from './pages/BoardPage'
 import { ShopPage } from './pages/ShopPage'
+import { NewsPage } from './pages/NewsPage'
+import { TypingGamePage } from './pages/TypingGamePage'
+import { RankPage } from './pages/RankPage'
 
 export default function App() {
   return (
@@ -21,6 +24,9 @@ export default function App() {
           <Route path="lesson/hanja-demo" element={<HanjaDemoPage />} />
           <Route path="board" element={<BoardPage />} />
           <Route path="shop" element={<ShopPage />} />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="typing-game" element={<TypingGamePage />} />
+          <Route path="ranking" element={<RankPage />} />
           <Route path="waitlist" element={<WaitlistPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

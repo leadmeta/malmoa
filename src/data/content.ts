@@ -168,3 +168,125 @@ export const hanjaList: HanjaCharacter[] = [
 export const WAITLIST_KEY = 'malmoa-waitlist'
 export const BOARD_KEY = 'malmoa-board'
 export const ORDERS_KEY = 'malmoa-orders'
+export const RANK_KEY = 'malmoa-ranking'
+
+export type Ranker = {
+  name: string
+  xp: number
+  badge: string
+}
+
+export const SEED_RANKERS: Ranker[] = [
+  { name: 'Sarah Connor', xp: 1250, badge: 'Hanja Legend 🏆' },
+  { name: 'Kenji Sato', xp: 980, badge: 'Sticker Master 🎨' },
+  { name: 'Alex Johnson', xp: 820, badge: 'Hangul Pro 🎖️' },
+  { name: 'Tanaka Yua', xp: 750, badge: 'Active Learner ✏️' },
+  { name: 'David Miller', xp: 540, badge: 'Explorer 🚶' },
+]
+
+export type NewsVocab = {
+  word: string
+  reading: string
+  meaning: string
+  story: string
+}
+
+export type NewsArticle = {
+  id: string
+  title: string
+  date: string
+  koreanText: string
+  englishTranslation: string
+  vocabList: NewsVocab[]
+  quizzes: {
+    question: string
+    choices: string[]
+    answer: string
+  }[]
+}
+
+export const newsArticles: NewsArticle[] = [
+  {
+    id: 'news-1',
+    title: 'Celebrate Hangul Day: Visual Literacy Festivals Open Across Korea',
+    date: '2026-10-09',
+    koreanText: '한글날을 맞이하여 서울 곳곳에서 문해력 축제가 열렸습니다. 참가자들은 딱딱하게 외우는 기존의 한자 교육에서 벗어나, 그림과 스티커를 사용해 단어를 재미있게 익혔습니다. 특히 어린이들은 조화(調和)와 수목(樹木) 같은 어려운 어휘의 한자 뿌리를 카드 게임으로 학습하며 깊은 관심(關心)을 보였습니다.',
+    englishTranslation: 'In celebration of Hangul Day, literacy festivals were held across Seoul. Participants broke away from traditional, rigid Hanja memorization and enjoyed learning words using pictures and stickers. Children in particular showed deep interest as they learned the Hanja roots of difficult vocabulary like "Harmony" and "Trees" through card games.',
+    vocabList: [
+      {
+        word: '調和',
+        reading: '조화 (jo-hwa / Harmony)',
+        meaning: 'harmony / balance',
+        story: '調 (harmonize/tune) + 和 (peace/together) = Combining different elements peacefully in perfect harmony.'
+      },
+      {
+        word: '樹木',
+        reading: '수목 (su-mok / Trees)',
+        meaning: 'trees / forest plants',
+        story: '樹 (standing tree) + 木 (tree) = Vegetation of standing forest trees.'
+      }
+    ],
+    quizzes: [
+      {
+        question: 'What does the word "調和" (조화) mean in Korean?',
+        choices: ['Conflict / War', 'Harmony / Balance', 'Silence / Quiet', 'Speed / Velocity'],
+        answer: 'Harmony / Balance'
+      },
+      {
+        question: 'Which Hanja character represents "tree/wood"?',
+        choices: ['水 (su)', '火 (hwa)', '木 (mok)', '金 (geum)'],
+        answer: '木 (mok)'
+      }
+    ]
+  },
+  {
+    id: 'news-2',
+    title: 'Green City Project: Restoring Forests with Standing Trees (樹木)',
+    date: '2026-07-15',
+    koreanText: '한국 정부가 도시 온난화를 막기 위해 친환경 숲 조성 사업을 확대합니다. 이번 프로젝트의 핵심은 다양한 수목(樹木)을 도심 공원에 심어 녹지 비율을 높이는 것입니다. 이 사업으로 가공되지 않은 목재(木재) 자원의 국산화 비율을 높이고 시민들에게 휴식처를 제공할 계획입니다.',
+    englishTranslation: 'The Korean government is expanding eco-friendly forest creation projects to combat urban warming. The core of this project is planting various standing trees (樹木) in urban parks to increase the ratio of green space. The project plans to increase the localization rate of raw timber (木材) resources and provide resting areas for citizens.',
+    vocabList: [
+      {
+        word: '樹木',
+        reading: '수목 (su-mok / Trees)',
+        meaning: 'standing forest trees',
+        story: '樹 (standing tree) + 木 (tree) = Trees growing in a green park.'
+      },
+      {
+        word: '木材',
+        reading: '목재 (mok-jae / Timber)',
+        meaning: 'wood / construction material',
+        story: '木 (tree) + 材 (material) = Raw wood materials used for buildings and paper.'
+      }
+    ],
+    quizzes: [
+      {
+        question: 'What is the meaning of "목재" (木材) in construction?',
+        choices: ['Iron / Steel', 'Water pipe', 'Timber / Wood material', 'Concrete blocks'],
+        answer: 'Timber / Wood material'
+      }
+    ]
+  },
+  {
+    id: 'news-3',
+    title: 'Korean Debate Championship: Tones of Voice (語調) and Harmonious Arguments',
+    date: '2026-06-20',
+    koreanText: '서울에서 열린 한국어 토론 대회 결승전에서 토론자들의 논리적인 주장만큼이나 어조(語調) 조절이 큰 주목을 받았습니다. 상대방을 설득하기 위해 목소리 높낮이를 고르고(調) 차분하게 하여 논쟁을 조화롭게 이끌어가는 태도가 최종 점수에 결정적인 영향을 미쳤습니다.',
+    englishTranslation: 'In the finals of the Korean Debate Championship held in Seoul, the control of the tone of voice (語調) received as much attention as the logical arguments of the debaters. The attitude of coordinating the voice pitch calmly to convince opponents and leading the debate harmoniously had a decisive impact on the final score.',
+    vocabList: [
+      {
+        word: '語調',
+        reading: '어조 (eo-jo / Tone)',
+        meaning: 'tone of voice',
+        story: '語 (speech) + 調 (tune/tone) = The pitch, emotion, or tone embedded within speech.'
+      }
+    ],
+    quizzes: [
+      {
+        question: 'Which Hanja character inside "어조 (語調)" represents "tune, harmonizing, or adjusting"?',
+        choices: ['語 (eo)', '調 (jo)', '和 (hwa)', '心 (sim)'],
+        answer: '調 (jo)'
+      }
+    ]
+  }
+]
