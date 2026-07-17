@@ -6,6 +6,8 @@ import { MethodPage } from './pages/MethodPage'
 import { HangulDemoPage } from './pages/HangulDemoPage'
 import { HanjaDemoPage } from './pages/HanjaDemoPage'
 import { WaitlistPage } from './pages/WaitlistPage'
+import { BoardPage } from './pages/BoardPage'
+import { ShopPage } from './pages/ShopPage'
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
           <Route path="method" element={<MethodPage />} />
           <Route path="lesson/hangul-demo" element={<HangulDemoPage />} />
           <Route path="lesson/hanja-demo" element={<HanjaDemoPage />} />
+          <Route path="board" element={<BoardPage />} />
+          <Route path="shop" element={<ShopPage />} />
           <Route path="waitlist" element={<WaitlistPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

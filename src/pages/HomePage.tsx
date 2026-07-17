@@ -28,59 +28,66 @@ export function HomePage() {
           </svg>
         </div>
         <div className="shell hero-copy reveal">
+          <div className="wadiz-badge">
+            <span className="badge-icon">★</span> 2,300%+ Funded on Wadiz Crowdfunding
+          </div>
           <p id="hero-brand" className="hero-brand">
             Malmoa
           </p>
-          <h1>Learn Hangul, then unlock Korean through Hanja stories.</h1>
+          <h1>Master Korean Vocabulary via Picture-Story Mnemonics.</h1>
           <p className="hero-support">
-            Picture, sticker, and story — the Malmoa method that turns letters
-            and characters into lasting memory.
+            Picture, sticker, and story — Malmoa’s patented system unlocks the Hanja roots that form over 70% of intermediate Korean vocabulary.
           </p>
           <div className="hero-actions">
-            <Link className="btn btn-primary" to="/waitlist">
-              Join early access
+            <Link className="btn btn-primary" to="/shop">
+              Get Textbook & Coaching
             </Link>
-            <Link className="btn btn-secondary" to="/lesson/hangul-demo">
-              Try a sample lesson
+            <Link className="btn btn-secondary" to="/lesson/hanja-demo">
+              Try Hanja Demo
             </Link>
           </div>
         </div>
       </section>
 
       <section className="section shell home-method">
-        <p className="section-label">Why Malmoa</p>
-        <h2>Stories you remember. Literacy that sticks.</h2>
+        <p className="section-label">Our Philosophy</p>
+        <h2>Stories you remember. Literacy that lasts.</h2>
         <p className="lede">
-          Since 2020 we have built Korean materials for foreign learners. After
-          crowdfunding our picture-and-story Hanja textbook on Wadiz, we are
-          opening a guided path from Hangul foundations to Hanja vocabulary —
-          online.
+          Since 2020, Malmoa has researched Korean literacy for global learners. After
+          two highly successful crowdfunding campaigns on Wadiz, we have digitized our
+          proven visual workbook system. Now, you can build a sustainable bridge from basic Hangul letters
+          to advanced vocabulary.
         </p>
         <div className="method-strip">
           <article>
-            <h3>See it</h3>
-            <p>Shapes map to vivid pictures — a gun, a nose, a tree trunk.</p>
+            <div className="step-num">01</div>
+            <h3>See the Image</h3>
+            <p>Letter shapes and characters map directly to vivid, intuitive pictures (like tree branches or a profile nose).</p>
           </article>
           <article>
-            <h3>Story it</h3>
-            <p>A short narrative locks sound, form, and meaning together.</p>
+            <div className="step-num">02</div>
+            <h3>Lock with a Story</h3>
+            <p>A simple, contextual English narrative binds the sound, visual shape, and core meaning together forever.</p>
           </article>
           <article>
-            <h3>Speak it</h3>
-            <p>From jamo to everyday words, then character-powered vocab.</p>
+            <div className="step-num">03</div>
+            <h3>Bridge to Vocabulary</h3>
+            <p>Use root meanings to deconstruct and learn dozens of advanced words from a single Hanja root.</p>
           </article>
         </div>
-        <Link className="text-link" to="/method">
-          Explore the method →
-        </Link>
+        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          <Link className="btn btn-secondary" to="/method">
+            Explore the Method Details →
+          </Link>
+        </div>
       </section>
 
       <section className="section path-section">
         <div className="shell">
-          <p className="section-label">Learning path</p>
-          <h2>Hangul first. Hanja next.</h2>
+          <p className="section-label">Learning Path</p>
+          <h2>Four Stages to Native Literacy</h2>
           <p className="lede">
-            One continuous program — four stages from alphabet to literacy.
+            A cohesive curriculum bridging basic phonetic letters to advanced reading and critical thinking.
           </p>
           <ol className="path-list">
             {curriculum.map((stage, i) => (
@@ -88,42 +95,53 @@ export function HomePage() {
                 <span className="path-week">{stage.week}</span>
                 <h3>{stage.title}</h3>
                 <p>{stage.summary}</p>
+                <ul className="path-outcomes" style={{ marginTop: '0.75rem', paddingLeft: '1.2rem', fontSize: '0.9rem', opacity: 0.9 }}>
+                  {stage.outcomes.map((out, idx) => (
+                    <li key={idx} style={{ marginBottom: '0.25rem' }}>{out}</li>
+                  ))}
+                </ul>
               </li>
             ))}
           </ol>
-          <Link className="btn btn-secondary" to="/program">
-            Full curriculum
-          </Link>
+          <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+            <Link className="btn btn-secondary" to="/program">
+              Full Program & Schedule
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className="section shell demos-teaser">
-        <p className="section-label">Sample lessons</p>
-        <h2>Feel the method in two minutes.</h2>
+        <p className="section-label">Try it Now</p>
+        <h2>Feel the difference in just 2 minutes.</h2>
         <div className="demo-pair">
           <Link to="/lesson/hangul-demo" className="demo-tile">
-            <span className="demo-kicker">Hangul</span>
-            <strong>Story consonants</strong>
-            <span>ㄱ · ㄴ · ㅁ with a matching quiz</span>
+            <span className="demo-kicker">Stage 1 Demo</span>
+            <strong>Hangul Mnemonic Play</strong>
+            <span>Study consonants ㄱ, ㄴ, ㅁ with interactive sound matching</span>
           </Link>
           <Link to="/lesson/hanja-demo" className="demo-tile demo-tile-alt">
-            <span className="demo-kicker">Hanja</span>
-            <strong>木 tree story</strong>
-            <span>Meaning + derivative words</span>
+            <span className="demo-kicker">Stage 2 Demo</span>
+            <strong>Hanja Bridge: 木 (Tree)</strong>
+            <span>See how one symbol unlocks four complex Korean words</span>
           </Link>
         </div>
       </section>
 
       <section className="cta-band">
         <div className="shell cta-inner">
-          <h2>Early access for the first pilot cohort</h2>
+          <h2>Ready to fast-track your Korean literacy?</h2>
           <p>
-            Leave your email. We will invite a small group to the Hangul → Hanja
-            path with textbook-aligned guidance.
+            Get our 2x Wadiz-Funded physical workbook package shipped to your door, complete with sticker packs, bookmarks, and 1:1 coach supervision.
           </p>
-          <Link className="btn btn-ember" to="/waitlist">
-            Request a seat
-          </Link>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+            <Link className="btn btn-ember" to="/shop">
+              Visit the Store
+            </Link>
+            <Link className="btn btn-secondary" style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'white' }} to="/waitlist">
+              Book a Free Consultation
+            </Link>
+          </div>
         </div>
       </section>
     </>

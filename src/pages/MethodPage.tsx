@@ -4,62 +4,90 @@ import './InnerPages.css'
 export function MethodPage() {
   return (
     <div className="shell page-hero reveal">
-      <p className="section-label">Method</p>
-      <h1>Pictures, stickers, and stories</h1>
-      <p>
-        Malmoa improves on dry drill-based materials. We bind shape, sound, and
-        meaning inside a memorable scene — the same approach that powered our
-        Wadiz Hanja campaign, now extended to Hangul foundations for global
-        learners.
+      <p className="section-label">Our Methodology</p>
+      <h1>The Wadiz-Proven Mnemonic System</h1>
+      <p style={{ maxWidth: '48rem', fontSize: '1.15rem', color: 'var(--ink-soft)' }}>
+        Malmoa moves away from boring, repetitive rote memorization. We bind visual shape, phonetic sound, and root meaning together into a single, cohesive narrative. 
+        This is the exact methodology that powered our successful crowdfunding campaigns on Wadiz, delivering high-speed vocabulary acquisition.
       </p>
 
-      <div className="method-grid section">
-        <article>
-          <h2>01 · Visual anchor</h2>
+      <div className="method-grid section" style={{ marginTop: '2rem' }}>
+        <article className="method-card">
+          <h2>01 · Visual association</h2>
           <p>
-            Every letter or character gets a concrete image: a gun for ㄱ, a
-            nose for ㄴ, a tree trunk for 木. You see before you memorize.
+            Instead of abstract symbols, every character is introduced as a concrete image. 
+            For example, the character <strong>木</strong> is introduced as a towering tree with roots and branches. 
+            By visualizing before memorizing, the character forms a permanent anchor in your brain.
           </p>
         </article>
-        <article>
-          <h2>02 · Narrative glue</h2>
+        <article className="method-card">
+          <h2>02 · Mnemonic stories</h2>
           <p>
-            A short story sequences the images so recall is cinematic, not a
-            flashcard stack. Listening once is often enough to lock the set.
+            A short, memorable English story connects the visual shape to the sound and meaning. 
+            This narrative glue allows you to recall characters like a movie scene, rather than relying on flashcards. 
+            Just reading the story once is often enough to commit the character to memory.
           </p>
         </article>
-        <article>
-          <h2>03 · Sticker / practice loop</h2>
+        <article className="method-card">
+          <h2>03 · The interactive sticker loop</h2>
           <p>
-            Physical stickers in the textbook and on-screen matching in our
-            demos force active retrieval — the step that turns “I get it” into
-            “I own it.”
+            Active retrieval is the key to long-term memory. 
+            In our physical workbooks, students use 170+ color-coded stickers to label Hanja roots. 
+            On our web/app platform, this is simulated through interactive matching puzzles that turn passive understanding into active vocabulary recall.
           </p>
         </article>
-        <article>
-          <h2>04 · Literacy arc</h2>
+        <article className="method-card">
+          <h2>04 · Vocabulary explosion</h2>
           <p>
-            Hangul gets you reading Korean phonetically. Hanja opens families of
-            words and deeper literacy — vocabulary, nuance, and cultural
-            reading power.
+            Once a Hanja root is mastered, it becomes a multiplier. 
+            Learning <strong>木 (mok)</strong> allows you to immediately understand words like <em>Mok-jae</em> (timber), <em>Mok-yo-il</em> (Thursday), and <em>Beol-mok</em> (logging). 
+            You will start decoding complex, multi-syllable Korean words on sight without a dictionary.
           </p>
         </article>
       </div>
 
-      <blockquote className="quote-band">
-        <p>
-          “Helping more foreigners learn Korean more effectively and quickly —
-          and enjoy Korean culture better.”
+      <section className="textbook-details section">
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: '1rem' }}>
+          What is in the Malmoa Mnemonic Kit?
+        </h2>
+        <p className="lede" style={{ marginBottom: '2rem' }}>
+          Our physical workbook package, funded 2 times by hundreds of enthusiastic backers, is built for tactile, active learning.
         </p>
-        <cite>Malmoa maker story · Wadiz 2025</cite>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ background: 'color-mix(in srgb, var(--paper-cool) 40%, white)', padding: '1.5rem', borderRadius: 'var(--radius)', border: '1px solid var(--line)' }}>
+            <h4 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-display)', fontSize: '1.2rem' }}>4 Core Workbooks</h4>
+            <p style={{ fontSize: '0.95rem', color: 'var(--ink-soft)' }}>
+              Step-by-step guidance from basic Hangul sounds to complex business and academic terminology, structured over 12 weeks.
+            </p>
+          </div>
+          <div style={{ background: 'color-mix(in srgb, var(--paper-cool) 40%, white)', padding: '1.5rem', borderRadius: 'var(--radius)', border: '1px solid var(--line)' }}>
+            <h4 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-display)', fontSize: '1.2rem' }}>170 Mnemonic Stickers</h4>
+            <p style={{ fontSize: '0.95rem', color: 'var(--ink-soft)' }}>
+              Colorful, high-quality stickers containing the visual associations to be matched directly onto the workbook pages.
+            </p>
+          </div>
+          <div style={{ background: 'color-mix(in srgb, var(--paper-cool) 40%, white)', padding: '1.5rem', borderRadius: 'var(--radius)', border: '1px solid var(--line)' }}>
+            <h4 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-display)', fontSize: '1.2rem' }}>Exclusive bookmarks & PDFs</h4>
+            <p style={{ fontSize: '0.95rem', color: 'var(--ink-soft)' }}>
+              Quick-reference study bookmarks and complementary PDF files featuring dictionary charts and flashcard materials.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <blockquote className="quote-band" style={{ marginTop: '3rem' }}>
+        <p>
+          “Our mission since 2020 has been to break down barriers to intermediate Korean. By teaching the visual origin of words, we help learners build a lasting connection with the language and culture.”
+        </p>
+        <cite>Malmoa Core Development Team · Wadiz Campaigns</cite>
       </blockquote>
 
-      <div className="hero-actions" style={{ marginTop: '2rem' }}>
+      <div className="hero-actions" style={{ marginTop: '3rem', paddingBottom: '3rem' }}>
         <Link className="btn btn-primary" to="/lesson/hanja-demo">
-          Try the Hanja demo
+          Try Interactive Hanja Demo
         </Link>
-        <Link className="btn btn-secondary" to="/program">
-          See the full path
+        <Link className="btn btn-secondary" to="/shop">
+          Visit the Store
         </Link>
       </div>
     </div>

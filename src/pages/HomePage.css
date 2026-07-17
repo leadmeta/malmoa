@@ -238,3 +238,35 @@
     min-height: calc(92svh - var(--nav-h));
   }
 }
+
+.wadiz-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: color-mix(in srgb, var(--ember) 18%, transparent);
+  color: var(--ember-soft);
+  border: 1px solid color-mix(in srgb, var(--ember) 35%, transparent);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  animation: fade-in 1s 50ms ease both;
+}
+
+.step-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--teal) 35%, transparent);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.path-outcomes {
+  list-style-type: square;
+  color: var(--ink-soft);
+}
+

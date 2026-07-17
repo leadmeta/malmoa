@@ -24,28 +24,38 @@ export function Layout() {
           </button>
           <ul id="primary-nav" className={`nav-links${open ? ' open' : ''}`}>
             <li>
-              <NavLink to="/program" onClick={close}>
-                Program
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/method" onClick={close}>
                 Method
               </NavLink>
             </li>
             <li>
+              <NavLink to="/program" onClick={close}>
+                Curriculum
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/lesson/hangul-demo" onClick={close}>
-                Hangul demo
+                Hangul Demo
               </NavLink>
             </li>
             <li>
               <NavLink to="/lesson/hanja-demo" onClick={close}>
-                Hanja demo
+                Hanja Demo
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/board" onClick={close}>
+                Community
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/shop" onClick={close}>
+                Store
               </NavLink>
             </li>
             <li>
               <NavLink to="/waitlist" className="nav-cta" onClick={close}>
-                Early access
+                Consultation
               </NavLink>
             </li>
           </ul>
@@ -59,11 +69,16 @@ export function Layout() {
           <div>
             <div className="footer-brand">Malmoa</div>
             <p>
-              Picture-and-story Korean literacy for foreign learners —
-              Hangul foundations to Hanja vocabulary.
+              Wadiz-crowdfunded picture & story association method for global learners. 
+              Accelerating Korean literacy from Hangul fundamentals to deep Hanja vocabulary.
             </p>
           </div>
-          <p>© {new Date().getFullYear()} Malmoa. Research since 2020.</p>
+          <div>
+            <p style={{ fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.8 }}>
+              Research since 2020. 2x Successful Wadiz Crowdfunding campaigns.
+            </p>
+            <p>© {new Date().getFullYear()} Malmoa. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </>

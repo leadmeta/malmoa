@@ -9,50 +9,50 @@ export type CurriculumStage = {
 export const curriculum: CurriculumStage[] = [
   {
     id: 'hangul',
-    week: 'Week 1–2',
-    title: 'Hangul Foundations',
+    week: 'Stage 1',
+    title: 'Hangul Foundations & Word Play',
     summary:
-      'Consonants, vowels, syllable blocks, and batchim — learned through picture–story mnemonics so reading feels natural, not mechanical.',
+      'Learn the Korean alphabet (jamo) through intuitive visual story cues. Move from raw letters to combining syllables and reading everyday starter words naturally.',
     outcomes: [
-      'Recognize and pronounce core jamo',
-      'Assemble syllables into readable blocks',
-      'Read short everyday words aloud',
+      'Recognize and pronounce all 24 basic Korean letters',
+      'Assemble consonants and vowels into syllable blocks',
+      'Read and write 100+ high-frequency everyday Korean words',
     ],
   },
   {
-    id: 'everyday',
-    week: 'Week 3–4',
-    title: 'Everyday Korean',
+    id: 'association',
+    week: 'Stage 2',
+    title: 'Hanja Bridge - Visual Association',
     summary:
-      'High-frequency words and short sentences tied to story scenes — greetings, food, travel, and daily life.',
+      'Bridge the gap between sounds and deep meaning. Using Malmoa’s Wadiz-proven method, learn 150 core Hanja characters via rich illustrations and memorable stories.',
     outcomes: [
-      'Build a starter spoken vocabulary',
-      'Connect sound–shape–meaning in context',
-      'Use phrases you can try the same day',
+      'Understand the visual origins of core Hanja characters',
+      'Associate characters with their primary meanings and Korean sounds',
+      'Recognize key root characters in intermediate vocabulary',
     ],
   },
   {
-    id: 'hanja',
-    week: 'Week 5–8',
-    title: 'Hanja Bridge',
+    id: 'vocabulary',
+    week: 'Stage 3',
+    title: 'Contextual Hanja Vocabulary',
     summary:
-      'The Malmoa picture–sticker–story method from our Wadiz textbook: characters as meaning engines that unlock Korean vocabulary families.',
+      'Expand your vocabulary exponentially. Master 12 subject areas and 660 critical Hanja-based Korean words using our fast direct-reading methodology.',
     outcomes: [
-      'Learn characters via visual stories',
-      'Map one character to multiple Korean words',
-      'Grow literacy beyond phonetic reading',
+      'Deconstruct complex Korean words to figure out meanings instantly',
+      'Grow your vocabulary from 500 words to over 3,000 words in 12 weeks',
+      'Understand academic, media, and professional terminology',
     ],
   },
   {
-    id: 'fluency',
-    week: 'Ongoing',
-    title: 'Culture & Fluency',
+    id: 'literacy',
+    week: 'Stage 4',
+    title: 'Advanced Korean Literacy & Live Coaching',
     summary:
-      'Short reading and discussion loops that strengthen vocabulary, thinking, and cultural fluency — the same literacy philosophy behind Malmoa.',
+      'Solidify your skills with real reading, discussion loops, and 1:1 live feedback. Reach a level where you can read articles, books, and express thoughts fluently.',
     outcomes: [
-      'Read short texts with confidence',
-      'Discuss meaning, not only memorize',
-      'Stay in a sustainable learning rhythm',
+      'Read short news pieces and storybooks without translator help',
+      'Write sentences using advanced hanja-derived vocabulary',
+      'Receive personal milestone feedback from native coaches',
     ],
   },
 ]
@@ -61,40 +61,75 @@ export const hangulStory = [
   {
     char: 'ㄱ',
     sound: 'g/k',
-    cue: 'gun',
-    line: 'The story starts with a gun pointed forward — that sharp angle is ㄱ.',
+    cue: 'Gun',
+    line: 'Imagine a sharp angle resembling a gun pointed forward. This shape represents the sound "g" as in "gun" (ㄱ).',
+    example: '가방 (ga-bang / Bag)',
   },
   {
     char: 'ㄴ',
     sound: 'n',
-    cue: 'nose',
-    line: 'You smell something with your nose — the L-shaped bend is ㄴ.',
+    cue: 'Nose',
+    line: 'Look at the side profile of a nose sniffing downward. This L-shaped corner represents the "n" sound (ㄴ).',
+    example: '나무 (na-mu / Tree)',
   },
   {
     char: 'ㅁ',
     sound: 'm',
-    cue: 'mouth',
-    line: 'Your mouth opens wide in surprise — the closed box shape is ㅁ.',
+    cue: 'Mouth',
+    line: 'Imagine a mouth wide open, forming a perfect box shape. This square shape represents the "m" sound (ㅁ).',
+    example: '머리 (meo-ri / Head)',
   },
 ]
 
-export const hanjaDemo = {
+export type DerivativeWord = {
+  hanja: string
+  hangul: string
+  english: string
+  explanation: string
+}
+
+export type HanjaCharacter = {
+  character: string
+  reading: string
+  meaning: string
+  story: string
+  derivatives: DerivativeWord[]
+}
+
+export const hanjaDemo: HanjaCharacter = {
   character: '木',
-  reading: 'mok',
+  reading: 'mok (목)',
   meaning: 'tree / wood',
   story:
-    'Imagine a trunk rising from the ground with branches stretching left and right. That silhouette is 木 — the root meaning “tree.”',
+    'Visualize a tree trunk rising from the earth, with branches stretching out wide to the left and right, and roots anchoring it firmly below. The character 木 is a direct sketch of this majestic shape, locking the meaning "tree" or "wood" in your memory.',
   derivatives: [
-    { word: '나무', gloss: 'tree', correct: true },
-    { word: '목요일', gloss: 'Thursday (tree day)', correct: true },
-    { word: '금요일', gloss: 'Friday', correct: false },
-  ],
-  meaningChoices: [
-    { label: 'tree / wood', correct: true },
-    { label: 'water', correct: false },
-    { label: 'fire', correct: false },
-    { label: 'mountain', correct: false },
+    {
+      hanja: '木材',
+      hangul: '목재 (mok-jae)',
+      english: 'Wood / Timber',
+      explanation: '木 (tree) + 材 (material) = Timber used for construction.',
+    },
+    {
+      hanja: '木曜日',
+      hangul: '목요일 (mok-yo-il)',
+      english: 'Thursday',
+      explanation: '木 (tree/planet Jupiter) + 曜日 (day of the week) = Thursday.',
+    },
+    {
+      hanja: '樹木',
+      hangul: '수목 (su-mok)',
+      english: 'Trees / Shrubbery',
+      explanation: '樹 (standing tree) + 木 (tree) = Forest trees or green vegetation.',
+    },
+    {
+      hanja: '伐木',
+      hangul: '벌목 (beol-mok)',
+      english: 'Lumbering / Logging',
+      explanation: '伐 (cut down) + 木 (tree) = Felling trees or logging timber.',
+    },
   ],
 }
 
 export const WAITLIST_KEY = 'malmoa-waitlist'
+export const BOARD_KEY = 'malmoa-board'
+export const ORDERS_KEY = 'malmoa-orders'
