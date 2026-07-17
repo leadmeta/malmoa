@@ -1,0 +1,290 @@
+.stage-stack {
+  display: grid;
+  gap: 0;
+  padding-top: 2rem;
+}
+
+.stage-block {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.35fr) 1fr;
+  gap: 1.5rem 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.stage-block:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+
+.stage-meta span {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 0.4rem;
+}
+
+.stage-meta h2 {
+  font-size: 1.55rem;
+}
+
+.stage-block > p {
+  color: var(--ink-soft);
+  margin-bottom: 0.85rem;
+}
+
+.stage-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--ink);
+}
+
+.stage-block li + li {
+  margin-top: 0.35rem;
+}
+
+.pilot-note {
+  margin: 2.5rem 0 3rem;
+  padding: 1.75rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.pilot-note h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.pilot-note > p {
+  color: var(--ink-soft);
+  max-width: 42rem;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 2.5rem;
+  padding-top: 1.5rem;
+}
+
+.method-grid h2 {
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.method-grid p {
+  color: var(--ink-soft);
+}
+
+.quote-band {
+  margin: 2.5rem 0 0;
+  padding: 1.75rem 0 1.75rem 1.25rem;
+  border-left: 3px solid var(--teal);
+}
+
+.quote-band p {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.quote-band cite {
+  font-style: normal;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.lesson-shell {
+  padding-bottom: 3.5rem;
+}
+
+.lesson-progress {
+  display: flex;
+  gap: 0.4rem;
+  margin: 1.5rem 0 1.75rem;
+}
+
+.lesson-progress span {
+  height: 4px;
+  flex: 1;
+  background: var(--line);
+  border-radius: 99px;
+}
+
+.lesson-progress span.done {
+  background: var(--teal);
+}
+
+.story-panel {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.jamo-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.jamo-card {
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, white 50%, var(--paper));
+  text-align: center;
+  animation: rise 600ms ease both;
+}
+
+.jamo-card .glyph {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.jamo-card .cue {
+  font-weight: 700;
+  color: var(--teal-deep);
+}
+
+.jamo-card .sound {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.story-lines {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.story-lines p {
+  padding-left: 0.85rem;
+  border-left: 2px solid color-mix(in srgb, var(--teal) 55%, transparent);
+  color: var(--ink-soft);
+}
+
+.quiz-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.quiz-option {
+  text-align: left;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, white 60%, var(--paper));
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--teal);
+}
+
+.quiz-option.correct {
+  border-color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 12%, white);
+  animation: pop 420ms ease;
+}
+
+.quiz-option.wrong {
+  border-color: var(--ember);
+  background: color-mix(in srgb, var(--ember) 10%, white);
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+.feedback {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--teal-deep);
+  animation: rise 400ms ease both;
+}
+
+.feedback.bad {
+  color: var(--ember);
+}
+
+.hanja-hero-glyph {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 18vw, 8rem);
+  line-height: 1;
+  color: var(--ink);
+  margin: 0.5rem 0 0.75rem;
+  animation: pop 700ms ease both;
+}
+
+.hanja-story {
+  max-width: 40rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.5rem;
+}
+
+.form-stack {
+  display: grid;
+  gap: 1rem;
+  max-width: 32rem;
+  margin-top: 1.5rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.field input,
+.field select {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, white 70%, var(--paper));
+  color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus {
+  outline: 2px solid color-mix(in srgb, var(--teal) 45%, transparent);
+  outline-offset: 1px;
+  border-color: var(--teal);
+}
+
+.form-note {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.success-panel {
+  margin-top: 1.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+  animation: rise 500ms ease both;
+}
+
+.success-panel h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.success-panel p {
+  color: var(--ink-soft);
+  max-width: 36rem;
+}
+
+@media (max-width: 820px) {
+  .stage-block,
+  .method-grid,
+  .jamo-row {
+    grid-template-columns: 1fr;
+  }
+}
