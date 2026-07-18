@@ -139,34 +139,32 @@ export function HomePage() {
             <p style={{ fontSize: '1.15rem', color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: '2.25rem', maxWidth: '34rem' }}>
               Ditch the dry, repetitive memorization. Learn Hangul through King Sejong\'s scientific design principles combined with visual association. Unlock K-pop lyrics and K-drama subtext in record time.
             </p>
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <button 
                 type="button" 
-                className="btn btn-primary btn-pulse" 
-                style={{ padding: '1.5rem 2.5rem', fontSize: '1.05rem', fontWeight: 'bold' }}
+                className="edu-btn-3d" 
                 onClick={handleStartPlacement}
               >
                 Get Started (Diagnostic Test)
               </button>
               <Link 
-                className="btn btn-secondary" 
-                to="/play-hub" 
-                style={{ padding: '1.5rem 2.5rem', fontSize: '1.05rem', fontWeight: 'bold' }}
+                className="edu-btn-secondary-3d" 
+                to="/play-hub"
               >
                 Go to Play Zone
               </Link>
             </div>
-            <p style={{ marginTop: '1.25rem', fontSize: '0.88rem', color: 'var(--ink-soft)' }}>
+            <p style={{ marginTop: '1.5rem', fontSize: '0.88rem', color: 'var(--ink-soft)' }}>
               Have an account already? Click <strong>🔑 Login</strong> at the top right.
             </p>
           </div>
 
           <div style={{ position: 'relative' }}>
-            <div style={{ background: '#f5f7fa', border: '1px solid var(--line)', borderRadius: '32px', padding: '1.5rem', boxShadow: '0 12px 30px rgba(0,0,0,0.03)' }}>
+            <div className="edu-card-chunky" style={{ padding: '1.5rem' }}>
               <img 
                 src="/wadiz-assets/asset1.jpg" 
                 alt="Malmoa Mnemonic Kit Package" 
-                style={{ width: '100%', height: 'auto', borderRadius: '24px', border: '1px solid var(--line)', display: 'block' }}
+                style={{ width: '100%', height: 'auto', borderRadius: '20px', border: '1px solid var(--line)', display: 'block' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', padding: '0 0.5rem' }}>
                 <span style={{ fontSize: '0.88rem', fontWeight: 'bold' }}>📚 Mnemonic Workbooks</span>
@@ -189,7 +187,7 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+          <div className="edu-card-chunky">
             <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🎤</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Sing Along to K-Pop</h3>
             <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
@@ -197,7 +195,7 @@ export function HomePage() {
             </p>
           </div>
 
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+          <div className="edu-card-chunky">
             <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🎬</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Unveil K-Drama Nuances</h3>
             <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
@@ -205,7 +203,7 @@ export function HomePage() {
             </p>
           </div>
 
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+          <div className="edu-card-chunky">
             <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🍜</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Live the Korean Lifestyle</h3>
             <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
@@ -226,19 +224,19 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '20px' }}>
+          <div className="edu-card-chunky">
             <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>💼 Global Business Hub</h4>
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
               Unlock relationships with major multi-national conglomerates. Professional Korean writing ability gives you a competitive advantage in tech, trade, automotive, and entertainment job markets.
             </p>
           </div>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '20px' }}>
+          <div className="edu-card-chunky">
             <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>🎓 Academic Opportunities</h4>
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
               Korean universities offer prestigious scholarships (like GKS) and research programs. Reading primary texts, literature, and news allows you to study international relations and linguistics in Seoul directly.
             </p>
           </div>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '20px' }}>
+          <div className="edu-card-chunky">
             <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>🤝 Diplomatic Bridges</h4>
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
               As geopolitical dynamics shift, certified Korean literacy is highly sought after in diplomacy, translations, intelligence, and international non-profits working across the East Asian security sphere.
@@ -277,7 +275,7 @@ export function HomePage() {
             </div>
           </div>
           <div>
-            <div style={{ background: '#0e1621', color: 'white', padding: '2.5rem', borderRadius: '32px', border: '1px solid var(--teal)', textAlign: 'left' }}>
+            <div className="edu-chalkboard">
               <h4 style={{ color: 'white', fontFamily: 'var(--font-display)', fontSize: '1.25rem', marginBottom: '1rem' }}>"A wise man can learn it in one morning."</h4>
               <p style={{ color: '#a0aab8', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
                 Historical logs in the Hunminjeongeum Haerye record: <br/>
@@ -300,7 +298,7 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+          <div className="edu-card-chunky">
             <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🧠</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Dual-Coding Theory</h3>
             <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
@@ -308,7 +306,7 @@ export function HomePage() {
             </p>
           </div>
 
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+          <div className="edu-card-chunky">
             <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>📈</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Active Recall Tracing</h3>
             <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
@@ -316,7 +314,7 @@ export function HomePage() {
             </p>
           </div>
 
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+          <div className="edu-card-chunky">
             <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🕸️</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Vocabulary Root Networks</h3>
             <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
@@ -337,7 +335,7 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-          <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.75rem' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 1-3</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 1: Basic Hangul</h4>
             <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
@@ -350,7 +348,7 @@ export function HomePage() {
             </ul>
           </div>
 
-          <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.75rem' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 4-6</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 2: Word Building</h4>
             <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
@@ -363,7 +361,7 @@ export function HomePage() {
             </ul>
           </div>
 
-          <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.75rem' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 7-9</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 3: Dialogues</h4>
             <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
@@ -376,7 +374,7 @@ export function HomePage() {
             </ul>
           </div>
 
-          <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.75rem' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 10-12</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 4: News & Hanja</h4>
             <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
@@ -428,11 +426,13 @@ export function HomePage() {
             </ul>
           </div>
           <div>
-            <img 
-              src="/wadiz-assets/asset2.jpg" 
-              alt="Workbook and Sticker layout" 
-              style={{ width: '100%', height: 'auto', borderRadius: '24px', border: '1px solid var(--line)', boxShadow: '0 8px 24px rgba(0,0,0,0.04)' }}
-            />
+            <div className="edu-card-chunky" style={{ padding: '1.5rem' }}>
+              <img 
+                src="/wadiz-assets/asset2.jpg" 
+                alt="Workbook and Sticker layout" 
+                style={{ width: '100%', height: 'auto', borderRadius: '20px', border: '1px solid var(--line)', display: 'block' }}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -448,15 +448,15 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', textAlign: 'center' }}>
+          <div className="edu-card-chunky" style={{ textAlign: 'center' }}>
             <span style={{ fontSize: '3rem' }}>👩‍🏫</span>
-            <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2.rem' }}>Ji-yeon Kim</h4>
+            <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2rem' }}>Ji-yeon Kim</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--teal-deep)', fontWeight: 'bold', marginBottom: '1rem' }}>Seoul National Univ. • Korean Lit</p>
             <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5, margin: 0 }}>
               Specializes in beginner phonetics correction and interactive stroke order tutoring. Direct, positive feedback style.
             </p>
           </div>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', textAlign: 'center' }}>
+          <div className="edu-card-chunky" style={{ textAlign: 'center' }}>
             <span style={{ fontSize: '3rem' }}>👨‍🏫</span>
             <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2rem' }}>Min-ho Park</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--teal-deep)', fontWeight: 'bold', marginBottom: '1rem' }}>Yonsei Univ. • Linguistics</p>
@@ -464,7 +464,7 @@ export function HomePage() {
               Focused on conversational dialogue coaching and daily dialect particles. Excellent at clarifying situational nuances.
             </p>
           </div>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', textAlign: 'center' }}>
+          <div className="edu-card-chunky" style={{ textAlign: 'center' }}>
             <span style={{ fontSize: '3rem' }}>👩‍🏫</span>
             <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2rem' }}>Soo-min Lee</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--teal-deep)', fontWeight: 'bold', marginBottom: '1rem' }}>Korea Univ. • Education</p>
@@ -486,15 +486,15 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          <div style={{ background: '#f8fafc', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.25rem' }}>
             <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.95rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>✨ Workbook Tracing Practice</h4>
             <img src="/wadiz-assets/wadiz_8.gif" alt="Workbook stickers" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '12px' }} />
           </div>
-          <div style={{ background: '#f8fafc', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.25rem' }}>
             <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.95rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>🎥 Real Classroom Interaction</h4>
             <video src="/wadiz-assets/wadiz_6.mp4" controls loop muted autoPlay style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '12px' }} />
           </div>
-          <div style={{ background: '#f8fafc', borderRadius: '20px', border: '1px solid var(--line)', padding: '1.25rem' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.25rem' }}>
             <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.95rem', fontWeight: 'bold', color: 'var(--teal-deep)' }}>⭐️ Satisfaction Score 5.0</h4>
             <img src="/wadiz-assets/wadiz_1.png" alt="5.0 Score" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '12px' }} />
           </div>
@@ -505,11 +505,13 @@ export function HomePage() {
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'center' }}>
           <div>
-            <img 
-              src="/wadiz-assets/wadiz_4.png" 
-              alt="Hanja root network mockup" 
-              style={{ width: '100%', height: 'auto', borderRadius: '24px', border: '1px solid var(--line)', boxShadow: '0 8px 24px rgba(0,0,0,0.04)' }}
-            />
+            <div className="edu-card-chunky" style={{ padding: '1.5rem' }}>
+              <img 
+                src="/wadiz-assets/wadiz_4.png" 
+                alt="Hanja root network mockup" 
+                style={{ width: '100%', height: 'auto', borderRadius: '20px', border: '1px solid var(--line)', display: 'block' }}
+              />
+            </div>
           </div>
           <div>
             <p className="section-label">Interactive Gaming</p>
@@ -554,24 +556,24 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
-          <div style={{ background: '#f8fafc', padding: '2rem', borderRadius: '24px', border: '1px solid var(--line)' }}>
+          <div className="edu-card-chunky">
             <h4 style={{ fontWeight: 'bold', margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>Patent No. 10-2022-XXXX</h4>
-            <span style={{ fontSize: '0.72rem', color: 'var(--teal-deep)', fontWeight: 'bold', background: '#e2f1f1', padding: '0.2rem 0.4rem', borderRadius: '4px' }}>OFFICIAL PATENT</span>
-            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6, marginTop: '0.75rem' }}>
+            <span style={{ fontSize: '0.72rem', color: 'var(--teal-deep)', fontWeight: 'bold', background: '#e2f1f1', padding: '0.2rem 0.4rem', borderRadius: '4px', display: 'inline-block', marginBottom: '0.75rem' }}>OFFICIAL PATENT</span>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
               Method and system for teaching foreign syllabic block structures using visual mnemonic anchor networks. Guaranteed intellectual property protection.
             </p>
           </div>
-          <div style={{ background: '#f8fafc', padding: '2rem', borderRadius: '24px', border: '1px solid var(--line)' }}>
+          <div className="edu-card-chunky">
             <h4 style={{ fontWeight: 'bold', margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>3.8x Retention Index</h4>
-            <span style={{ fontSize: '0.72rem', color: 'var(--teal-deep)', fontWeight: 'bold', background: '#e2f1f1', padding: '0.2rem 0.4rem', borderRadius: '4px' }}>RESEARCH DATA</span>
-            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6, marginTop: '0.75rem' }}>
+            <span style={{ fontSize: '0.72rem', color: 'var(--teal-deep)', fontWeight: 'bold', background: '#e2f1f1', padding: '0.2rem 0.4rem', borderRadius: '4px', display: 'inline-block', marginBottom: '0.75rem' }}>RESEARCH DATA</span>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
               Comparative student groups using Malmoa visual memory networks retained Sino-Korean root associations 3.8x longer than groups utilizing traditional list-copying.
             </p>
           </div>
-          <div style={{ background: '#f8fafc', padding: '2rem', borderRadius: '24px', border: '1px solid var(--line)' }}>
+          <div className="edu-card-chunky">
             <h4 style={{ fontWeight: 'bold', margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>2,300% Backer Support</h4>
-            <span style={{ fontSize: '0.72rem', color: 'var(--teal-deep)', fontWeight: 'bold', background: '#e2f1f1', padding: '0.2rem 0.4rem', borderRadius: '4px' }}>CROWDFUND METRICS</span>
-            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6, marginTop: '0.75rem' }}>
+            <span style={{ fontSize: '0.72rem', color: 'var(--teal-deep)', fontWeight: 'bold', background: '#e2f1f1', padding: '0.2rem 0.4rem', borderRadius: '4px', display: 'inline-block', marginBottom: '0.75rem' }}>CROWDFUND METRICS</span>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
               We ranked as one of the highest-funded educational campaigns in Wadiz history due to the active support of independent global language learners.
             </p>
           </div>
@@ -586,23 +588,23 @@ export function HomePage() {
         </h2>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
+          <div className="edu-card-chunky">
             <span style={{ color: 'var(--teal-deep)', fontSize: '1.5rem' }}>“</span>
-            <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1rem 0' }}>
+            <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1.6rem 0' }}>
               The visual sticker mnemonic for "ㄱ" looking like a Gun is brilliant! Helped me memorize basic stroke shapes in minutes without getting bored.
             </p>
             <strong>Sarah Connor</strong> • <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>Beginner Student</span>
           </div>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
+          <div className="edu-card-chunky">
             <span style={{ color: 'var(--teal-deep)', fontSize: '1.5rem' }}>“</span>
-            <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1rem 0' }}>
+            <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1.6rem 0' }}>
               I just unlocked the Intermediate Daily Conversation dialogues course. Practice dialogues are extremely realistic and the 1:1 tutor mapped it perfectly.
             </p>
             <strong>Kenji Sato</strong> • <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>Intermediate Student</span>
           </div>
-          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
+          <div className="edu-card-chunky">
             <span style={{ color: 'var(--teal-deep)', fontSize: '1.5rem' }}>“</span>
-            <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1rem 0' }}>
+            <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1.6rem 0' }}>
               Deconstructing Sino-Korean roots using the Hanja mapping cards allowed me to comprehend real news articles. Highly recommend advanced packages!
             </p>
             <strong>Alexander Vance</strong> • <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>Advanced Learner</span>
@@ -693,18 +695,17 @@ export function HomePage() {
           <p style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '36rem', margin: '0 auto 2.5rem auto', fontSize: '1.05rem', lineHeight: 1.6 }}>
             Unlock visual sticker packages, trace basic strokes, compete on the rankings leaderboard, and matching with professional native tutors.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <button 
               type="button" 
-              className="btn btn-ember btn-pulse" 
-              style={{ padding: '0.9rem 2.25rem', fontSize: '1.05rem', fontWeight: 'bold' }}
+              className="edu-btn-ember-3d" 
               onClick={handleStartPlacement}
             >
               Take Free Diagnostic Test
             </button>
             <Link 
-              className="btn btn-secondary" 
-              style={{ borderColor: 'rgba(255,255,255,0.4)', color: 'white', padding: '0.9rem 2.25rem', fontSize: '1.05rem', fontWeight: 'bold' }} 
+              className="edu-btn-secondary-3d" 
+              style={{ background: 'transparent', borderColor: 'rgba(255,255,255,0.4)', color: 'white !important', borderBottomColor: 'rgba(255,255,255,0.3)' }} 
               to="/waitlist"
             >
               Book a Free Consultation
@@ -726,15 +727,9 @@ export function HomePage() {
           backdropFilter: 'blur(4px)',
           animation: 'rise 0.2s ease both'
         }}>
-          <div style={{
-            background: 'var(--ink-dark)',
-            color: 'white',
-            borderRadius: '32px',
-            padding: '2.5rem',
+          <div className="edu-chalkboard" style={{
             width: '100%',
             maxWidth: '520px',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
-            border: '2px solid var(--teal)',
             position: 'relative'
           }}>
             <button
@@ -759,16 +754,16 @@ export function HomePage() {
                   {PLACEMENT_QUIZ[quizIndex].choices.map((choice) => {
                     const isSelected = selectedChoice === choice
                     const isAnswer = choice === PLACEMENT_QUIZ[quizIndex].answer
-                    let borderCol = '#233143'
-                    let bgCol = '#0e1621'
+                    let borderCol = '#2e594c'
+                    let bgCol = '#17342b'
 
                     if (selectedChoice) {
                       if (isAnswer) {
                         borderCol = '#10b981'
-                        bgCol = 'rgba(16, 185, 129, 0.15)'
+                        bgCol = 'rgba(16, 185, 129, 0.2)'
                       } else if (isSelected) {
                         borderCol = 'var(--ember)'
-                        bgCol = 'rgba(196, 92, 38, 0.15)'
+                        bgCol = 'rgba(196, 92, 38, 0.2)'
                       }
                     }
 
@@ -776,18 +771,13 @@ export function HomePage() {
                       <button
                         key={choice}
                         type="button"
+                        className="edu-chalkboard-option"
                         onClick={() => handleSelectChoice(choice)}
                         style={{
-                          width: '100%',
-                          textAlign: 'left',
-                          padding: '1rem',
-                          borderRadius: '16px',
-                          border: `2px solid ${borderCol}`,
+                          borderColor: borderCol,
+                          borderBottomColor: borderCol,
                           background: bgCol,
-                          color: 'white',
-                          fontWeight: 'bold',
-                          cursor: selectedChoice ? 'default' : 'pointer',
-                          transition: 'all 0.15s ease'
+                          cursor: selectedChoice ? 'default' : 'pointer'
                         }}
                       >
                         {choice}
@@ -799,9 +789,9 @@ export function HomePage() {
                 {selectedChoice && (
                   <button
                     type="button"
-                    className="btn btn-primary"
+                    className="edu-btn-3d"
                     onClick={handleNextQuestion}
-                    style={{ width: '100%', marginTop: '2rem', padding: '1rem' }}
+                    style={{ width: '100%', marginTop: '2rem' }}
                   >
                     {quizIndex < PLACEMENT_QUIZ.length - 1 ? 'Next Question' : 'View Placement Tier'}
                   </button>
@@ -825,7 +815,7 @@ export function HomePage() {
                   🎉 +50 XP Welcome Placement Bonus has been credited to your profile!
                 </p>
 
-                <hr style={{ borderColor: '#233143', marginBottom: '1.5rem' }} />
+                <hr style={{ borderColor: '#2e594c', marginBottom: '1.5rem' }} />
 
                 <h4 style={{ color: 'white', fontSize: '1rem', marginBottom: '1rem', textAlign: 'left' }}>
                   📚 Recommended Study Package for your level:
@@ -833,44 +823,44 @@ export function HomePage() {
 
                 {resultTier === 'Beginner' ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    <div style={{ background: '#0e1621', border: '1px solid #233143', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
+                    <div style={{ background: '#17342b', border: '1px solid #2e594c', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
                       <div>
                         <span style={{ fontSize: '0.72rem', color: 'var(--teal)' }}>TEXTBOOK KIT</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.92rem' }}>Mnemonic Sticker Kit ($39)</h5>
                       </div>
-                      <button type="button" className="btn btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }} onClick={() => handleDirectCheckout('Malmoa Visual Textbook & Sticker Package', 'textbook')}>
+                      <button type="button" className="edu-btn-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', borderRadius: '10px' }} onClick={() => handleDirectCheckout('Malmoa Visual Textbook & Sticker Package', 'textbook')}>
                         Order Kit
                       </button>
                     </div>
 
-                    <div style={{ background: '#0e1621', border: '1px solid #233143', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
+                    <div style={{ background: '#17342b', border: '1px solid #2e594c', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
                       <div>
                         <span style={{ fontSize: '0.72rem', color: 'var(--teal)' }}>DIGITAL COURSE</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.92rem' }}>Beginner Course Lock ($19)</h5>
                       </div>
-                      <Link to="/play-hub" className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'white', borderColor: '#233143' }}>
+                      <Link to="/play-hub" className="edu-btn-secondary-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
                         Unlock Tier
                       </Link>
                     </div>
                   </div>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    <div style={{ background: '#0e1621', border: '1px solid #233143', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
+                    <div style={{ background: '#17342b', border: '1px solid #2e594c', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
                       <div>
                         <span style={{ fontSize: '0.72rem', color: 'var(--teal)' }}>NATIVE TUTOR</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.92rem' }}>1-on-1 Coaching (1 Month) ($89)</h5>
                       </div>
-                      <button type="button" className="btn btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }} onClick={() => handleDirectCheckout('1-on-1 Native Literacy Coaching (1 Month)', 'coaching')}>
+                      <button type="button" className="edu-btn-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', borderRadius: '10px' }} onClick={() => handleDirectCheckout('1-on-1 Native Literacy Coaching (1 Month)', 'coaching')}>
                         Book Tutor
                       </button>
                     </div>
 
-                    <div style={{ background: '#0e1621', border: '1px solid #233143', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
+                    <div style={{ background: '#17342b', border: '1px solid #2e594c', borderRadius: '16px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left' }}>
                       <div>
                         <span style={{ fontSize: '0.72rem', color: 'var(--teal)' }}>DIGITAL COURSE</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.92rem' }}>Advanced News Course ($39)</h5>
                       </div>
-                      <Link to="/play-hub" className="btn btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'white', borderColor: '#233143' }}>
+                      <Link to="/play-hub" className="edu-btn-secondary-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
                         Unlock Tier
                       </Link>
                     </div>
@@ -879,9 +869,9 @@ export function HomePage() {
 
                 <button
                   type="button"
-                  className="btn btn-secondary"
+                  className="edu-btn-secondary-3d"
                   onClick={() => setShowQuiz(false)}
-                  style={{ width: '100%', marginTop: '1.5rem', color: 'var(--line)', borderColor: '#233143' }}
+                  style={{ width: '100%', marginTop: '1.5rem', borderRadius: '16px' }}
                 >
                   Go to dashboard
                 </button>
