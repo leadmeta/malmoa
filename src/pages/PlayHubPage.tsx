@@ -182,7 +182,17 @@ export function PlayHubPage() {
   
   // Game arena size & fullscreen triggers
   const [isLargeSize, setIsLargeSize] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const arenaRef = useRef<HTMLDivElement | null>(null)
+
+  // Track browser native fullscreen state changes
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+    document.addEventListener('fullscreenchange', handleFsChange)
+    return () => document.removeEventListener('fullscreenchange', handleFsChange)
+  }, [])
   
   const [gameScore, setGameScore] = useState(0)
   const [gameLives, setGameLives] = useState(3)
@@ -254,13 +264,14 @@ export function PlayHubPage() {
 
     movementIntervalRef.current = window.setInterval(() => {
       let lifeLost = false
+      const bottomThreshold = isFullscreen ? 560 : (isLargeSize ? 730 : 450)
 
       setFallingWords((prev) => {
         const next = prev.map((w) => ({
           ...w,
           y: w.matched ? w.y : w.y + (difficulty * 0.8)
         })).filter((w) => {
-          if (!w.matched && w.y >= 450) {
+          if (!w.matched && w.y >= bottomThreshold) {
             lifeLost = true
             return false
           }
@@ -287,7 +298,7 @@ export function PlayHubPage() {
     return () => {
       if (movementIntervalRef.current) clearInterval(movementIntervalRef.current)
     }
-  }, [gamePlaying, gameOver, isPaused, difficulty, isMuted])
+  }, [gamePlaying, gameOver, isPaused, difficulty, isMuted, isLargeSize, isFullscreen])
 
   // Synchronize difficulty to score
   useEffect(() => {
@@ -528,60 +539,73 @@ export function PlayHubPage() {
         </div>
       </div>
 
-      {/* ==================== TWO COLUMN GRID LAYOUT (Left Side Mini Leaderboard Card) ==================== */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', alignItems: 'start' }}>
+      {/* ==================== TWO COLUMN GRID LAYOUT (Left Side Mini Leaderboard Card Hidden in Theater Game Mode) ==================== */}
+      <div style={{ display: 'grid', gridTemplateColumns: (isLargeSize && activeTab === 'game') ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', alignItems: 'start' }}>
         
         {/* LEFT COLUMN: MINI LEADERBOARD CARD */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          
-          <div 
-            onClick={() => setActiveTab('rank')}
-            style={{ 
-              background: 'white', 
-              border: '2px solid var(--line)', 
-              borderRadius: '24px', 
-              padding: '1.5rem', 
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.01)'
-            }}
-            className="edu-card-chunky hover-lift"
-          >
-            <h4 style={{ margin: '0 0 1rem 0', fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              🏆 Leaderboard Card
-            </h4>
-            <p style={{ fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 1rem 0', lineHeight: 1.4 }}>
-              Click this card to expand full rankings sheet.
-            </p>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-              {miniRankers.map((ranker, i) => (
-                <div key={ranker.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem', paddingBottom: '0.4rem', borderBottom: i < 2 ? '1px dashed var(--line)' : 'none' }}>
-                  <span style={{ fontWeight: 'bold', color: i === 0 ? 'var(--ember)' : 'var(--ink)' }}>
-                    {i + 1}. {ranker.name}
-                  </span>
-                  <span style={{ color: 'var(--teal-deep)', fontWeight: 'bold' }}>{ranker.xp} XP</span>
-                </div>
-              ))}
+        {!(isLargeSize && activeTab === 'game') && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div 
+              onClick={() => setActiveTab('rank')}
+              style={{ 
+                background: 'white', 
+                border: '2px solid var(--line)', 
+                borderRadius: '24px', 
+                padding: '1.5rem', 
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.01)'
+              }}
+              className="edu-card-chunky hover-lift"
+            >
+              <h4 style={{ margin: '0 0 1rem 0', fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                🏆 Leaderboard Card
+              </h4>
+              <p style={{ fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 1rem 0', lineHeight: 1.4 }}>
+                Click this card to expand full rankings sheet.
+              </p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                {miniRankers.map((ranker, i) => (
+                  <div key={ranker.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem', paddingBottom: '0.4rem', borderBottom: i < 2 ? '1px dashed var(--line)' : 'none' }}>
+                    <span style={{ fontWeight: 'bold', color: i === 0 ? 'var(--ember)' : 'var(--ink)' }}>
+                      {i + 1}. {ranker.name}
+                    </span>
+                    <span style={{ color: 'var(--teal-deep)', fontWeight: 'bold' }}>{ranker.xp} XP</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div style={{ borderTop: '1px solid var(--line)', marginTop: '1rem', paddingTop: '0.75rem', fontSize: '0.82rem', color: 'var(--teal)', fontWeight: 'bold', textAlign: 'right' }}>
+                View Full Rankings ➔
+              </div>
             </div>
-            
-            <div style={{ borderTop: '1px solid var(--line)', marginTop: '1rem', paddingTop: '0.75rem', fontSize: '0.82rem', color: 'var(--teal)', fontWeight: 'bold', textAlign: 'right' }}>
-              View Full Rankings ➔
-            </div>
-          </div>
 
-          <div style={{ background: '#fafbfd', border: '1px solid var(--line)', borderRadius: '24px', padding: '1.5rem', fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
-            💡 <strong>Protip:</strong> Pressing <strong>Space</strong> or <strong>Enter</strong> clears the typing buffer immediately for clean IME inputs. Clicking inside the game arena pauses/resumes the timer!
+            <div style={{ background: '#fafbfd', border: '1px solid var(--line)', borderRadius: '24px', padding: '1.5rem', fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+              💡 <strong>Protip:</strong> Pressing <strong>Space</strong> or <strong>Enter</strong> clears the typing buffer immediately for clean IME inputs. Clicking inside the game arena pauses/resumes the timer!
+            </div>
           </div>
-        </div>
+        )}
 
         {/* RIGHT COLUMN: MAIN COMPONENT DISPLAY */}
         <div style={{ flexGrow: 1 }}>
 
           {activeTab === 'game' && (
-            <div style={{ animation: 'rise 0.4s ease both' }}>
+            <div 
+              ref={arenaRef} 
+              className={`game-fullscreen-wrapper ${isFullscreen ? 'fullscreen-active' : ''}`}
+              style={{ 
+                animation: 'rise 0.4s ease both',
+                background: isFullscreen ? '#0f172a' : 'transparent',
+                padding: isFullscreen ? '2.5rem' : '0',
+                borderRadius: isFullscreen ? '0' : '24px',
+                color: isFullscreen ? 'white' : 'var(--ink)',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
-                <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.35rem' }}>
+                <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.35rem', color: isFullscreen ? 'white' : 'var(--ink)' }}>
                   Raindrop Typer (Level: <span style={{ color: 'var(--teal)' }}>{userProfile.tier}</span>)
                 </h3>
                 
@@ -608,24 +632,24 @@ export function PlayHubPage() {
                     style={{ padding: '0.4rem 0.85rem', fontSize: '0.82rem', fontWeight: 'bold' }}
                     onClick={toggleFullscreen}
                   >
-                    🖥️ Fullscreen
+                    {isFullscreen ? '🖥️ Exit Fullscreen' : '🖥️ Fullscreen'}
                   </button>
-                  <div style={{ fontSize: '0.9rem' }}>
+                  <div style={{ fontSize: '0.9rem', color: isFullscreen ? 'white' : 'var(--ink)' }}>
                     Hearts: <span style={{ color: 'var(--ember)', fontSize: '1.15rem' }}>{'❤️'.repeat(gameLives) || '💀'}</span>
                   </div>
-                  <strong style={{ fontSize: '1.15rem', color: 'var(--teal-deep)' }}>+{gameScore} XP</strong>
+                  <strong style={{ fontSize: '1.15rem', color: 'var(--teal)' }}>+{gameScore} XP</strong>
                 </div>
               </div>
 
-              {/* Game Canvas Arena - Click toggles Pause/Resume */}
+              {/* Game Canvas Arena - Click toggles Pause/Resume (ref shifted to wrapper) */}
               <div 
-                ref={arenaRef}
                 className={`game-arena ${isLargeSize ? 'game-arena-large' : ''}`}
                 onClick={handleArenaClick}
                 style={{ 
                   maxWidth: isLargeSize ? '100%' : '800px', 
-                  height: isLargeSize ? '620px' : '480px', 
+                  height: isFullscreen ? '580px' : (isLargeSize ? '760px' : '480px'), 
                   margin: '0 auto', 
+                  width: '100%',
                   position: 'relative', 
                   cursor: gamePlaying ? 'pointer' : 'default',
                   border: isPaused ? '3px solid var(--ember)' : '3px solid var(--line)',
