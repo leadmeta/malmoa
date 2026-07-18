@@ -270,3 +270,18 @@
   color: var(--ink-soft);
 }
 
+.hero-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hero-grid-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
