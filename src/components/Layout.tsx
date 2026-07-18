@@ -110,7 +110,7 @@ export function Layout() {
             Menu
           </button>
 
-          <ul id="primary-nav" className={`nav-links${open ? ' open' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: 0, listStyle: 'none' }}>
+          <ul id="primary-nav" className={`nav-links${open ? ' open' : ''}`}>
             <li>
               <NavLink to="/curriculum" onClick={close} style={getNavLinkStyle}>
                 📖 Course
