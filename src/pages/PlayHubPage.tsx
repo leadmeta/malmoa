@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { RANK_KEY, SEED_RANKERS, type Ranker } from '../data/content'
 import './InnerPages.css'
 
-type SubTab = 'game' | 'rank' | 'board'
+type SubTab = 'game' | 'puzzle' | 'rank' | 'board'
 type UserTier = 'Beginner' | 'Intermediate' | 'Advanced'
 type ForumCategory = 'classroom' | 'knews' | 'culture'
 
@@ -13,6 +13,16 @@ type FallingWord = {
   x: number
   y: number
   matched?: boolean
+}
+
+type PuzzleCard = {
+  id: string
+  type: 'korean' | 'english'
+  content: string
+  matchId: string
+  isMatched: boolean
+  isSelected: boolean
+  isError: boolean
 }
 
 type ForumPost = {
@@ -201,6 +211,176 @@ export function PlayHubPage() {
   const spawnTimerRef = useRef<number | null>(null)
   const movementIntervalRef = useRef<number | null>(null)
   const nextWordId = useRef(0)
+
+  // --- Sub-Tab 4: Matching Puzzle states ---
+  const [puzzleCards, setPuzzleCards] = useState<PuzzleCard[]>([])
+  const [selectedCardIds, setSelectedCardIds] = useState<string[]>([])
+  const [puzzleScore, setPuzzleScore] = useState(0)
+  const [puzzleLives, setPuzzleLives] = useState(5)
+  const [puzzlePlaying, setPuzzlePlaying] = useState(false)
+  const [puzzleCleared, setPuzzleCleared] = useState(false)
+  const [puzzleOver, setPuzzleOver] = useState(false)
+
+  const initPuzzleGame = () => {
+    const pool = [
+      { kr: '나무', en: 'Tree' },
+      { kr: '조화', en: 'Harmony' },
+      { kr: '어조', en: 'Voice Tone' },
+      { kr: '보조', en: 'Pace' },
+      { kr: '색조', en: 'Color Hue' },
+      { kr: '안녕하세요', en: 'Hello' }
+    ]
+    
+    const cards: PuzzleCard[] = []
+    pool.forEach((item, idx) => {
+      const matchId = `pair-${idx}`
+      cards.push({
+        id: `kr-${idx}`,
+        type: 'korean',
+        content: item.kr,
+        matchId,
+        isMatched: false,
+        isSelected: false,
+        isError: false
+      })
+      cards.push({
+        id: `en-${idx}`,
+        type: 'english',
+        content: item.en,
+        matchId,
+        isMatched: false,
+        isSelected: false,
+        isError: false
+      })
+    })
+    
+    // Shuffle cards (Fisher-Yates)
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const temp = cards[i]
+      cards[i] = cards[j]
+      cards[j] = temp
+    }
+    
+    setPuzzleCards(cards)
+    setPuzzleScore(0)
+    setPuzzleLives(5)
+    setPuzzlePlaying(true)
+    setPuzzleCleared(false)
+    setPuzzleOver(false)
+    setSelectedCardIds([])
+  }
+
+  const handleCardClick = (cardId: string) => {
+    if (!puzzlePlaying || puzzleCleared || puzzleOver) return
+    
+    // Find clicked card
+    const targetCard = puzzleCards.find((c) => c.id === cardId)
+    if (!targetCard || targetCard.isMatched || targetCard.isSelected) return
+
+    // Update selected visual state
+    setPuzzleCards((prev) =>
+      prev.map((c) => (c.id === cardId ? { ...c, isSelected: true } : c))
+    )
+
+    const nextSelected = [...selectedCardIds, cardId]
+    setSelectedCardIds(nextSelected)
+
+    // Check match when two cards are picked
+    if (nextSelected.length === 2) {
+      const [firstId, secondId] = nextSelected
+      const firstCard = puzzleCards.find((c) => c.id === firstId)
+      const secondCard = puzzleCards.find((c) => c.id === secondId)
+
+      if (!firstCard || !secondCard) return
+
+      if (firstCard.matchId === secondCard.matchId) {
+        // MATCH SUCCESS!
+        playSynthSound('correct', isMuted)
+        setPuzzleScore((s) => s + 10)
+        
+        setPuzzleCards((prev) => {
+          const updated = prev.map((c) =>
+            c.id === firstId || c.id === secondId
+              ? { ...c, isMatched: true, isSelected: false }
+              : c
+          )
+          // Evaluate clear condition
+          const allMatched = updated.every((c) => c.isMatched)
+          if (allMatched) {
+            setPuzzleCleared(true)
+          }
+          return updated
+        })
+        setSelectedCardIds([])
+      } else {
+        // MATCH MISMATCH/WRONG!
+        playSynthSound('wrong', isMuted)
+        
+        setPuzzleCards((prev) =>
+          prev.map((c) =>
+            c.id === firstId || c.id === secondId ? { ...c, isError: true } : c
+          )
+        )
+
+        setPuzzleLives((l) => {
+          if (l <= 1) {
+            setPuzzleOver(true)
+            playSynthSound('gameover', isMuted)
+            return 0
+          }
+          return l - 1
+        })
+
+        // Fast visual shake reset
+        setTimeout(() => {
+          setPuzzleCards((prev) =>
+            prev.map((c) =>
+              c.id === firstId || c.id === secondId
+                ? { ...c, isSelected: false, isError: false }
+                : c
+            )
+          )
+          setSelectedCardIds([])
+        }, 800)
+      }
+    }
+  }
+
+  const submitPuzzleScoreToLeaderboard = () => {
+    const updatedProfile = { ...userProfile, xp: userProfile.xp + puzzleScore }
+    localStorage.setItem('malmoa-user-profile', JSON.stringify(updatedProfile))
+    setUserProfile(updatedProfile)
+
+    const savedRankings = localStorage.getItem(RANK_KEY)
+    let list: Ranker[] = []
+    if (savedRankings) {
+      try {
+        list = JSON.parse(savedRankings)
+      } catch {
+        list = [...SEED_RANKERS]
+      }
+    }
+    
+    const idx = list.findIndex((r) => r.name.toLowerCase() === userProfile.name.toLowerCase())
+    if (idx !== -1) {
+      list[idx].xp = updatedProfile.xp
+    } else {
+      list.push({
+        name: userProfile.name,
+        xp: updatedProfile.xp,
+        badge: `${userProfile.tier} Learner 🏆`
+      })
+    }
+    list.sort((a, b) => b.xp - a.xp)
+    localStorage.setItem(RANK_KEY, JSON.stringify(list))
+
+    alert(`Successfully submitted +${puzzleScore} XP to the Leaderboard!`)
+    setPuzzleCleared(false)
+    setPuzzleOver(false)
+    setPuzzlePlaying(false)
+    loadLeaderboardData()
+  }
 
   const toggleFullscreen = () => {
     if (!arenaRef.current) return
@@ -501,7 +681,7 @@ export function PlayHubPage() {
       
       {/* Sub tabs selector (Bookstore Removed) */}
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--line)', paddingBottom: '1px', overflowX: 'auto' }}>
-        {(['game', 'rank', 'board'] as const).map((tab) => (
+        {(['game', 'puzzle', 'rank', 'board'] as const).map((tab) => (
           <button
             key={tab}
             type="button"
@@ -520,6 +700,7 @@ export function PlayHubPage() {
             }}
           >
             {tab === 'game' && '⌨️ Keyboard Game'}
+            {tab === 'puzzle' && '🧩 Matching Puzzle'}
             {tab === 'rank' && '🏆 Rankings'}
             {tab === 'board' && '💬 Forums'}
           </button>
@@ -539,8 +720,8 @@ export function PlayHubPage() {
         </div>
       </div>
 
-      {/* ==================== SKY SCRAPER VERTICAL SIDEBAR RANKING (화면의 완전 좌측, 세로 광고 영역 고정형 - 오직 게임화면 탭에서만 활성화) ==================== */}
-      {activeTab === 'game' && (
+      {/* ==================== SKY SCRAPER VERTICAL SIDEBAR RANKING (화면의 완전 좌측, 세로 광고 영역 고정형 - 오직 게임화면 및 퍼즐 탭에서만 활성화) ==================== */}
+      {(activeTab === 'game' || activeTab === 'puzzle') && (
         <div 
           onClick={() => setActiveTab('rank')}
           className="skyscraper-ranking-card edu-card-chunky hover-lift"
@@ -855,10 +1036,10 @@ export function PlayHubPage() {
                     <span style={{ fontSize: '0.7rem', color: 'var(--teal-deep)', fontWeight: 'bold' }}>ACTIVE</span>
                   </div>
                   
-                  <div className="edu-card-chunky hover-lift" onClick={() => handleComingSoonClick('Syllable Matching Puzzle')} style={{ padding: '1.25rem', textAlign: 'center', cursor: 'pointer', background: 'white' }}>
-                    <span style={{ fontSize: '2rem', opacity: 0.6 }}>🧩</span>
-                    <h5 style={{ fontWeight: 'bold', margin: '0.5rem 0 0.25rem 0', fontSize: '0.9rem', color: 'var(--ink-soft)' }}>Matching Puzzle</h5>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--ink-soft)', fontWeight: 'bold' }}>COMING SOON</span>
+                  <div className="edu-card-chunky hover-lift" onClick={() => { setActiveTab('puzzle'); initPuzzleGame(); }} style={{ padding: '1.25rem', textAlign: 'center', cursor: 'pointer', background: 'white', border: '2px solid var(--teal)' }}>
+                    <span style={{ fontSize: '2rem' }}>🧩</span>
+                    <h5 style={{ fontWeight: 'bold', margin: '0.5rem 0 0.25rem 0', fontSize: '0.9rem' }}>Matching Puzzle</h5>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--teal)', fontWeight: 'bold' }}>PLAY NOW</span>
                   </div>
 
                   <div className="edu-card-chunky hover-lift" onClick={() => handleComingSoonClick('Mnemonic Word Search')} style={{ padding: '1.25rem', textAlign: 'center', cursor: 'pointer', background: 'white' }}>
@@ -873,6 +1054,160 @@ export function PlayHubPage() {
                     <span style={{ fontSize: '0.7rem', color: 'var(--ink-soft)', fontWeight: 'bold' }}>COMING SOON</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* --- SUB-TAB 4: MATCHING PUZZLE GAME --- */}
+          {activeTab === 'puzzle' && (
+            <div style={{ animation: 'rise 0.4s ease both' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+                <div>
+                  <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.35rem' }}>
+                    🧩 Syllable & Word Matching Puzzle
+                  </h3>
+                  <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: 'var(--ink-soft)' }}>
+                    Match the Korean word card with its correct English definition!
+                  </p>
+                </div>
+                
+                <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}
+                    onClick={initPuzzleGame}
+                  >
+                    🔄 Restart Game
+                  </button>
+                  <div style={{ fontSize: '0.9rem' }}>
+                    Tries Left: <span style={{ color: 'var(--ember)', fontSize: '1.15rem', fontWeight: 'bold' }}>{'❤️'.repeat(puzzleLives) || '💀'}</span>
+                  </div>
+                  <strong style={{ fontSize: '1.15rem', color: 'var(--teal)' }}>+{puzzleScore} XP</strong>
+                </div>
+              </div>
+
+              {/* Game Layout Wrapper */}
+              <div style={{ background: '#f8fafc', border: '1px solid var(--line)', borderRadius: '24px', padding: '2rem', position: 'relative', minHeight: '400px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                
+                {/* 1. START/PLAY AGAIN OVERLAY */}
+                {!puzzlePlaying && !puzzleCleared && !puzzleOver && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center' }}>
+                    <span style={{ fontSize: '3rem' }}>🧩</span>
+                    <h4 style={{ margin: 0 }}>Start Card Matching Puzzle</h4>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', maxWidth: '360px', margin: 0 }}>
+                      Match all Korean vocabulary cards with their English counter-parts. Click start to shuffle!
+                    </p>
+                    <button type="button" className="btn btn-ember btn-pulse" style={{ padding: '0.8rem 2.5rem' }} onClick={initPuzzleGame}>
+                      Start Puzzle Game
+                    </button>
+                  </div>
+                )}
+
+                {/* 2. GAME OVER OVERLAY */}
+                {puzzlePlaying && puzzleOver && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center' }}>
+                    <span style={{ fontSize: '3.5rem' }}>💀</span>
+                    <h4 style={{ margin: 0, fontWeight: 'bold', color: 'var(--ember)' }}>Game Over!</h4>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)' }}>Out of hearts. You scored +{puzzleScore} XP.</p>
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                      <button type="button" className="btn btn-primary" onClick={submitPuzzleScoreToLeaderboard}>
+                        Submit XP Score
+                      </button>
+                      <button type="button" className="btn btn-secondary" onClick={initPuzzleGame}>
+                        Try Again
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. GAME CLEAR OVERLAY */}
+                {puzzlePlaying && puzzleCleared && (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center' }}>
+                    <span style={{ fontSize: '4rem' }}>🎉</span>
+                    <h4 style={{ margin: 0, fontWeight: 'bold', color: 'var(--teal-deep)' }}>Well Done! Perfect Clear!</h4>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', margin: 0 }}>
+                      All cards matched! Total score: <strong style={{ color: 'var(--teal)' }}>+{puzzleScore} XP</strong>.
+                    </p>
+                    <button type="button" className="btn btn-pulse" style={{ background: 'var(--teal-deep)', color: 'white', padding: '0.8rem 2.5rem', borderRadius: '12px', border: 'none', fontWeight: 'bold', cursor: 'pointer' }} onClick={submitPuzzleScoreToLeaderboard}>
+                      Submit score to Rankings ➔
+                    </button>
+                  </div>
+                )}
+
+                {/* 4. GAME PLAYING GRID CARDS */}
+                {puzzlePlaying && !puzzleCleared && !puzzleOver && (
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+                    gap: '1rem',
+                    width: '100%',
+                    maxWidth: '640px'
+                  }}>
+                    {puzzleCards.map((card) => {
+                      if (card.isMatched) {
+                        return (
+                          <div 
+                            key={card.id} 
+                            style={{ 
+                              height: '90px', 
+                              border: '2px dashed #cbd5e1', 
+                              borderRadius: '16px', 
+                              background: '#f1f5f9', 
+                              opacity: 0.25, 
+                              transition: 'all 0.3s ease'
+                            }} 
+                          />
+                        )
+                      }
+
+                      return (
+                        <div
+                          key={card.id}
+                          onClick={() => handleCardClick(card.id)}
+                          style={{
+                            height: '90px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                            fontSize: '0.95rem',
+                            borderRadius: '16px',
+                            cursor: 'pointer',
+                            userSelect: 'none',
+                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                            boxShadow: card.isSelected ? '0 8px 20px rgba(13,115,119,0.15)' : '0 4px 10px rgba(0,0,0,0.02)',
+                            border: card.isError 
+                              ? '3px solid var(--ember)' 
+                              : card.isSelected 
+                                ? '3px solid var(--teal)' 
+                                : '2px solid var(--line)',
+                            background: card.isError
+                              ? '#fee2e2'
+                              : card.isSelected
+                                ? '#e2f1f1'
+                                : card.type === 'korean'
+                                  ? 'white'
+                                  : '#faf5ff',
+                            color: card.isError
+                              ? 'var(--ember)'
+                              : card.isSelected
+                                ? 'var(--teal-deep)'
+                                : 'var(--ink)'
+                          }}
+                          className={`edu-card-chunky hover-lift ${card.isError ? 'shake-err' : ''}`}
+                        >
+                          {card.content}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+
+              <div style={{ marginTop: '2rem', background: '#fafbfd', border: '1px solid var(--line)', borderRadius: '24px', padding: '1.5rem', fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+                💡 <strong>How to Play:</strong> Click one Korean vocabulary card (e.g. <code>나무</code>) and then click its matching English translation card (e.g. <code>Tree</code>). Matching them correctly clears the cards and awards +10 XP. If you make a mistake, you lose a heart!
               </div>
             </div>
           )}
