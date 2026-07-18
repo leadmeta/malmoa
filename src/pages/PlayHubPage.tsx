@@ -178,6 +178,7 @@ export function PlayHubPage() {
   // High-performance solution for Korean IME buffer crash: Key remounting mechanism
   const [typedKey, setTypedKey] = useState(0)
   const [typedInput, setTypedInput] = useState('')
+  const inputRef = useRef<HTMLInputElement | null>(null)
   
   const [gameScore, setGameScore] = useState(0)
   const [gameLives, setGameLives] = useState(3)
@@ -279,6 +280,13 @@ export function PlayHubPage() {
     setDifficulty(Math.min(nextDiff, 4.0))
   }, [gameScore])
 
+  // Auto refocus when key remounts or game resumes safely
+  useEffect(() => {
+    if (gamePlaying && !gameOver && !isPaused && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [typedKey, gamePlaying, gameOver, isPaused])
+
   // Helper to animate and destroy matched word
   const triggerMatchWord = (wordId: number) => {
     setFallingWords((prev) =>
@@ -287,9 +295,20 @@ export function PlayHubPage() {
     setGameScore((s) => s + 10)
     playSynthSound('correct', isMuted)
 
-    // Complete cleanup of IME buffer by remounting the Input node
+    // Complete cleanup of IME buffer by resetting actual input element and blurring it
     setTypedInput('')
     setTypedKey((k) => k + 1)
+
+    // Critical IME Flush: Blur and refocus the input element to break Hangul IME memory
+    if (inputRef.current) {
+      inputRef.current.value = ''
+      inputRef.current.blur()
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus()
+        }
+      }, 35) // Small delay to let browser flush composition stack
+    }
 
     setTimeout(() => {
       setFallingWords((prev) => prev.filter((w) => w.id !== wordId))
@@ -326,6 +345,11 @@ export function PlayHubPage() {
         } else {
           setTypedInput('')
           setTypedKey((k) => k + 1)
+          if (inputRef.current) {
+            inputRef.current.value = ''
+            inputRef.current.blur()
+            setTimeout(() => inputRef.current?.focus(), 35)
+          }
         }
       }
     }
@@ -345,6 +369,11 @@ export function PlayHubPage() {
       playSynthSound('wrong', isMuted)
       setTypedInput('')
       setTypedKey((k) => k + 1)
+      if (inputRef.current) {
+        inputRef.current.value = ''
+        inputRef.current.blur()
+        setTimeout(() => inputRef.current?.focus(), 35)
+      }
     }
   }
 
@@ -638,6 +667,7 @@ export function PlayHubPage() {
               {gamePlaying && (
                 <form onSubmit={submitTypingWord} className="game-input-container" style={{ margin: '1.5rem auto' }}>
                   <input
+                    ref={inputRef}
                     key={`typed-ime-key-${typedKey}`}
                     type="text"
                     className="game-input"
