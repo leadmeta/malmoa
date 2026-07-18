@@ -51,7 +51,95 @@ export function CurriculumPage() {
         ))}
       </div>
 
-      {/* SECTION 2: THE SYLLABUS TASTE-TEST SAMPLES (맛보기 샘플) */}
+      {/* NEW SECTION: PHYSICAL TEXTBOOK KIT SHOWCASE (와디즈 이미지 연동) */}
+      <div style={{ background: 'white', border: '1px solid var(--line)', borderRadius: '28px', padding: '3rem', marginBottom: '4rem' }}>
+        <p className="section-label" style={{ textAlign: 'center' }}>Wadiz Physical Kit Pack</p>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 'bold', marginBottom: '1.5rem', textAlign: 'center' }}>
+          Deconstruct the 2,300%+ Funded Study Materials
+        </h2>
+        <p style={{ textAlign: 'center', color: 'var(--ink-soft)', maxWidth: '36rem', margin: '0 auto 3rem auto', fontSize: '0.98rem', lineHeight: 1.6 }}>
+          Offline physical workbook packs designed to maximize visual mapping logic. Trace strokes on paper, paste mnemonic stickers, and track your retention.
+        </p>
+
+        {/* 1. Core Textbook, Workbook, bookmark */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '3.5rem' }}>
+          <div className="edu-card-chunky" style={{ background: 'var(--paper-cool)', padding: '1.5rem' }}>
+            <img src="/wadiz-assets/wadiz_34.png" alt="문해력 고수의 일급비밀 교재" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)', marginBottom: '1.25rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>1. Primary Study Textbook</h4>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+              The core textbook outlining phonetic organ mapping, Chinese Hanja radical trees, and direct reading (직독직해) translation formulas.
+            </p>
+          </div>
+
+          <div className="edu-card-chunky" style={{ background: 'var(--paper-cool)', padding: '1.5rem' }}>
+            <img src="/wadiz-assets/wadiz_35.png" alt="문해력 고수의 일급 비밀 워크북" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)', marginBottom: '1.25rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>2. Practical Mnemonic Workbook</h4>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+              Active workbook sheets featuring drawing grids to test stroke orders and matching blank cards to paste cartoon labels on.
+            </p>
+          </div>
+
+          <div className="edu-card-chunky" style={{ background: 'var(--paper-cool)', padding: '1.5rem' }}>
+            <img src="/wadiz-assets/wadiz_38.png" alt="사은품 책갈피 겸 학습 가리개" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)', marginBottom: '1.25rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>3. Bookmark & Study Mask Shield</h4>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+              A dual-purpose visual shield that masks English translations on text blocks, forcing active recall of Hangul definitions.
+            </p>
+          </div>
+        </div>
+
+        {/* 2. Syllabus components details: 37 subject hanja, 12 field hanja, picture pdf */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '3.5rem' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.5rem' }}>
+            <img src="/wadiz-assets/wadiz_36.png" alt="37개 주제별 필수 한자" style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)', marginBottom: '1.25rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>4. 37 Core Subject Categories</h4>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+              Hanja roots classified into 37 daily life categories (nature, time, humanity) to promote intuitive cluster learning.
+            </p>
+          </div>
+
+          <div className="edu-card-chunky" style={{ padding: '1.5rem' }}>
+            <img src="/wadiz-assets/wadiz_37.png" alt="12개 분야별 실용 한자어" style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)', marginBottom: '1.25rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>5. 12 Professional Field Clusters</h4>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+              Academic vocabulary tailored to 12 professional fields (law, finance, science) to transition learners into news editorials.
+            </p>
+          </div>
+
+          <div className="edu-card-chunky" style={{ padding: '1.5rem' }}>
+            <img src="/wadiz-assets/wadiz_40.png" alt="한자어 그림 PDF 파일" style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--line)', marginBottom: '1.25rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>6. Visual Hanja Mnemonic PDF</h4>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+              A high-definition visual index detailing the etymology network map of Sino-Korean roots for fast reference.
+            </p>
+          </div>
+        </div>
+
+        {/* 3. Community activity & overall package structure */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+          <div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1.25rem' }}>
+              Motivate Yourself with the Learner Community
+            </h3>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.7, fontSize: '0.98rem', marginBottom: '1.5rem' }}>
+              Study groups and active discussions accelerate language acquisition. Submit your homework sheets, share score milestones, and rank high on the XP leaderboards.
+            </p>
+            <img src="/wadiz-assets/wadiz_39.png" alt="사이트의 커뮤니티 활동을 통한 지속적인 동기부여" style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid var(--line)', display: 'block' }} />
+          </div>
+          <div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1.25rem' }}>
+              Complete Course Package Layout
+            </h3>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.7, fontSize: '0.98rem', marginBottom: '1.5rem' }}>
+              Everything shipped safely in a single box directly from our logistics center in Seoul. Track your dispatched package in the admin desk.
+            </p>
+            <img src="/wadiz-assets/wadiz_41.png" alt="교재 구성 전체 패키지" style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid var(--line)', display: 'block' }} />
+          </div>
+        </div>
+
+      </div>
+
+      {/* SECTION 2: THE SYLLABUS TASTE-TEST SAMPLES */}
       <div style={{ background: '#f8fafc', border: '1px solid var(--line)', borderRadius: '28px', padding: '3rem', marginBottom: '4rem' }}>
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', marginBottom: '1.5rem', textAlign: 'center' }}>
           💡 Taste-Test: Malmoa\'s Visual Mnemonics

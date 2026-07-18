@@ -306,6 +306,57 @@ export function WaitlistPage() {
         </div>
       </div>
 
+      {/* NEW WADIZ PACKAGE LINEUPS COMPONENT */}
+      <div style={{ marginBottom: '5rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <p className="section-label">Physical Kit Bundles</p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 'bold' }}>
+            Choose Your Physical Textbook Kit
+          </h2>
+          <p style={{ color: 'var(--ink-soft)', maxWidth: '32rem', margin: '0.5rem auto 0 auto', fontSize: '0.95rem' }}>
+            Choose the physical package that will be dispatched to your location upon consult validation.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.75rem' }}>
+          {/* Basic */}
+          <div className="edu-card-chunky" style={{ background: 'white', padding: '1.25rem' }}>
+            <img src="/wadiz-assets/wadiz_42.png" alt="교재패키지 베이직" style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '12px', border: '1px solid var(--line)', marginBottom: '1rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.25rem' }}>🎁 Basic Textbook Pack</h4>
+            <p style={{ fontSize: '0.8rem', color: 'var(--ink-soft)', lineHeight: 1.4 }}>
+              Includes primary textbook, standard study mask sheet, and initial basic consonant sticker sheets. Ideal for self-directed quick starters.
+            </p>
+          </div>
+
+          {/* Kids */}
+          <div className="edu-card-chunky" style={{ background: 'white', padding: '1.25rem' }}>
+            <img src="/wadiz-assets/wadiz_43.png" alt="교재패키지 키즈" style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '12px', border: '1px solid var(--line)', marginBottom: '1rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.25rem' }}>🧸 Kids & Junior Pack</h4>
+            <p style={{ fontSize: '0.8rem', color: 'var(--ink-soft)', lineHeight: 1.4 }}>
+              Optimized for younger learners. Augmented with colorful character worksheets, large tracking cards, and junior study shields.
+            </p>
+          </div>
+
+          {/* Minibook */}
+          <div className="edu-card-chunky" style={{ background: 'white', padding: '1.25rem' }}>
+            <img src="/wadiz-assets/wadiz_44.png" alt="교재패키지 미니북" style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '12px', border: '1px solid var(--line)', marginBottom: '1rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.25rem' }}>📖 Pocket Minibook Pack</h4>
+            <p style={{ fontSize: '0.8rem', color: 'var(--ink-soft)', lineHeight: 1.4 }}>
+              Includes portable pocket-sized vocabulary directories and keychain stroke cheat sheets to study syllables anywhere on the go.
+            </p>
+          </div>
+
+          {/* All-in-One */}
+          <div className="edu-card-chunky" style={{ background: 'white', padding: '1.25rem' }}>
+            <img src="/wadiz-assets/wadiz_45.png" alt="교재패키지 올인원" style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '12px', border: '1px solid var(--line)', marginBottom: '1rem' }} />
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.25rem' }}>💎 Elite All-In-One Pack</h4>
+            <p style={{ fontSize: '0.8rem', color: 'var(--ink-soft)', lineHeight: 1.4 }}>
+              Textbooks, workbook sets, bookmarks, mini directories, all 170+ sticker varieties, and certificate eligibility. Perfect for complete fluency.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* SECTION 3: CONSULTATION INQUIRY FORM */}
       <div id="inquiry-form-section" style={{ scrollMarginTop: '2rem' }}>
         {submitted ? (
