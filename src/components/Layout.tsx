@@ -61,12 +61,12 @@ export function Layout() {
           <ul id="primary-nav" className={`nav-links${open ? ' open' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', margin: 0, listStyle: 'none' }}>
             <li>
               <NavLink to="/curriculum" onClick={close}>
-                📖 Method & Curriculum
+                📖 Course
               </NavLink>
             </li>
             <li>
               <NavLink to="/demo-hub" onClick={close}>
-                ⚡ Demo Zone
+                ⚡ Classroom
               </NavLink>
             </li>
             <li>
