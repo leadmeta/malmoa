@@ -11,6 +11,7 @@ type FallingWord = {
   translation: string
   x: number
   y: number
+  matched?: boolean
 }
 
 // Typing words categorized by User Tiers
@@ -214,9 +215,10 @@ export function PlayHubPage() {
       setFallingWords((prev) => {
         const next = prev.map((w) => ({
           ...w,
-          y: w.y + (difficulty * 0.8) // Falling step height
+          y: w.matched ? w.y : w.y + (difficulty * 0.8) // Freeze falling when matched
         })).filter((w) => {
-          if (w.y >= 450) { // Screen height bound is 500px now
+          // Only unmatched words can hit the bottom bound and drain lives
+          if (!w.matched && w.y >= 450) {
             lifeLost = true
             return false
           }
@@ -251,48 +253,68 @@ export function PlayHubPage() {
     setDifficulty(Math.min(nextDiff, 4.0))
   }, [gameScore])
 
+  // Helper to animate and destroy matched word
+  const triggerMatchWord = (wordId: number) => {
+    setFallingWords((prev) =>
+      prev.map((w) => (w.id === wordId ? { ...w, matched: true } : w))
+    )
+    setGameScore((s) => s + 10)
+    playSynthSound('correct', isMuted)
+
+    setTimeout(() => {
+      setFallingWords((prev) => prev.filter((w) => w.id !== wordId))
+    }, 320)
+  }
+
   // Handle typing evaluation with granular layout constraints
   const handleTypingChange = (val: string) => {
     setTypedInput(val)
     const trimmed = val.trim()
 
-    // 1. Single character or consonant/vowel (Instant blast, no Enter)
+    // 1. Single character or consonant/vowel (Instant blast, no Enter/Space required)
     if (trimmed.length === 1) {
-      const matchIdx = fallingWords.findIndex((w) => w.text === trimmed)
-      if (matchIdx !== -1) {
-        setGameScore((s) => s + 10)
-        setFallingWords((prev) => prev.filter((_, idx) => idx !== matchIdx))
+      const matchedWord = fallingWords.find((w) => w.text === trimmed && !w.matched)
+      if (matchedWord) {
+        triggerMatchWord(matchedWord.id)
         setTypedInput('')
-        playSynthSound('correct', isMuted)
-      }
-    }
-    // 2. 2-character word: check if space is entered
-    else if (val.endsWith(' ')) {
-      const matchIdx = fallingWords.findIndex((w) => w.text === trimmed)
-      if (matchIdx !== -1) {
-        setGameScore((s) => s + 10)
-        setFallingWords((prev) => prev.filter((_, idx) => idx !== matchIdx))
-        setTypedInput('')
-        playSynthSound('correct', isMuted)
       }
     }
   }
 
-  // Handle traditional submit (Enter key)
+  // Intercept Space and Enter to clear inputs immediately and evaluate word matching
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      // For Beginner (consonants/vowels) and Intermediate (words), reset buffer immediately on Space or Enter
+      if (userProfile.tier !== 'Advanced') {
+        if (e.key === ' ') {
+          e.preventDefault() // Block inserting white space
+        }
+        const trimmed = typedInput.trim()
+        const matchedWord = fallingWords.find((w) => w.text === trimmed && !w.matched)
+        if (matchedWord) {
+          triggerMatchWord(matchedWord.id)
+        }
+        setTypedInput('') // Clear input immediately to blank
+      }
+    }
+  }
+
+  // Handle traditional submit (Enter key for sentences)
   const submitTypingWord = (e: React.FormEvent) => {
     e.preventDefault()
     if (!gamePlaying || gameOver) return
 
     const trimmed = typedInput.trim()
-    const matchIdx = fallingWords.findIndex((w) => w.text === trimmed)
+    const matchedWord = fallingWords.find((w) => w.text === trimmed && !w.matched)
 
-    if (matchIdx !== -1) {
-      setGameScore((s) => s + 10)
-      setFallingWords((prev) => prev.filter((_, idx) => idx !== matchIdx))
+    if (matchedWord) {
+      triggerMatchWord(matchedWord.id)
       setTypedInput('')
-      playSynthSound('correct', isMuted)
     } else {
       playSynthSound('wrong', isMuted)
+      if (userProfile.tier === 'Advanced') {
+        setTypedInput('') // Clear sentence block on mismatch too
+      }
     }
   }
 
@@ -492,8 +514,7 @@ export function PlayHubPage() {
               Raindrop Typer (Level: <span style={{ color: 'var(--teal)' }}>{userProfile.tier}</span>)
             </h3>
             
-            {/* Audio & Keyboard Control Dashboard */}
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
               {/* Sound Toggle */}
               <button
                 type="button"
@@ -503,36 +524,6 @@ export function PlayHubPage() {
               >
                 <span>{isMuted ? '🔇 Muted' : '🔊 Sound ON'}</span>
               </button>
-
-              {/* Keyboard Mode Selector */}
-              <div style={{ display: 'flex', background: 'var(--paper-cool)', padding: '0.2rem', borderRadius: '8px', border: '1px solid var(--line)' }}>
-                {(['all', 'korean', 'hide'] as const).map((mode) => (
-                  <button
-                    key={mode}
-                    type="button"
-                    onClick={() => setKeyboardMode(mode)}
-                    style={{
-                      padding: '0.25rem 0.6rem',
-                      fontSize: '0.75rem',
-                      fontWeight: 'bold',
-                      border: 'none',
-                      borderRadius: '6px',
-                      background: keyboardMode === mode ? 'white' : 'transparent',
-                      color: keyboardMode === mode ? 'var(--teal-deep)' : 'var(--ink-soft)',
-                      cursor: 'pointer',
-                      boxShadow: keyboardMode === mode ? '0 2px 5px rgba(0,0,0,0.05)' : 'none',
-                      transition: 'all 0.15s ease'
-                    }}
-                  >
-                    {mode === 'all' && 'Show All'}
-                    {mode === 'korean' && 'Korean Only'}
-                    {mode === 'hide' && 'Hide Keypad'}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
               <div>
                 Hearts: <span style={{ color: 'var(--ember)', fontSize: '1.15rem' }}>{'❤️'.repeat(gameLives) || '💀'}</span>
               </div>
@@ -564,7 +555,7 @@ export function PlayHubPage() {
               return (
                 <div
                   key={w.id}
-                  className="falling-word"
+                  className={`falling-word ${w.matched ? 'word-matched' : ''}`}
                   style={{
                     left: `${clampedX}%`,
                     top: `${w.y}px`
@@ -608,6 +599,7 @@ export function PlayHubPage() {
                 }
                 value={typedInput}
                 onChange={(e) => handleTypingChange(e.target.value)}
+                onKeyDown={handleKeyDown}
                 autoFocus
               />
               <button type="submit" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }}>
@@ -616,68 +608,99 @@ export function PlayHubPage() {
             </form>
           )}
 
-          {/* On-Screen Virtual Keyboard Guide */}
-          {keyboardMode !== 'hide' && (
-            <div className="virtual-keyboard" style={{ marginTop: '1.5rem' }}>
-              <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.75rem', color: 'var(--ink-soft)', textAlign: 'center', fontWeight: 'bold' }}>
-                ⌨️ VIRTUAL KEYBOARD LAYOUT (NEXT KEY FLICKERS IN ORANGE)
-              </p>
-              
-              {/* Row 1 */}
-              <div className="keyboard-row">
-                {['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'].map((k) => (
-                  <div
-                    key={k}
-                    className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
-                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
-                  >
-                    <span style={{ fontSize: '1rem' }}>{k}</span>
-                    {keyboardMode === 'all' && (
-                      <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
-                        {KEY_MAP[k] || ''}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
+          {/* On-Screen Virtual Keyboard Area & Config Controls */}
+          <div className="virtual-keyboard-area" style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+            {keyboardMode !== 'hide' && (
+              <div className="virtual-keyboard" style={{ margin: '0 auto' }}>
+                <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.75rem', color: 'var(--ink-soft)', textAlign: 'center', fontWeight: 'bold' }}>
+                  ⌨️ VIRTUAL KEYBOARD LAYOUT (NEXT KEY FLICKERS IN ORANGE)
+                </p>
+                
+                {/* Row 1 */}
+                <div className="keyboard-row">
+                  {['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'].map((k) => (
+                    <div
+                      key={k}
+                      className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
+                      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
+                    >
+                      <span style={{ fontSize: '1rem' }}>{k}</span>
+                      {keyboardMode === 'all' && (
+                        <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
+                          {KEY_MAP[k] || ''}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
 
-              {/* Row 2 */}
-              <div className="keyboard-row">
-                {['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'].map((k) => (
-                  <div
-                    key={k}
-                    className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
-                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
-                  >
-                    <span style={{ fontSize: '1rem' }}>{k}</span>
-                    {keyboardMode === 'all' && (
-                      <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
-                        {KEY_MAP[k] || ''}
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
+                {/* Row 2 */}
+                <div className="keyboard-row">
+                  {['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'].map((k) => (
+                    <div
+                      key={k}
+                      className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
+                      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
+                    >
+                      <span style={{ fontSize: '1rem' }}>{k}</span>
+                      {keyboardMode === 'all' && (
+                        <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
+                          {KEY_MAP[k] || ''}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
 
-              {/* Row 3 */}
-              <div className="keyboard-row">
-                {['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ'].map((k) => (
-                  <div
-                    key={k}
-                    className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
-                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
+                {/* Row 3 */}
+                <div className="keyboard-row">
+                  {['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ'].map((k) => (
+                    <div
+                      key={k}
+                      className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
+                      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
+                    >
+                      <span style={{ fontSize: '1rem' }}>{k}</span>
+                      {keyboardMode === 'all' && (
+                        <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
+                          {KEY_MAP[k] || ''}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Keyboard Layout Toggle Panel situated directly underneath key rows */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.25rem' }}>
+              <div style={{ display: 'inline-flex', background: 'var(--paper-cool)', padding: '0.25rem', borderRadius: '10px', border: '1px solid var(--line)' }}>
+                {(['all', 'korean', 'hide'] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setKeyboardMode(mode)}
+                    style={{
+                      padding: '0.35rem 0.8rem',
+                      fontSize: '0.8rem',
+                      fontWeight: 'bold',
+                      border: 'none',
+                      borderRadius: '8px',
+                      background: keyboardMode === mode ? 'white' : 'transparent',
+                      color: keyboardMode === mode ? 'var(--teal-deep)' : 'var(--ink-soft)',
+                      cursor: 'pointer',
+                      boxShadow: keyboardMode === mode ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
+                      transition: 'all 0.15s ease'
+                    }}
                   >
-                    <span style={{ fontSize: '1rem' }}>{k}</span>
-                    {keyboardMode === 'all' && (
-                      <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
-                        {KEY_MAP[k] || ''}
-                      </span>
-                    )}
-                  </div>
+                    {mode === 'all' && '⌨️ Show All Keys'}
+                    {mode === 'korean' && '🇰🇷 Korean Only'}
+                    {mode === 'hide' && '🔇 Hide Keyboard'}
+                  </button>
                 ))}
               </div>
             </div>
-          )}
+          </div>
         </div>
       )}
 

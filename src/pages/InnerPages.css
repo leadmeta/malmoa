@@ -647,3 +647,20 @@
 .social-btn:hover {
   background: var(--paper-cool);
 }
+
+.falling-word.word-matched {
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+  color: white !important;
+  box-shadow: 0 0 20px #10b981 !important;
+  animation: explodeShake 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes explodeShake {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  15% { transform: scale(1.2) rotate(-6deg); }
+  30% { transform: scale(1.2) rotate(6deg); }
+  50% { transform: scale(1.1) rotate(-3deg); }
+  75% { transform: scale(1.1) translateY(-10px); opacity: 0.8; }
+  100% { transform: scale(0.5) translateY(-30px); opacity: 0; }
+}
