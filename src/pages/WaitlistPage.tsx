@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom'
 import { WAITLIST_KEY } from '../data/content'
 import './InnerPages.css'
 
-type Track = 'basic' | 'standard' | 'premium'
+type Track = 'basic' | 'beginner' | 'intermediate' | 'advanced' | 'vip'
+type BillingCycle = 'monthly' | 'annual'
 
 type WaitlistEntry = {
   name: string
   email: string
   nativeLanguage: string
   track: Track
+  billing: BillingCycle
   createdAt: string
   status: string
 }
@@ -18,14 +20,14 @@ export function WaitlistPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [nativeLanguage, setNativeLanguage] = useState('')
-  const [track, setTrack] = useState<Track>('standard')
+  const [track, setTrack] = useState<Track>('intermediate')
+  const [billing, setBilling] = useState<BillingCycle>('monthly')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
 
   // Handle plan card click to focus and select interest track
   const handleSelectPlan = (selectedPlan: Track) => {
     setTrack(selectedPlan)
-    // Scroll down to inquiry form
     const formElement = document.getElementById('inquiry-form-section')
     if (formElement) {
       formElement.scrollIntoView({ behavior: 'smooth' })
@@ -51,8 +53,9 @@ export function WaitlistPage() {
       email: email.trim().toLowerCase(),
       nativeLanguage: nativeLanguage.trim(),
       track,
+      billing,
       createdAt: new Date().toISOString(),
-      status: 'Processing' // Matches admin status pipeline
+      status: 'Processing'
     }
 
     try {
@@ -63,7 +66,7 @@ export function WaitlistPage() {
       withoutDup.push(entry)
       localStorage.setItem(WAITLIST_KEY, JSON.stringify(withoutDup))
 
-      // 2. Also register into order desk for direct matching in admin
+      // 2. Register order desk matching
       const savedOrders = localStorage.getItem('malmoa-orders')
       let orders = []
       if (savedOrders) {
@@ -71,7 +74,7 @@ export function WaitlistPage() {
       }
       orders.push({
         id: `waitord-${Date.now()}`,
-        item: `Premium Plan: ${track.toUpperCase()}`,
+        item: `SaaS Premium Plan: ${track.toUpperCase()} (${billing.toUpperCase()})`,
         buyer: name.trim(),
         status: 'Processing',
         date: new Date().toISOString().split('T')[0]
@@ -84,109 +87,226 @@ export function WaitlistPage() {
     }
   }
 
+  // PRICING DATABASE
+  const PLANS = {
+    basic: {
+      name: 'Free Trial',
+      monthlyPrice: 0,
+      annualPrice: 0,
+      desc: 'Test out basic tracing templates with native Korean speech synthesis.',
+      badge: 'GUEST PLAY',
+      badgeColor: '#475569'
+    },
+    beginner: {
+      name: 'Beginner Class',
+      monthlyPrice: 9,
+      annualPrice: 8.1, // 10% discount
+      desc: 'Unlock Level 1 basic consonants tracing boards and pronunciation checks.',
+      badge: 'LEVEL 1',
+      badgeColor: 'var(--teal)'
+    },
+    intermediate: {
+      name: 'Intermediate Class',
+      monthlyPrice: 24,
+      annualPrice: 21.6, // 10% discount
+      desc: 'All Level 2 conversations, vocabulary card structures & sticker workbooks.',
+      badge: 'MOST POPULAR',
+      badgeColor: 'var(--teal-deep)'
+    },
+    advanced: {
+      name: 'Advanced Class',
+      monthlyPrice: 49,
+      annualPrice: 44.1, // 10% discount
+      desc: 'Level 3 News editorial analysis, Sino-Korean Hanja root map networks.',
+      badge: 'LITERACY PACK',
+      badgeColor: '#7c3aed'
+    },
+    vip: {
+      name: 'VIP Coaching',
+      monthlyPrice: 99,
+      annualPrice: 89.1, // 10% discount
+      desc: '1:1 custom tutor matched, weekly homework review and live chat matching.',
+      badge: 'BEST VALUE',
+      badgeColor: 'var(--ember)'
+    }
+  }
+
   return (
     <div className="shell reveal" style={{ paddingBottom: '5rem', marginTop: '2.5rem' }}>
       
       {/* Page Header */}
-      <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-        <p className="section-label">Pricing & Pre-registration</p>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.6rem', fontWeight: 'bold' }}>
-          Find the Perfect Plan for Your Journey
+      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        <p className="section-label">Pricing Matrix</p>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.6rem', fontWeight: 800 }}>
+          Flexible Plans for Learners Worldwide
         </h1>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '38rem', margin: '0.75rem auto 0 auto', fontSize: '1.05rem', lineHeight: 1.6 }}>
-          Start learning Hangul completely for free, or upgrade to Standard & Premium levels for custom physical workbooks and 1:1 native coaching matching.
+          Choose the class matching your current level. Pick annual billing to save 10% and get direct workbook shipment bonuses.
         </p>
       </div>
 
-      {/* SECTION 1: PRICING TABLE (3종 요금제 카드) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '5rem' }}>
+      {/* BILLING CYCLE SWITCH (연간/월간 10% 토글) */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', marginBottom: '3.5rem' }}>
+        <span style={{ fontSize: '0.95rem', fontWeight: billing === 'monthly' ? 'bold' : 'normal', color: billing === 'monthly' ? 'var(--ink)' : 'var(--ink-soft)' }}>
+          Monthly Billing
+        </span>
+        <button
+          type="button"
+          onClick={() => setBilling((b) => b === 'monthly' ? 'annual' : 'monthly')}
+          style={{
+            width: '58px',
+            height: '32px',
+            borderRadius: '20px',
+            background: 'var(--teal)',
+            border: 'none',
+            position: 'relative',
+            cursor: 'pointer',
+            padding: '2px',
+            display: 'flex',
+            alignItems: 'center',
+            transition: 'background 0.2s ease'
+          }}
+        >
+          <div style={{
+            width: '24px',
+            height: '24px',
+            borderRadius: '50%',
+            background: 'white',
+            transform: billing === 'annual' ? 'translateX(28px)' : 'translateX(2px)',
+            transition: 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+          }} />
+        </button>
+        <span style={{ fontSize: '0.95rem', fontWeight: billing === 'annual' ? 'bold' : 'normal', color: billing === 'annual' ? 'var(--ink)' : 'var(--ink-soft)', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+          Annual Billing
+          <span style={{ background: '#fef3c7', color: 'var(--ember)', fontSize: '0.75rem', fontWeight: 'bold', padding: '0.15rem 0.5rem', borderRadius: '10px', border: '1px solid #fcd34d' }}>
+            Save 10%
+          </span>
+        </span>
+      </div>
+
+      {/* SECTION 1: GLOBAL SAAS PRICING MATRIX (5종 요금제 매트릭스) */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', marginBottom: '5rem' }}>
         
-        {/* Basic Plan */}
-        <div className="edu-card-chunky" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2.5rem 2rem' }}>
-          <span style={{ fontSize: '0.72rem', fontWeight: 'bold', color: 'var(--ink-soft)', textTransform: 'uppercase' }}>Level 1 Open</span>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', margin: '0.25rem 0' }}>Basic</h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', minHeight: '3rem' }}>Great for absolute beginners to check phonetics and practice basic tracing.</p>
-          <div style={{ margin: '1.5rem 0' }}>
-            <span style={{ fontSize: '2.2rem', fontWeight: 'bold' }}>$0</span>
-            <span style={{ fontSize: '0.88rem', color: 'var(--ink-soft)' }}> / forever free</span>
-          </div>
+        {Object.entries(PLANS).map(([key, plan]) => {
+          const isSelected = track === key
+          const price = billing === 'monthly' ? plan.monthlyPrice : plan.annualPrice
           
-          <ul style={{ paddingLeft: '1.2rem', fontSize: '0.88rem', color: 'var(--ink-soft)', display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2.5rem', flexGrow: 1 }}>
-            <li>14 basic consonants tracing</li>
-            <li>Interactive vector canvases</li>
-            <li>Browser audio voice listening</li>
-            <li>Chalkboard memory quizzes</li>
-          </ul>
+          return (
+            <div 
+              key={key}
+              className="edu-card-chunky" 
+              style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                height: '100%', 
+                padding: '2rem 1.5rem',
+                borderColor: isSelected ? 'var(--teal)' : 'var(--line)',
+                borderBottomColor: isSelected ? 'var(--teal-deep)' : 'var(--line)',
+                background: 'white',
+                position: 'relative'
+              }}
+            >
+              {/* Badges */}
+              <span style={{ 
+                position: 'absolute', 
+                top: '15px', 
+                right: '15px', 
+                fontSize: '0.65rem', 
+                fontWeight: 'bold', 
+                color: 'white', 
+                background: plan.badgeColor,
+                padding: '0.2rem 0.5rem',
+                borderRadius: '8px'
+              }}>
+                {plan.badge}
+              </span>
 
-          <button 
-            type="button" 
-            className="edu-btn-secondary-3d" 
-            style={{ width: '100%' }}
-            onClick={() => handleSelectPlan('basic')}
-          >
-            Start Free Tracing
-          </button>
-        </div>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
+                {plan.name}
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: 'var(--ink-soft)', minHeight: '3.5rem', lineHeight: 1.5 }}>
+                {plan.desc}
+              </p>
+              
+              <div style={{ margin: '1rem 0' }}>
+                <span style={{ fontSize: '2rem', fontWeight: 800 }}>${price}</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>
+                  {billing === 'monthly' ? ' / mo' : ' / mo (billed yearly)'}
+                </span>
+              </div>
+              
+              <ul style={{ paddingLeft: '1.1rem', fontSize: '0.8rem', color: 'var(--ink-soft)', display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '2rem', flexGrow: 1, lineHeight: 1.4 }}>
+                {key === 'basic' && (
+                  <>
+                    <li>4 consonants tracing</li>
+                    <li>Audio pronunciation</li>
+                    <li>Memory quizzes</li>
+                  </>
+                )}
+                {key === 'beginner' && (
+                  <>
+                    <li>All 14 consonants</li>
+                    <li>Full tracing vectors</li>
+                    <li>Interactive reviews</li>
+                  </>
+                )}
+                {key === 'intermediate' && (
+                  <>
+                    <li>All vowels included</li>
+                    <li>Workbook shipping</li>
+                    <li>170+ stickers pack</li>
+                    <li>Dialogue audio</li>
+                  </>
+                )}
+                {key === 'advanced' && (
+                  <>
+                    <li>Hanja root etymology</li>
+                    <li>News editorial clauses</li>
+                    <li>Sinusoidal typing game</li>
+                    <li>Certificate PDF</li>
+                  </>
+                )}
+                {key === 'vip' && (
+                  <>
+                    <li>1:1 Seoul Univ Tutors</li>
+                    <li>Live matching sandbox</li>
+                    <li>24/7 chat assistance</li>
+                    <li>Custom homework checking</li>
+                  </>
+                )}
+              </ul>
 
-        {/* Standard Plan */}
-        <div className="edu-card-chunky" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2.5rem 2rem', borderColor: 'var(--teal)', borderBottomColor: 'var(--teal-deep)' }}>
-          <span style={{ fontSize: '0.72rem', fontWeight: 'bold', color: 'var(--teal-deep)', textTransform: 'uppercase' }}>Most Popular</span>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', margin: '0.25rem 0' }}>Standard</h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', minHeight: '3rem' }}>Perfect for intermediate students seeking real conversation fluency and offline book packages.</p>
-          <div style={{ margin: '1.5rem 0' }}>
-            <span style={{ fontSize: '2.2rem', fontWeight: 'bold' }}>$19</span>
-            <span style={{ fontSize: '0.88rem', color: 'var(--ink-soft)' }}> / month</span>
-          </div>
-          
-          <ul style={{ paddingLeft: '1.2rem', fontSize: '0.88rem', color: 'var(--ink-soft)', display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2.5rem', flexGrow: 1 }}>
-            <li>All vowels & compound letters</li>
-            <li>4 Mnemonic physical workbooks</li>
-            <li>170+ association stickers</li>
-            <li>Level 2 daily conversations</li>
-            <li>Audio speech translation</li>
-          </ul>
-
-          <button 
-            type="button" 
-            className="edu-btn-3d" 
-            style={{ width: '100%' }}
-            onClick={() => handleSelectPlan('standard')}
-          >
-            Select Standard
-          </button>
-        </div>
-
-        {/* Premium Coaching Plan */}
-        <div className="edu-card-chunky" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2.5rem 2rem', borderColor: 'var(--ember)', borderBottomColor: '#8a3c17' }}>
-          <span style={{ fontSize: '0.72rem', fontWeight: 'bold', color: 'var(--ember)', textTransform: 'uppercase' }}>Elite Tutor Bridge</span>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', margin: '0.25rem 0' }}>Coaching</h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', minHeight: '3rem' }}>Accelerate advanced reading and get direct supervision from native tutors.</p>
-          <div style={{ margin: '1.5rem 0' }}>
-            <span style={{ fontSize: '2.2rem', fontWeight: 'bold' }}>$89</span>
-            <span style={{ fontSize: '0.88rem', color: 'var(--ink-soft)' }}> / month</span>
-          </div>
-          
-          <ul style={{ paddingLeft: '1.2rem', fontSize: '0.88rem', color: 'var(--ink-soft)', display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2.5rem', flexGrow: 1 }}>
-            <li>1:1 Seoul National Univ Tutors</li>
-            <li>24/7 personal chat matching</li>
-            <li>Hanja root etymology maps</li>
-            <li>Real-world news reading</li>
-            <li>Graduation certificate PDF</li>
-          </ul>
-
-          <button 
-            type="button" 
-            className="edu-btn-ember-3d" 
-            style={{ width: '100%' }}
-            onClick={() => handleSelectPlan('premium')}
-          >
-            Book Coaching
-          </button>
-        </div>
+              <button 
+                type="button" 
+                className={isSelected ? 'edu-btn-3d' : 'edu-btn-secondary-3d'}
+                style={{ width: '100%', padding: '0.65rem 0', fontSize: '0.9rem', borderRadius: '12px' }}
+                onClick={() => handleSelectPlan(key as Track)}
+              >
+                {isSelected ? 'Selected' : 'Select Plan'}
+              </button>
+            </div>
+          )
+        })}
 
       </div>
 
-      {/* SECTION 2: CONSULTATION INQUIRY FORM */}
+      {/* SECTION 2: GLOBAL TRANSACTION TRUST BADGES (글로벌 규격 보안 안내) */}
+      <div style={{ background: '#f1f5f9', borderRadius: '20px', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '5rem', border: '1px solid var(--line)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <span style={{ fontSize: '1.5rem' }}>🔒</span>
+          <span style={{ fontSize: '0.88rem', fontWeight: 'bold', color: 'var(--ink-soft)' }}>
+            SSL Encrypted Secure Global Payment Gateway
+          </span>
+        </div>
+        <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
+          <span style={{ background: 'white', fontSize: '0.75rem', fontWeight: 'bold', padding: '0.25rem 0.65rem', borderRadius: '8px', border: '1px solid var(--line)' }}>💳 Visa</span>
+          <span style={{ background: 'white', fontSize: '0.75rem', fontWeight: 'bold', padding: '0.25rem 0.65rem', borderRadius: '8px', border: '1px solid var(--line)' }}>💳 Mastercard</span>
+          <span style={{ background: 'white', fontSize: '0.75rem', fontWeight: 'bold', padding: '0.25rem 0.65rem', borderRadius: '8px', border: '1px solid var(--line)' }}>💳 Stripe Pay</span>
+          <span style={{ background: 'white', fontSize: '0.75rem', fontWeight: 'bold', padding: '0.25rem 0.65rem', borderRadius: '8px', border: '1px solid var(--line)' }}>💳 Apple Pay</span>
+        </div>
+      </div>
+
+      {/* SECTION 3: CONSULTATION INQUIRY FORM */}
       <div id="inquiry-form-section" style={{ scrollMarginTop: '2rem' }}>
         {submitted ? (
           <div style={{ animation: 'rise 0.4s ease both', background: '#e2f1f1', border: '2px solid var(--teal)', borderRadius: '28px', padding: '3.5rem 2rem', textAlign: 'center' }}>
@@ -195,7 +315,7 @@ export function WaitlistPage() {
               Inquiry Registered Successfully!
             </h2>
             <p style={{ color: 'var(--ink-soft)', maxWidth: '32rem', margin: '0.75rem auto 2.5rem auto', fontSize: '1.05rem', lineHeight: 1.6 }}>
-              Thanks, <strong>{name}</strong>! We have registered your request for the <strong>{track.toUpperCase()} Plan</strong>. Our matching desk is preparing your tutor connection sheet. We will email you at <strong>{email}</strong> shortly.
+              Thanks, <strong>{name}</strong>! We have registered your request for the <strong>{track.toUpperCase()} Plan ({billing.toUpperCase()})</strong>. Our matching desk is preparing your tutor connection sheet. We will email you at <strong>{email}</strong> shortly.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <Link to="/demo-hub" className="edu-btn-3d">Go to Classroom</Link>
@@ -205,13 +325,12 @@ export function WaitlistPage() {
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'start' }}>
             
-            {/* Inquiry submission card */}
-            <form onSubmit={onSubmit} className="edu-card-chunky" noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <form onSubmit={onSubmit} className="edu-card-chunky" noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', background: 'white' }}>
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', fontWeight: 'bold' }}>
                 Consultation Request Form
               </h3>
               <p style={{ color: 'var(--ink-soft)', fontSize: '0.88rem', margin: 0 }}>
-                Please fill in the information below. A coaching expert will design a personalized roadmap for your selected tier.
+                Please fill in the information below. A coaching expert will configure your selected subscription level.
               </p>
 
               <div className="field">
@@ -259,9 +378,24 @@ export function WaitlistPage() {
                   onChange={(e) => setTrack(e.target.value as Track)}
                   style={{ width: '100%', padding: '0.75rem', border: '2px solid var(--line)', borderRadius: '14px', background: 'white' }}
                 >
-                  <option value="basic">Basic Plan (FreeConsonants Tracing)</option>
-                  <option value="standard">Standard Plan ($19/mo Vowels & Workbooks)</option>
-                  <option value="premium">Premium Coaching Plan ($89/mo 1:1 native tutor)</option>
+                  <option value="basic">Free Trial (Basic Consonants Tracing)</option>
+                  <option value="beginner">Beginner Class ($9/mo Tracing Boards)</option>
+                  <option value="intermediate">Intermediate Class ($24/mo Vowels & Workbooks)</option>
+                  <option value="advanced">Advanced Class ($49/mo News & Hanja)</option>
+                  <option value="vip">VIP Coaching ($99/mo 1:1 Native Tutor matched)</option>
+                </select>
+              </div>
+
+              <div className="field">
+                <label htmlFor="billing-select" style={{ display: 'block', fontWeight: 'bold', fontSize: '0.88rem', marginBottom: '0.35rem' }}>Preferred Billing Term</label>
+                <select
+                  id="billing-select"
+                  value={billing}
+                  onChange={(e) => setBilling(e.target.value as BillingCycle)}
+                  style={{ width: '100%', padding: '0.75rem', border: '2px solid var(--line)', borderRadius: '14px', background: 'white' }}
+                >
+                  <option value="monthly">Monthly Subscription Billing (Standard price)</option>
+                  <option value="annual">Annual Subscription Billing (10% Discount applied)</option>
                 </select>
               </div>
 
@@ -276,9 +410,8 @@ export function WaitlistPage() {
               </button>
             </form>
 
-            {/* Why consultation info */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <div className="edu-card-chunky">
+              <div className="edu-card-chunky" style={{ background: 'white' }}>
                 <span style={{ fontSize: '2.5rem' }}>📞</span>
                 <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold' }}>
                   What happens on the call?
@@ -288,7 +421,7 @@ export function WaitlistPage() {
                 </p>
               </div>
 
-              <div className="edu-card-chunky">
+              <div className="edu-card-chunky" style={{ background: 'white' }}>
                 <span style={{ fontSize: '2.5rem' }}>📦</span>
                 <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold' }}>
                   Textbook Kit Shipping
