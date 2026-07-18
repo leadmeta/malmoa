@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect, type FormEvent } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { WAITLIST_KEY } from '../data/content'
 import './InnerPages.css'
 
@@ -17,13 +17,22 @@ type WaitlistEntry = {
 }
 
 export function WaitlistPage() {
+  const location = useLocation()
+  const stateTrack = location.state?.selectedTrack as Track | undefined
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [nativeLanguage, setNativeLanguage] = useState('')
-  const [track, setTrack] = useState<Track>('intermediate')
+  const [track, setTrack] = useState<Track>(stateTrack || 'intermediate')
   const [billing, setBilling] = useState<BillingCycle>('monthly')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    if (stateTrack) {
+      setTrack(stateTrack)
+    }
+  }, [stateTrack])
 
   // Handle plan card click to focus and select interest track
   const handleSelectPlan = (selectedPlan: Track) => {

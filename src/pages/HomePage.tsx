@@ -87,8 +87,10 @@ export function HomePage() {
     }
   }
 
-  // TTMIK Style Direct Checkout from Results Board -> Redirects to unified pricing waitlist page
+  // TTMIK Style Direct Checkout from Results Board -> Redirects to unified pricing waitlist page smoothly
   const handleDirectCheckout = (itemName: string, category: 'textbook' | 'coaching' | 'course') => {
+    let targetTrack: 'basic' | 'beginner' | 'intermediate' | 'advanced' | 'vip' = 'intermediate'
+    
     if (category === 'textbook') {
       const saved = localStorage.getItem('malmoa-orders')
       let orders = []
@@ -103,7 +105,7 @@ export function HomePage() {
         date: new Date().toISOString().split('T')[0]
       })
       localStorage.setItem('malmoa-orders', JSON.stringify(orders))
-      alert(`🎉 Package Inquiry registered! Redirecting to pricing table to select your best plan options.`)
+      targetTrack = 'intermediate'
     } else if (category === 'coaching') {
       const saved = localStorage.getItem('malmoa-coaching-orders')
       let coachingOrders = []
@@ -118,10 +120,11 @@ export function HomePage() {
         date: new Date().toISOString().split('T')[0]
       })
       localStorage.setItem('malmoa-coaching-orders', JSON.stringify(coachingOrders))
-      alert(`👩‍🏫 Tutor Coaching matching initialized! Redirecting to select your consultation slot.`)
+      targetTrack = 'vip'
     }
+    
     setShowQuiz(false)
-    navigate('/waitlist')
+    navigate('/waitlist', { state: { selectedTrack: targetTrack } })
   }
 
   return (
