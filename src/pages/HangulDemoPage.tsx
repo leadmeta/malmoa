@@ -185,10 +185,12 @@ export function HangulDemoPage() {
 
       {step === 'quiz' && current && (
         <div style={{ animation: 'rise 0.4s ease both' }}>
-          <h2 style={{ fontSize: '1.65rem', marginBottom: '0.35rem', fontFamily: 'var(--font-display)' }}>
+          <span style={{ fontSize: '1.05rem', color: 'var(--teal-deep)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '0.5rem' }}>
             Consonant Game: Question {quizIndex + 1} of {quizzes.length}
+          </span>
+          <h2 style={{ fontSize: '1.85rem', color: 'var(--ink)', fontWeight: 'bold', fontFamily: 'var(--font-display)', lineHeight: 1.3, marginBottom: '2.5rem', marginTop: 0 }}>
+            {current.prompt}
           </h2>
-          <p style={{ color: 'var(--ink-soft)', marginBottom: '2rem', fontSize: '1.1rem' }}>{current.prompt}</p>
 
           <div className="quiz-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', margin: '2rem 0' }}>
             {current.choices.map((choice) => {
