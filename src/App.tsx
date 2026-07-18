@@ -15,6 +15,9 @@ import { CurriculumPage } from './pages/CurriculumPage'
 import { DemoHubPage } from './pages/DemoHubPage'
 import { PlayHubPage } from './pages/PlayHubPage'
 import { AdminPage } from './pages/AdminPage'
+import { AboutPage } from './pages/AboutPage'
+import { PrivacyPage } from './pages/PrivacyPage'
+import { TermsPage } from './pages/TermsPage'
 
 export default function App() {
   return (
@@ -28,6 +31,9 @@ export default function App() {
           <Route path="demo-hub" element={<DemoHubPage />} />
           <Route path="play-hub" element={<PlayHubPage />} />
           <Route path="admin" element={<AdminPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="privacy" element={<PrivacyPage />} />
+          <Route path="terms" element={<TermsPage />} />
           <Route path="lesson/hangul-demo" element={<HangulDemoPage />} />
           <Route path="lesson/hanja-demo" element={<HanjaDemoPage />} />
           <Route path="board" element={<BoardPage />} />

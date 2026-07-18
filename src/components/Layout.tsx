@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 export function Layout() {
@@ -300,6 +300,11 @@ export function Layout() {
               Wadiz-crowdfunded picture & story association method for global learners. 
               Accelerating Korean literacy from Hangul fundamentals to deep Hanja vocabulary.
             </p>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.25rem' }}>
+              <Link to="/about" style={{ color: 'var(--ink-soft)', fontSize: '0.85rem', fontWeight: 'bold', textDecoration: 'none' }}>🏢 Company (회사소개)</Link>
+              <Link to="/privacy" style={{ color: 'var(--ink-soft)', fontSize: '0.85rem', fontWeight: 'bold', textDecoration: 'none' }}>🔒 Privacy (개인정보처리방침)</Link>
+              <Link to="/terms" style={{ color: 'var(--ink-soft)', fontSize: '0.85rem', fontWeight: 'bold', textDecoration: 'none' }}>📋 Terms (이용약관)</Link>
+            </div>
           </div>
           <div>
             <p style={{ fontSize: '0.85rem', marginBottom: '0.5rem', opacity: 0.8 }}>
