@@ -374,8 +374,25 @@ export function DemoHubPage() {
   }
 
   // Navigation to Consultation and pricing
-  const navigateToPricing = () => {
-    navigate('/waitlist')
+  const navigateToPricing = (levelTarget?: 'beginner' | 'intermediate' | 'advanced' | 'vip') => {
+    let trackVal: string = 'intermediate'
+    let tabVal: string = 'digital'
+    
+    if (levelTarget === 'beginner') {
+      trackVal = 'beginner'
+      tabVal = 'digital'
+    } else if (levelTarget === 'intermediate') {
+      trackVal = 'intermediate'
+      tabVal = 'digital'
+    } else if (levelTarget === 'advanced') {
+      trackVal = 'advanced'
+      tabVal = 'digital'
+    } else if (levelTarget === 'vip') {
+      trackVal = 'vip'
+      tabVal = 'coaching'
+    }
+    
+    navigate('/waitlist', { state: { selectedTrack: trackVal, selectedTab: tabVal } })
   }
 
   return (
@@ -697,7 +714,7 @@ export function DemoHubPage() {
             <button 
               type="button" 
               className="edu-btn-ember-3d"
-              onClick={navigateToPricing}
+              onClick={() => navigateToPricing('intermediate')}
             >
               See Pricing Options & Book Consultation
             </button>
@@ -716,10 +733,10 @@ export function DemoHubPage() {
               Level 2 Dialogue classroom requires standard/premium membership access. Check out the available plans and book a custom consultation zoom call now.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button type="button" className="edu-btn-3d" onClick={navigateToPricing}>
+              <button type="button" className="edu-btn-3d" onClick={() => navigateToPricing('intermediate')}>
                 View standard pricing table
               </button>
-              <button type="button" className="edu-btn-secondary-3d" onClick={navigateToPricing}>
+              <button type="button" className="edu-btn-secondary-3d" onClick={() => navigateToPricing('intermediate')}>
                 Book a Free Consultation
               </button>
             </div>
@@ -801,10 +818,10 @@ export function DemoHubPage() {
               Level 3 Advanced Hanja root etymology and Korean News editorial read room is exclusive for Advanced tier members. Select our Coaching Plan for instant unlock.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button type="button" className="edu-btn-3d" onClick={navigateToPricing}>
+              <button type="button" className="edu-btn-3d" onClick={() => navigateToPricing('advanced')}>
                 View pricing options
               </button>
-              <button type="button" className="edu-btn-secondary-3d" onClick={navigateToPricing}>
+              <button type="button" className="edu-btn-secondary-3d" onClick={() => navigateToPricing('advanced')}>
                 Book a Free Consultation
               </button>
             </div>
