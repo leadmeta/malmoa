@@ -137,13 +137,13 @@ export function HomePage() {
               <span style={{ color: 'var(--teal-deep)' }}>Visual Stories & Games</span>
             </h1>
             <p style={{ fontSize: '1.15rem', color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: '2.25rem', maxWidth: '34rem' }}>
-              Ditch the rote writing. Our patented picture-story association system maps abstract Korean letters and Hanja roots to vivid, memorable narratives. Fast-track your path to native fluency now.
+              Ditch the dry, repetitive memorization. Learn Hangul through King Sejong\'s scientific design principles combined with visual association. Unlock K-pop lyrics and K-drama subtext in record time.
             </p>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <button 
                 type="button" 
                 className="btn btn-primary btn-pulse" 
-                style={{ padding: '1rem 2.5rem', fontSize: '1.05rem', fontWeight: 'bold' }}
+                style={{ padding: '1.5rem 2.5rem', fontSize: '1.05rem', fontWeight: 'bold' }}
                 onClick={handleStartPlacement}
               >
                 Get Started (Diagnostic Test)
@@ -151,7 +151,7 @@ export function HomePage() {
               <Link 
                 className="btn btn-secondary" 
                 to="/play-hub" 
-                style={{ padding: '1rem 2.5rem', fontSize: '1.05rem', fontWeight: 'bold' }}
+                style={{ padding: '1.5rem 2.5rem', fontSize: '1.05rem', fontWeight: 'bold' }}
               >
                 Go to Play Zone
               </Link>
@@ -178,7 +178,118 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 2: THE COGNITIVE PEDAGOGY (뇌과학적 원리) */}
+      {/* SECTION 2: HALLYU WAVE & K-POP SYNERGY (한류 및 K-pop 시너지) */}
+      <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
+        <p className="section-label" style={{ textAlign: 'center' }}>Cultural Connection</p>
+        <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
+          Decode K-Pop Lyrics & K-Drama Subtext
+        </h2>
+        <p style={{ textAlign: 'center', maxWidth: '38rem', margin: '0 auto 3.5rem auto', color: 'var(--ink-soft)', fontSize: '0.98rem', lineHeight: 1.6 }}>
+          Subtitles translate words, but they lose the deep cultural context, honorific respect layers, and poetic wordplays. By understanding the linguistic structure, you connect directly to the heart of the Hallyu Wave.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
+          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🎤</div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Sing Along to K-Pop</h3>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
+              Stop singing romanized phonetics without understanding the meanings. Learn to read real Hangul syllables instantly, allowing you to sing lyrics by BTS, Blackpink, and IU at native tempo while understanding the poetic metaphors behind the verses.
+            </p>
+          </div>
+
+          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🎬</div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Unveil K-Drama Nuances</h3>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
+              Recognize the social hierarchy (Banmal vs. Jondetmal) that subheadings hide. Grasp the emotional weight in hit dramas like "Squid Game" and Oscar-winning "Parasite" by hearing and reading the actual vocabulary structures chosen by characters.
+            </p>
+          </div>
+
+          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '24px' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🍜</div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Live the Korean Lifestyle</h3>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
+              From reading street food menus in Seoul to following Korean skincare routines and cooking recipes. Literacy builds an authentic connection to modern Korean cuisine, cosmetics, and lifestyle trends beyond tourist guides.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3: THE IMPORTANCE & VALUE OF HANGUL LITERACY (한국어 교육의 중요성) */}
+      <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)', background: 'linear-gradient(180deg, transparent 0%, #f8fafc 100%)' }}>
+        <p className="section-label" style={{ textAlign: 'center' }}>Global Significance</p>
+        <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
+          Why Korean Literacy is Your Next Career Superpower
+        </h2>
+        <p style={{ textAlign: 'center', maxWidth: '38rem', margin: '0 auto 3.5rem auto', color: 'var(--ink-soft)', fontSize: '0.98rem', lineHeight: 1.6 }}>
+          With South Korea ranking as the world\'s 14th largest economy and a global tech powerhouse (Samsung, Hyundai), speaking and writing Korean unlocks massive academic, diplomatic, and commercial career tracks.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '20px' }}>
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>💼 Global Business Hub</h4>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+              Unlock relationships with major multi-national conglomerates. Professional Korean writing ability gives you a competitive advantage in tech, trade, automotive, and entertainment job markets.
+            </p>
+          </div>
+          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '20px' }}>
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>🎓 Academic Opportunities</h4>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+              Korean universities offer prestigious scholarships (like GKS) and research programs. Reading primary texts, literature, and news allows you to study international relations and linguistics in Seoul directly.
+            </p>
+          </div>
+          <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '20px' }}>
+            <h4 style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>🤝 Diplomatic Bridges</h4>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+              As geopolitical dynamics shift, certified Korean literacy is highly sought after in diplomacy, translations, intelligence, and international non-profits working across the East Asian security sphere.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4: PHONOLOGICAL SCIENCE OF KING SEJONG (세종대왕의 한글 창제 과학) */}
+      <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'center' }}>
+          <div>
+            <p className="section-label">Linguistic Masterpiece</p>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', marginBottom: '1.25rem' }}>
+              Designed by a King. Praised by Linguists.
+            </h2>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.98rem', marginBottom: '1.5rem' }}>
+              Unlike languages that evolved over thousands of years with messy spelling exceptions, Hangul was created by King Sejong the Great in 1443 with a clean, phonetic logic. It is the only writing system in the world where letters mimic the vocal organs producing them.
+            </p>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <span style={{ fontSize: '1.75rem' }}>👅</span>
+                <div>
+                  <strong>Consonant Organ Mimicry</strong>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', margin: '0.2rem 0 0 0' }}>The consonant shapes copy the position of your vocal organs. For example, "ㄱ" represents the shape of the tongue blocking the back of the throat during the "g/k" sound. "ㄴ" copies the tongue touching the roof of the mouth.</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <span style={{ fontSize: '1.75rem' }}>🌌</span>
+                <div>
+                  <strong>Celestial Vowel Logic (Heaven, Earth, Man)</strong>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', margin: '0.2rem 0 0 0' }}>All vowels are built systematically from three elements: ㆍ (a dot representing the Sun/Heaven), ㅡ (a flat line representing the flat Earth), and ㅣ (a vertical line representing a standing Man). This logical geometry allows perfect vowel combination rules.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style={{ background: '#0e1621', color: 'white', padding: '2.5rem', borderRadius: '32px', border: '1px solid var(--teal)', textAlign: 'left' }}>
+              <h4 style={{ color: 'white', fontFamily: 'var(--font-display)', fontSize: '1.25rem', marginBottom: '1rem' }}>"A wise man can learn it in one morning."</h4>
+              <p style={{ color: '#a0aab8', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
+                Historical logs in the Hunminjeongeum Haerye record: <br/>
+                <em>"A wise man can acquaint himself with them before the morning is over; even a stupid man can learn them in the space of ten days."</em> <br/><br/>
+                Because Hangul is a <strong>featural alphabet</strong>, letters represent specific physical features of sound. When you understand the underlying creation principle, memorization becomes an analytical deduction rather than a chore.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: PEDAGOGY PRINCIPLE (뇌과학적 암기 원리) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <p className="section-label" style={{ textAlign: 'center' }}>Scientific Foundation</p>
         <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
@@ -215,7 +326,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: 12-WEEK FULL SYLLABUS ROADMAP (주차별 세부 강의계획) */}
+      {/* SECTION 6: 12-WEEK FULL SYLLABUS ROADMAP (주차별 세부 강의계획) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <p className="section-label" style={{ textAlign: 'center' }}>Syllabus Blueprint</p>
         <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
@@ -226,7 +337,6 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-          {/* Week 1-3 */}
           <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 1-3</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 1: Basic Hangul</h4>
@@ -240,7 +350,6 @@ export function HomePage() {
             </ul>
           </div>
 
-          {/* Week 4-6 */}
           <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 4-6</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 2: Word Building</h4>
@@ -254,7 +363,6 @@ export function HomePage() {
             </ul>
           </div>
 
-          {/* Week 7-9 */}
           <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 7-9</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 3: Dialogues</h4>
@@ -268,7 +376,6 @@ export function HomePage() {
             </ul>
           </div>
 
-          {/* Week 10-12 */}
           <div style={{ background: '#f8fafc', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '20px' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--teal-deep)', background: '#e2f1f1', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>WEEKS 10-12</span>
             <h4 style={{ margin: '0.75rem 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.1rem' }}>Stage 4: News & Hanja</h4>
@@ -284,7 +391,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 4: THE PHYSICAL KIT UNBOXING (실물 워크북 & 스티커 패키지 상세) */}
+      {/* SECTION 7: THE PHYSICAL KIT UNBOXING (실물 워크북 & 스티커 패키지 상세) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'center' }}>
           <div>
@@ -330,7 +437,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 5: NATIVE KOREAN TUTORS CATALOG (전담 원어민 강사진 쇼케이스) */}
+      {/* SECTION 8: NATIVE KOREAN TUTORS CATALOG (전담 원어민 강사진 쇼케이스) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <p className="section-label" style={{ textAlign: 'center' }}>Professional Coaching</p>
         <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
@@ -341,16 +448,14 @@ export function HomePage() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          {/* Tutor 1 */}
           <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', textAlign: 'center' }}>
             <span style={{ fontSize: '3rem' }}>👩‍🏫</span>
-            <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2rem' }}>Ji-yeon Kim</h4>
+            <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2.rem' }}>Ji-yeon Kim</h4>
             <p style={{ fontSize: '0.8rem', color: 'var(--teal-deep)', fontWeight: 'bold', marginBottom: '1rem' }}>Seoul National Univ. • Korean Lit</p>
             <p style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', lineHeight: 1.5, margin: 0 }}>
               Specializes in beginner phonetics correction and interactive stroke order tutoring. Direct, positive feedback style.
             </p>
           </div>
-          {/* Tutor 2 */}
           <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', textAlign: 'center' }}>
             <span style={{ fontSize: '3rem' }}>👨‍🏫</span>
             <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2rem' }}>Min-ho Park</h4>
@@ -359,7 +464,6 @@ export function HomePage() {
               Focused on conversational dialogue coaching and daily dialect particles. Excellent at clarifying situational nuances.
             </p>
           </div>
-          {/* Tutor 3 */}
           <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', textAlign: 'center' }}>
             <span style={{ fontSize: '3rem' }}>👩‍🏫</span>
             <h4 style={{ margin: '0.75rem 0 0.25rem 0', fontWeight: 'bold', fontSize: '1.2rem' }}>Soo-min Lee</h4>
@@ -371,7 +475,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 6: THE WADIZ CROWDFUNDING SAGA (와디즈 펀딩 신화) */}
+      {/* SECTION 9: THE WADIZ CROWDFUNDING SAGA (와디즈 펀딩 신화) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <p className="section-label" style={{ textAlign: 'center' }}>Campaign Records</p>
         <h2 style={{ textAlign: 'center', marginBottom: '1rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
@@ -397,7 +501,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 7: ADAPTIVE TYPING GAME SPECIFICATION (타자게임 기획 및 스펙) */}
+      {/* SECTION 10: ADAPTIVE TYPING GAME SPECIFICATION (타자게임 기획 및 스펙) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'center' }}>
           <div>
@@ -439,7 +543,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 8: PATENTS & WHITE-PAPERS (특허 기술 및 학술 백서 요약) */}
+      {/* SECTION 11: PATENTS & WHITE-PAPERS (특허 기술 및 학술 백서 요약) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <p className="section-label" style={{ textAlign: 'center' }}>Patented Methods</p>
         <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
@@ -474,7 +578,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 9: VERIFIED LEARNER TESTIMONIALS (서포터 실물 만족도 후기) */}
+      {/* SECTION 12: VERIFIED LEARNER TESTIMONIALS (서포터 실물 만족도 후기) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <p className="section-label" style={{ textAlign: 'center' }}>Testimonials</p>
         <h2 style={{ textAlign: 'center', marginBottom: '3.5rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
@@ -482,7 +586,6 @@ export function HomePage() {
         </h2>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          {/* Review 1 */}
           <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
             <span style={{ color: 'var(--teal-deep)', fontSize: '1.5rem' }}>“</span>
             <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1rem 0' }}>
@@ -490,7 +593,6 @@ export function HomePage() {
             </p>
             <strong>Sarah Connor</strong> • <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>Beginner Student</span>
           </div>
-          {/* Review 2 */}
           <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
             <span style={{ color: 'var(--teal-deep)', fontSize: '1.5rem' }}>“</span>
             <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1rem 0' }}>
@@ -498,7 +600,6 @@ export function HomePage() {
             </p>
             <strong>Kenji Sato</strong> • <span style={{ fontSize: '0.8rem', color: 'var(--ink-soft)' }}>Intermediate Student</span>
           </div>
-          {/* Review 3 */}
           <div style={{ background: 'white', border: '1px solid var(--line)', padding: '2rem', borderRadius: '24px', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
             <span style={{ color: 'var(--teal-deep)', fontSize: '1.5rem' }}>“</span>
             <p style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 1rem 0' }}>
@@ -509,7 +610,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 10: COMPREHENSIVE FAQ 8선 (자주 묻는 질문) */}
+      {/* SECTION 13: COMPREHENSIVE EXPANDED FAQ 12선 (자주 묻는 질문) */}
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <p className="section-label" style={{ textAlign: 'center' }}>FAQ</p>
         <h2 style={{ textAlign: 'center', marginBottom: '3.5rem', fontFamily: 'var(--font-display)', fontSize: '2.2rem' }}>
@@ -537,33 +638,53 @@ export function HomePage() {
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
               No, but we highly recommend it! The test automatically adjusts the vocabulary pool in the Play Zone, matching your current skill level perfectly.
             </p>
+
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q5. Can this help me understand K-pop lyrics?</h4>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
+              Absolutely. Level 2 and 3 curriculum features real-world lyrics syntax parsing. By studying actual Hangul blocks rather than romanization, you will be able to read and sing K-pop lyrics in real-time.
+            </p>
+
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q6. What makes Hangul a "scientific" alphabet?</h4>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
+              Hangul is a featural writing system where letter shapes reflect the physiological organs used to pronounce them. Because of this logical correlation, it has been widely recognized by world linguists as the most structured writing system on earth.
+            </p>
           </div>
 
           <div>
-            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q5. What are Hanja Roots, and why study them?</h4>
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q7. What are Hanja Roots, and why study them?</h4>
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
               Hanja represents Chinese character roots used in Korean. Just like Latin roots in English, mastering Hanja roots (like 木, 水, 調) unlocks the capability to guess the meaning of new academic words instantly.
             </p>
 
-            <h6 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q6. How do I get my certificate of completion?</h6>
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q8. How do I get my certificate of completion?</h4>
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
               Complete the Advanced News Literacy course and finish the final test. The system will generate a printable PDF certificate on your profile board.
             </p>
 
-            <h6 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q7. Can I change my licensed course tier?</h6>
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q9. Can I change my licensed course tier?</h4>
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
               Yes. Administrators can change user levels manually in the Student Database. Users can also unlock tiers instantly in the Bookstore.
             </p>
 
-            <h6 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q8. What happens to my XP points?</h6>
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q10. What happens to my XP points?</h4>
             <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
               Your XP points represent your typing speed and writing accuracy achievements. Accumulating XP ranks you higher on the global leaderboard.
+            </p>
+
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q11. Will I learn formal and informal Korean?</h4>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
+              Yes. Level 2 conversations are explicitly structured to contrast formal polite speech (Jondetmal) used in workplaces and informal speech (Banmal) used between friends.
+            </p>
+
+            <h4 style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.5rem' }}>Q12. Is the textbook kit necessary for the course?</h4>
+            <p style={{ fontSize: '0.88rem', color: 'var(--ink-soft)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
+              While the digital course stands alone, the visual sticker sheets and recall poster map in the physical kit provide a tactile reinforcement that speed up word recall by an additional 40%.
             </p>
           </div>
         </div>
       </section>
 
-      {/* SECTION 11: FINAL CONVERSION BANNER (하단 최종 CTA 밴드) */}
+      {/* SECTION 14: FINAL CONVERSION BANNER (하단 최종 CTA 밴드) */}
       <section className="cta-band" style={{ padding: '6rem 0' }}>
         <div className="shell cta-inner" style={{ textAlign: 'center' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', color: 'white', marginBottom: '1.25rem' }}>
