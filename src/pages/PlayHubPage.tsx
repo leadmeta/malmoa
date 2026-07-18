@@ -458,15 +458,37 @@ export function PlayHubPage() {
   }
 
   return (
-    <div className="shell page-hero reveal" style={{ paddingBottom: '4rem' }}>
-      <p className="section-label">Hangul Play Portal</p>
-      <h1>Gaming & Social Hub</h1>
-      <p style={{ maxWidth: '40rem', color: 'var(--ink-soft)' }}>
-        Learn, compete, chat, and shop. Test your typing speed in the Raindrop Game, track global ranks, talk with peers, and unlock textbooks.
-      </p>
+    <div className="shell reveal" style={{ paddingBottom: '4rem', marginTop: '1.5rem' }}>
+      {/* Sub tabs selector: Positioned immediately below header navigation */}
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--line)', paddingBottom: '1px', overflowX: 'auto' }}>
+        {(['game', 'rank', 'board', 'store'] as const).map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => setActiveTab(tab)}
+            style={{
+              padding: '0.75rem 1.5rem',
+              background: activeTab === tab ? 'white' : 'transparent',
+              border: 'none',
+              borderBottom: activeTab === tab ? '3px solid var(--teal)' : '3px solid transparent',
+              color: activeTab === tab ? 'var(--teal-deep)' : 'var(--ink-soft)',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              fontSize: '0.85rem'
+            }}
+          >
+            {tab === 'game' && '⌨️ Keyboard Game'}
+            {tab === 'rank' && '🏆 Rankings'}
+            {tab === 'board' && '💬 Student Forum'}
+            {tab === 'store' && '🛒 Bookstore'}
+          </button>
+        ))}
+      </div>
 
-      {/* Profile summary bar */}
-      <div style={{ background: 'white', border: '1px solid var(--line)', padding: '1rem 1.5rem', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', margin: '2rem 0', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
+      {/* Profile summary bar: Placed underneath the tab navigation */}
+      <div style={{ background: 'white', border: '1px solid var(--line)', padding: '1rem 1.5rem', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '2rem', boxShadow: '0 4px 15px rgba(0,0,0,0.01)' }}>
         <div>
           Student Avatar: <strong>{userProfile.name}</strong>
         </div>
@@ -476,34 +498,6 @@ export function PlayHubPage() {
         <div>
           Account License: <span style={{ background: 'color-mix(in srgb, var(--teal) 10%, white)', color: 'var(--teal-deep)', fontWeight: 'bold', padding: '0.2rem 0.6rem', borderRadius: '8px', fontSize: '0.85rem' }}>{userProfile.tier} Tier</span>
         </div>
-      </div>
-
-      {/* Sub tabs selector */}
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2.5rem', borderBottom: '1px solid var(--line)', paddingBottom: '1px', overflowX: 'auto' }}>
-        {(['game', 'rank', 'board', 'store'] as const).map((tab) => (
-          <button
-            key={tab}
-            type="button"
-            onClick={() => setActiveTab(tab)}
-            style={{
-              padding: '0.6rem 1.25rem',
-              background: activeTab === tab ? 'white' : 'transparent',
-              border: 'none',
-              borderBottom: activeTab === tab ? '3px solid var(--teal)' : '3px solid transparent',
-              color: activeTab === tab ? 'var(--teal-deep)' : 'var(--ink-soft)',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              textTransform: 'uppercase',
-              letterSpacing: '0.04em',
-              fontSize: '0.9rem'
-            }}
-          >
-            {tab === 'game' && '🎮 Keyboard Game'}
-            {tab === 'rank' && '🏆 Rankings'}
-            {tab === 'board' && '💬 Student Forum'}
-            {tab === 'store' && '🛒 Bookstore'}
-          </button>
-        ))}
       </div>
 
       {/* --- SUB-TAB 1: TYPING GAME --- */}
