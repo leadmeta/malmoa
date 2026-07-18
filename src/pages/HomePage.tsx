@@ -129,9 +129,14 @@ export function HomePage() {
         <div className="shell hero-grid-layout" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', width: '100%', alignItems: 'center' }}>
           
           <div className="hero-copy reveal" style={{ textAlign: 'left' }}>
-            <div className="wadiz-badge" style={{ display: 'inline-flex', background: 'color-mix(in srgb, var(--teal) 10%, white)', color: 'var(--teal-deep)', fontWeight: 'bold', padding: '0.4rem 0.8rem', borderRadius: '12px', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
-              ★ 2,300%+ Crowdfunded Mnemonic Method
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+              <div className="wadiz-badge" style={{ margin: 0 }}>
+                ★ 2,300%+ Crowdfunded Mnemonic Method
+              </div>
+              {/* 귀여운 환영 호랑이 마스코트 배치 */}
+              <img src="/tiger_welcome.png" alt="Cute tiger welcome mascot" style={{ width: '48px', height: '48px', objectFit: 'contain' }} />
             </div>
+            
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '3.2rem', lineHeight: 1.1, fontWeight: 'bold', marginBottom: '1.25rem', color: 'var(--ink)' }}>
               Learn Korean via <br/>
               <span style={{ color: 'var(--teal-deep)' }}>Visual Stories & Games</span>
@@ -212,7 +217,6 @@ export function HomePage() {
           </div>
         </div>
 
-        {/* 문맥에 맞는 K-pop 디코더 이미지 추가 */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
           <div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', marginBottom: '1rem' }}>The K-Pop Mnemonic Decoder</h3>
@@ -295,7 +299,10 @@ export function HomePage() {
             </div>
           </div>
           <div>
-            <div className="edu-chalkboard" style={{ marginBottom: '1.5rem' }}>
+            <div className="edu-chalkboard" style={{ marginBottom: '1.5rem', position: 'relative' }}>
+              {/* 공부하는 호랑이 캐릭터 배치 */}
+              <img src="/tiger_study.png" alt="Cute tiger studying mascot" style={{ position: 'absolute', bottom: '10px', right: '15px', width: '56px', height: '56px', objectFit: 'contain' }} />
+              
               <h4 style={{ color: 'white', fontFamily: 'var(--font-display)', fontSize: '1.25rem', marginBottom: '1rem' }}>"A wise man can learn it in one morning."</h4>
               <p style={{ color: '#a0aab8', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
                 Historical logs in the Hunminjeongeum Haerye record: <br/>
@@ -304,7 +311,6 @@ export function HomePage() {
               </p>
             </div>
             
-            {/* 문맥에 맞는 Tracing Canvas 이미지 추가 */}
             <div className="edu-card-chunky" style={{ padding: '1rem' }}>
               <img 
                 src="/hangul_stroke_tracing.png" 
@@ -534,7 +540,10 @@ export function HomePage() {
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'center' }}>
           <div>
-            <div className="edu-card-chunky" style={{ padding: '1rem' }}>
+            <div className="edu-card-chunky" style={{ padding: '1rem', position: 'relative' }}>
+              {/* 타자 치는 호랑이 캐릭터 배치 */}
+              <img src="/tiger_typer.png" alt="Cute tiger typing mascot" style={{ position: 'absolute', top: '-10px', left: '-10px', width: '56px', height: '56px', objectFit: 'contain', zIndex: 10 }} />
+              
               <img 
                 src="/hanja_root_network.png" 
                 alt="Hanja root etymology network mapping" 
@@ -716,8 +725,13 @@ export function HomePage() {
       </section>
 
       {/* SECTION 14: FINAL CONVERSION BANNER (하단 최종 CTA 밴드) */}
-      <section className="cta-band" style={{ padding: '6rem 0' }}>
-        <div className="shell cta-inner" style={{ textAlign: 'center' }}>
+      <section className="cta-band" style={{ padding: '6rem 0', position: 'relative' }}>
+        {/* 응원하는 호랑이 캐릭터 배치 */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+          <img src="/tiger_cheer.png" alt="Cute tiger cheering mascot" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
+        </div>
+        
+        <div className="shell cta-inner" style={{ textAlign: 'center', margin: '0 auto' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', color: 'white', marginBottom: '1.25rem' }}>
             Ready to Fast-Track Your Korean Literacy?
           </h2>
@@ -828,7 +842,11 @@ export function HomePage() {
               </div>
             ) : (
               <div style={{ animation: 'rise 0.4s ease both', textAlign: 'center' }}>
-                <span style={{ fontSize: '3rem' }}>🏆</span>
+                {/* 100점 시험지 자랑하는 성공 호랑이 마스코트 배치 */}
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+                  <img src="/tiger_success.png" alt="Cute tiger success mascot" style={{ width: '100px', height: '100px', objectFit: 'contain' }} />
+                </div>
+                
                 <h3 style={{ color: 'white', margin: '0.75rem 0 0.5rem 0', fontSize: '1.65rem' }}>
                   Diagnostic Complete!
                 </h3>
