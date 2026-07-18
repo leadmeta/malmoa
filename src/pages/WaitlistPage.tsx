@@ -36,22 +36,24 @@ export function WaitlistPage() {
 
   // Align parameters depending on user entry state
   useEffect(() => {
+    let finalTab: PriceTab = 'digital'
+    let finalBilling: BillingCycle = 'monthly'
+
     if (stateTrack) {
       setTrack(stateTrack)
       // Deduce tab from track type
       if (stateTrack === 'vip') {
-        setActiveTab('coaching')
-        setBilling('monthly')
-      } else if (['kit_basic', 'kit_kids', 'kit_minibook', 'kit_allinone', 'intermediate'].includes(stateTrack)) {
-        // If textbook category
-        if (stateTrack.startsWith('kit_') || stateTrack === 'intermediate') {
-          setActiveTab('textbook')
-          setBilling('once')
-        }
+        finalTab = 'coaching'
+        finalBilling = 'monthly'
+      } else if (stateTrack.startsWith('kit_')) {
+        finalTab = 'textbook'
+        finalBilling = 'once'
       } else {
-        setActiveTab('digital')
-        setBilling('monthly')
+        finalTab = 'digital'
+        finalBilling = 'monthly'
       }
+      setActiveTab(finalTab)
+      setBilling(finalBilling)
     }
     
     // Explicit tab overwrite if sent
@@ -59,10 +61,12 @@ export function WaitlistPage() {
       setActiveTab(stateTab)
     }
 
-    // Scroll to the main pricing container smoothly
-    const container = document.getElementById('pricing-main-container')
-    if (container) {
-      container.scrollIntoView({ behavior: 'smooth' })
+    // Scroll directly to the reservation form section smoothly for direct call matching
+    const formSec = document.getElementById('inquiry-form-section')
+    if (formSec) {
+      setTimeout(() => {
+        formSec.scrollIntoView({ behavior: 'smooth' })
+      }, 150)
     }
   }, [stateTrack, stateTab])
 

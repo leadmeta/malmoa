@@ -42,11 +42,30 @@ export function CurriculumPage() {
             </p>
             <hr style={{ borderColor: 'var(--line)', margin: '1rem 0' }} />
             <h5 style={{ fontWeight: 'bold', fontSize: '0.85rem', marginBottom: '0.5rem', color: 'var(--ink)' }}>Core Outcomes:</h5>
-            <ul className="path-outcomes" style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--ink-soft)', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+            <ul className="path-outcomes" style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--ink-soft)', display: 'flex', flexDirection: 'column', gap: '0.25rem', marginBottom: '1.5rem' }}>
               {stage.outcomes.map((out, idx) => (
                 <li key={idx}>{out}</li>
               ))}
             </ul>
+            <Link
+              to="/waitlist"
+              state={{
+                selectedTrack: i === 0 ? 'beginner' : i === 1 ? 'intermediate' : 'advanced',
+                selectedTab: 'digital'
+              }}
+              className="edu-btn-secondary-3d"
+              style={{
+                display: 'block',
+                textAlign: 'center',
+                padding: '0.5rem 0',
+                fontSize: '0.85rem',
+                borderRadius: '12px',
+                marginTop: 'auto',
+                fontWeight: 'bold'
+              }}
+            >
+              Enroll {i === 0 ? 'Beginner' : i === 1 ? 'Intermediate' : 'Advanced'} Class →
+            </Link>
           </div>
         ))}
       </div>
@@ -116,24 +135,30 @@ export function CurriculumPage() {
         </div>
 
         {/* 3. Community activity & overall package structure */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
-          <div>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'start' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.75rem', background: 'white' }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', fontWeight: 'bold', marginBottom: '0.85rem' }}>
               Motivate Yourself with the Learner Community
             </h3>
-            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.7, fontSize: '0.98rem', marginBottom: '1.5rem' }}>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.9rem', marginBottom: '1.25rem' }}>
               Study groups and active discussions accelerate language acquisition. Submit your homework sheets, share score milestones, and rank high on the XP leaderboards.
             </p>
-            <img src="/wadiz-assets/wadiz_39.png" alt="사이트의 커뮤니티 활동을 통한 지속적인 동기부여" style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid var(--line)', display: 'block' }} />
+            <img src="/wadiz-assets/wadiz_39.png" alt="사이트의 커뮤니티 활동을 통한 지속적인 동기부여" style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid var(--line)', display: 'block', marginBottom: '1.5rem' }} />
+            <Link to="/waitlist" state={{ selectedTrack: 'vip', selectedTab: 'coaching' }} className="edu-btn-secondary-3d" style={{ display: 'block', textAlign: 'center', padding: '0.65rem 0', fontSize: '0.88rem', borderRadius: '12px', fontWeight: 'bold' }}>
+              Join Coaching Community →
+            </Link>
           </div>
-          <div>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1.25rem' }}>
+          <div className="edu-card-chunky" style={{ padding: '1.75rem', background: 'white' }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.45rem', fontWeight: 'bold', marginBottom: '0.85rem' }}>
               Complete Course Package Layout
             </h3>
-            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.7, fontSize: '0.98rem', marginBottom: '1.5rem' }}>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.9rem', marginBottom: '1.25rem' }}>
               Everything shipped safely in a single box directly from our logistics center in Seoul. Track your dispatched package in the admin desk.
             </p>
-            <img src="/wadiz-assets/wadiz_41.png" alt="교재 구성 전체 패키지" style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid var(--line)', display: 'block' }} />
+            <img src="/wadiz-assets/wadiz_41.png" alt="교재 구성 전체 패키지" style={{ width: '100%', height: 'auto', borderRadius: '16px', border: '1px solid var(--line)', display: 'block', marginBottom: '1.5rem' }} />
+            <Link to="/waitlist" state={{ selectedTrack: 'kit_allinone', selectedTab: 'textbook' }} className="edu-btn-3d" style={{ display: 'block', textAlign: 'center', padding: '0.65rem 0', fontSize: '0.88rem', borderRadius: '12px' }}>
+              Order Elite All-in-One Pack →
+            </Link>
           </div>
         </div>
 
