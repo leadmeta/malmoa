@@ -42,6 +42,66 @@ const TYPING_SETS: Record<UserTier, { text: string; translation: string }[]> = {
   ]
 }
 
+// Keyboard key mappings (Hangul to English)
+const KEY_MAP: Record<string, string> = {
+  'ㅂ': 'Q', 'ㅈ': 'W', 'ㄷ': 'E', 'ㄱ': 'R', 'ㅅ': 'T', 'ㅛ': 'Y', 'ㅕ': 'U', 'ㅑ': 'I', 'ㅐ': 'O', 'ㅔ': 'P',
+  'ㅁ': 'A', 'ㄴ': 'S', 'ㅇ': 'D', 'ㄹ': 'F', 'ㅎ': 'G', 'ㅗ': 'H', 'ㅓ': 'J', 'ㅏ': 'K', 'ㅣ': 'L',
+  'ㅋ': 'Z', 'ㅌ': 'X', 'ㅊ': 'C', 'ㅍ': 'V', 'ㅠ': 'B', 'ㅜ': 'N', 'ㅡ': 'M'
+}
+
+// Custom oscillator synthesizer beep effects
+function playSynthSound(type: 'correct' | 'wrong' | 'start' | 'gameover', isMuted: boolean) {
+  if (isMuted) return
+  try {
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext
+    if (!AudioContext) return
+    const ctx = new AudioContext()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+
+    if (type === 'correct') {
+      osc.type = 'sine'
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime) // C5
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08) // E5
+      gain.gain.setValueAtTime(0.08, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.22)
+      osc.start()
+      osc.stop(ctx.currentTime + 0.22)
+    } else if (type === 'wrong') {
+      osc.type = 'sawtooth'
+      osc.frequency.setValueAtTime(160, ctx.currentTime)
+      osc.frequency.setValueAtTime(110, ctx.currentTime + 0.12)
+      gain.gain.setValueAtTime(0.12, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.28)
+      osc.start()
+      osc.stop(ctx.currentTime + 0.28)
+    } else if (type === 'start') {
+      osc.type = 'triangle'
+      osc.frequency.setValueAtTime(320, ctx.currentTime)
+      osc.frequency.setValueAtTime(480, ctx.currentTime + 0.08)
+      osc.frequency.setValueAtTime(640, ctx.currentTime + 0.16)
+      gain.gain.setValueAtTime(0.08, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4)
+      osc.start()
+      osc.stop(ctx.currentTime + 0.4)
+    } else if (type === 'gameover') {
+      osc.type = 'sawtooth'
+      osc.frequency.setValueAtTime(220, ctx.currentTime)
+      osc.frequency.setValueAtTime(140, ctx.currentTime + 0.25)
+      osc.frequency.setValueAtTime(90, ctx.currentTime + 0.5)
+      gain.gain.setValueAtTime(0.15, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6)
+      osc.start()
+      osc.stop(ctx.currentTime + 0.6)
+    }
+  } catch {
+    // Ignore audio contexts blocks
+  }
+}
+
 export function PlayHubPage() {
   const [activeTab, setActiveTab] = useState<SubTab>('game')
   
@@ -51,6 +111,12 @@ export function PlayHubPage() {
     xp: 100,
     tier: 'Beginner'
   })
+
+  // Audio mute state
+  const [isMuted, setIsMuted] = useState(true)
+
+  // Virtual keyboard setting: 'all' | 'korean' | 'hide'
+  const [keyboardMode, setKeyboardMode] = useState<'all' | 'korean' | 'hide'>('all')
 
   // Load User profile & setup defaults
   const reloadUserProfile = () => {
@@ -88,9 +154,10 @@ export function PlayHubPage() {
   const [typedInput, setTypedInput] = useState('')
   const [gameScore, setGameScore] = useState(0)
   const [gameLives, setGameLives] = useState(3)
+  const [difficulty, setDifficulty] = useState(1.5) // Velocity multiplier
   
-  const gameLoopRef = useRef<number | null>(null)
   const spawnTimerRef = useRef<number | null>(null)
+  const movementIntervalRef = useRef<number | null>(null)
   const nextWordId = useRef(0)
 
   const startGame = () => {
@@ -99,8 +166,10 @@ export function PlayHubPage() {
     setFallingWords([])
     setGameScore(0)
     setGameLives(3)
+    setDifficulty(1.5)
     setTypedInput('')
     nextWordId.current = 0
+    playSynthSound('start', isMuted)
   }
 
   // Spawn word loop
@@ -109,6 +178,9 @@ export function PlayHubPage() {
       if (spawnTimerRef.current) clearInterval(spawnTimerRef.current)
       return
     }
+
+    // Dynamic spawn interval based on tier
+    const intervalTime = userProfile.tier === 'Advanced' ? 3500 : 2200
 
     spawnTimerRef.current = window.setInterval(() => {
       const wordPool = TYPING_SETS[userProfile.tier]
@@ -122,40 +194,42 @@ export function PlayHubPage() {
         y: 0
       }
       setFallingWords((prev) => [...prev, newWord])
-    }, 2500)
+    }, intervalTime)
 
     return () => {
       if (spawnTimerRef.current) clearInterval(spawnTimerRef.current)
     }
   }, [gamePlaying, gameOver, userProfile.tier])
 
-  // Tracing animation loop
+  // Movement Physics (Top coordinates update every 35ms using setInterval to prevent closure locks)
   useEffect(() => {
     if (!gamePlaying || gameOver) {
-      if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current)
+      if (movementIntervalRef.current) clearInterval(movementIntervalRef.current)
       return
     }
 
-    const moveDown = () => {
-      let lostLife = false
+    movementIntervalRef.current = window.setInterval(() => {
+      let lifeLost = false
 
       setFallingWords((prev) => {
         const next = prev.map((w) => ({
           ...w,
-          y: w.y + 1.2 // Falling speed
+          y: w.y + (difficulty * 0.8) // Falling step height
         })).filter((w) => {
-          if (w.y >= 380) {
-            lostLife = true
+          if (w.y >= 450) { // Screen height bound is 500px now
+            lifeLost = true
             return false
           }
           return true
         })
 
-        if (lostLife) {
+        if (lifeLost) {
+          playSynthSound('wrong', isMuted)
           setGameLives((l) => {
             if (l <= 1) {
               setGameOver(true)
               setGamePlaying(false)
+              playSynthSound('gameover', isMuted)
               return 0
             }
             return l - 1
@@ -164,28 +238,61 @@ export function PlayHubPage() {
 
         return next
       })
-
-      gameLoopRef.current = requestAnimationFrame(moveDown)
-    }
-
-    gameLoopRef.current = requestAnimationFrame(moveDown)
+    }, 35)
 
     return () => {
-      if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current)
+      if (movementIntervalRef.current) clearInterval(movementIntervalRef.current)
     }
-  }, [gamePlaying, gameOver])
+  }, [gamePlaying, gameOver, difficulty, isMuted])
 
+  // Synchronize difficulty to score
+  useEffect(() => {
+    const nextDiff = 1.5 + Math.floor(gameScore / 80) * 0.4
+    setDifficulty(Math.min(nextDiff, 4.0))
+  }, [gameScore])
+
+  // Handle typing evaluation with granular layout constraints
+  const handleTypingChange = (val: string) => {
+    setTypedInput(val)
+    const trimmed = val.trim()
+
+    // 1. Single character or consonant/vowel (Instant blast, no Enter)
+    if (trimmed.length === 1) {
+      const matchIdx = fallingWords.findIndex((w) => w.text === trimmed)
+      if (matchIdx !== -1) {
+        setGameScore((s) => s + 10)
+        setFallingWords((prev) => prev.filter((_, idx) => idx !== matchIdx))
+        setTypedInput('')
+        playSynthSound('correct', isMuted)
+      }
+    }
+    // 2. 2-character word: check if space is entered
+    else if (val.endsWith(' ')) {
+      const matchIdx = fallingWords.findIndex((w) => w.text === trimmed)
+      if (matchIdx !== -1) {
+        setGameScore((s) => s + 10)
+        setFallingWords((prev) => prev.filter((_, idx) => idx !== matchIdx))
+        setTypedInput('')
+        playSynthSound('correct', isMuted)
+      }
+    }
+  }
+
+  // Handle traditional submit (Enter key)
   const submitTypingWord = (e: React.FormEvent) => {
     e.preventDefault()
     if (!gamePlaying || gameOver) return
 
     const trimmed = typedInput.trim()
-    const targetIdx = fallingWords.findIndex((w) => w.text === trimmed)
+    const matchIdx = fallingWords.findIndex((w) => w.text === trimmed)
 
-    if (targetIdx !== -1) {
+    if (matchIdx !== -1) {
       setGameScore((s) => s + 10)
-      setFallingWords((prev) => prev.filter((_, idx) => idx !== targetIdx))
+      setFallingWords((prev) => prev.filter((_, idx) => idx !== matchIdx))
       setTypedInput('')
+      playSynthSound('correct', isMuted)
+    } else {
+      playSynthSound('wrong', isMuted)
     }
   }
 
@@ -380,47 +487,96 @@ export function PlayHubPage() {
       {/* --- SUB-TAB 1: TYPING GAME --- */}
       {activeTab === 'game' && (
         <div style={{ animation: 'rise 0.4s ease both' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
             <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.35rem' }}>
               Raindrop Typer (Level: <span style={{ color: 'var(--teal)' }}>{userProfile.tier}</span>)
             </h3>
-            <div>
-              Hearts: <span style={{ color: 'var(--ember)', fontSize: '1.15rem' }}>{'❤️'.repeat(gameLives) || '💀'}</span>
+            
+            {/* Audio & Keyboard Control Dashboard */}
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              {/* Sound Toggle */}
+              <button
+                type="button"
+                className="btn btn-secondary"
+                style={{ padding: '0.4rem 1rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+                onClick={() => setIsMuted((m) => !m)}
+              >
+                <span>{isMuted ? '🔇 Muted' : '🔊 Sound ON'}</span>
+              </button>
+
+              {/* Keyboard Mode Selector */}
+              <div style={{ display: 'flex', background: 'var(--paper-cool)', padding: '0.2rem', borderRadius: '8px', border: '1px solid var(--line)' }}>
+                {(['all', 'korean', 'hide'] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setKeyboardMode(mode)}
+                    style={{
+                      padding: '0.25rem 0.6rem',
+                      fontSize: '0.75rem',
+                      fontWeight: 'bold',
+                      border: 'none',
+                      borderRadius: '6px',
+                      background: keyboardMode === mode ? 'white' : 'transparent',
+                      color: keyboardMode === mode ? 'var(--teal-deep)' : 'var(--ink-soft)',
+                      cursor: 'pointer',
+                      boxShadow: keyboardMode === mode ? '0 2px 5px rgba(0,0,0,0.05)' : 'none',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    {mode === 'all' && 'Show All'}
+                    {mode === 'korean' && 'Korean Only'}
+                    {mode === 'hide' && 'Hide Keypad'}
+                  </button>
+                ))}
+              </div>
             </div>
-            <strong style={{ fontSize: '1.15rem', color: 'var(--teal-deep)' }}>+{gameScore} XP</strong>
+
+            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+              <div>
+                Hearts: <span style={{ color: 'var(--ember)', fontSize: '1.15rem' }}>{'❤️'.repeat(gameLives) || '💀'}</span>
+              </div>
+              <strong style={{ fontSize: '1.15rem', color: 'var(--teal-deep)' }}>+{gameScore} XP</strong>
+            </div>
           </div>
 
-          {/* Game Canvas Arena */}
-          <div className="game-arena">
+          {/* Game Canvas Arena - Enlarged for Desktop layout */}
+          <div className="game-arena" style={{ maxWidth: '800px', height: '480px', margin: '0 auto' }}>
             {!gamePlaying && !gameOver && (
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(26, 35, 50, 0.96)', color: 'white', gap: '1rem', padding: '1.5rem', textAlign: 'center' }}>
                 <span style={{ fontSize: '3rem' }}>🎮</span>
                 <h3 style={{ color: 'white', margin: 0 }}>Play Level: {userProfile.tier}</h3>
-                <p style={{ color: '#a0aab8', fontSize: '0.85rem', maxWidth: '300px', margin: 0 }}>
+                <p style={{ color: '#a0aab8', fontSize: '0.85rem', maxWidth: '380px', margin: 0 }}>
                   Words drop from the top. Correct typing destroys them. 
                   (Unlock higher Tiers at the Bookstore to play words/news!)
                 </p>
-                <button type="button" className="btn btn-ember btn-pulse" style={{ padding: '0.6rem 2rem', marginTop: '0.5rem' }} onClick={startGame}>
+                <button type="button" className="btn btn-ember btn-pulse" style={{ padding: '0.8rem 2.5rem', marginTop: '0.5rem' }} onClick={startGame}>
                   Start Typer Game
                 </button>
               </div>
             )}
 
-            {gamePlaying && fallingWords.map((w) => (
-              <div
-                key={w.id}
-                className="falling-word"
-                style={{
-                  left: `${w.x}%`,
-                  top: `${w.y}px`
-                }}
-              >
-                {w.text}
-                <span style={{ display: 'block', fontSize: '0.7rem', opacity: 0.8, fontWeight: 'normal', textAlign: 'center' }}>
-                  {w.translation}
-                </span>
-              </div>
-            ))}
+            {gamePlaying && fallingWords.map((w) => {
+              // Sinusoidal trajectory wiggle based on Y height and difficulty level
+              const shakeOffsetX = Math.sin(w.y / 25) * (difficulty * 2.2)
+              const clampedX = Math.max(8, Math.min(92, w.x + shakeOffsetX))
+
+              return (
+                <div
+                  key={w.id}
+                  className="falling-word"
+                  style={{
+                    left: `${clampedX}%`,
+                    top: `${w.y}px`
+                  }}
+                >
+                  {w.text}
+                  <span style={{ display: 'block', fontSize: '0.7rem', opacity: 0.8, fontWeight: 'normal', textAlign: 'center' }}>
+                    {w.translation}
+                  </span>
+                </div>
+              )
+            })}
 
             {gameOver && (
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(26, 35, 50, 0.98)', color: 'white', gap: '1rem', padding: '1.5rem', textAlign: 'center' }}>
@@ -441,42 +597,87 @@ export function PlayHubPage() {
 
           {/* Typing Form Controls */}
           {gamePlaying && (
-            <form onSubmit={submitTypingWord} className="game-input-container">
+            <form onSubmit={submitTypingWord} className="game-input-container" style={{ margin: '1.5rem auto' }}>
               <input
                 type="text"
                 className="game-input"
-                placeholder="Type spelling here..."
+                placeholder={
+                  userProfile.tier === 'Beginner' 
+                    ? "Type 1 char (instant blow)..." 
+                    : "Type word + [Space] or [Enter]..."
+                }
                 value={typedInput}
-                onChange={(e) => setTypedInput(e.target.value)}
+                onChange={(e) => handleTypingChange(e.target.value)}
                 autoFocus
               />
-              <button type="submit" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem' }}>
+              <button type="submit" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }}>
                 Submit
               </button>
             </form>
           )}
 
           {/* On-Screen Virtual Keyboard Guide */}
-          <div className="virtual-keyboard">
-            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.78rem', color: 'var(--ink-soft)', textAlign: 'center', fontWeight: 'bold' }}>
-              ⌨️ VIRTUAL KEYBOARD LAYOUT (NEXT KEY FLICKERS IN ORANGE)
-            </p>
-            <div className="keyboard-row">
-              {['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'].map((k) => (
-                <div key={k} className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}>{k}</div>
-              ))}
+          {keyboardMode !== 'hide' && (
+            <div className="virtual-keyboard" style={{ marginTop: '1.5rem' }}>
+              <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.75rem', color: 'var(--ink-soft)', textAlign: 'center', fontWeight: 'bold' }}>
+                ⌨️ VIRTUAL KEYBOARD LAYOUT (NEXT KEY FLICKERS IN ORANGE)
+              </p>
+              
+              {/* Row 1 */}
+              <div className="keyboard-row">
+                {['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'].map((k) => (
+                  <div
+                    key={k}
+                    className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
+                  >
+                    <span style={{ fontSize: '1rem' }}>{k}</span>
+                    {keyboardMode === 'all' && (
+                      <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
+                        {KEY_MAP[k] || ''}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Row 2 */}
+              <div className="keyboard-row">
+                {['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'].map((k) => (
+                  <div
+                    key={k}
+                    className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
+                  >
+                    <span style={{ fontSize: '1rem' }}>{k}</span>
+                    {keyboardMode === 'all' && (
+                      <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
+                        {KEY_MAP[k] || ''}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Row 3 */}
+              <div className="keyboard-row">
+                {['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ'].map((k) => (
+                  <div
+                    key={k}
+                    className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '42px', padding: '0.4rem 0.5rem' }}
+                  >
+                    <span style={{ fontSize: '1rem' }}>{k}</span>
+                    {keyboardMode === 'all' && (
+                      <span style={{ fontSize: '0.62rem', color: 'var(--ink-soft)', fontWeight: 'normal', marginTop: '0.1rem' }}>
+                        {KEY_MAP[k] || ''}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="keyboard-row">
-              {['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'].map((k) => (
-                <div key={k} className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}>{k}</div>
-              ))}
-            </div>
-            <div className="keyboard-row">
-              {['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ'].map((k) => (
-                <div key={k} className={`keyboard-key ${nextChar === k ? 'highlight-next' : ''}`}>{k}</div>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       )}
 
