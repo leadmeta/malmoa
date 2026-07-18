@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './InnerPages.css'
 import './HomePage.css'
 
@@ -28,6 +28,7 @@ const PLACEMENT_QUIZ: QuizQuestion[] = [
 ]
 
 export function HomePage() {
+  const navigate = useNavigate()
   const [showQuiz, setShowQuiz] = useState(false)
   const [quizIndex, setQuizIndex] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
@@ -102,7 +103,7 @@ export function HomePage() {
         date: new Date().toISOString().split('T')[0]
       })
       localStorage.setItem('malmoa-orders', JSON.stringify(orders))
-      alert(`🎉 Package Ordered! Our admin logistics desk has been notified. Track it in your Admin desk.`)
+      alert(`🎉 Package Inquiry registered! Redirecting to pricing table to select your best plan options.`)
     } else if (category === 'coaching') {
       const saved = localStorage.getItem('malmoa-coaching-orders')
       let coachingOrders = []
@@ -117,9 +118,10 @@ export function HomePage() {
         date: new Date().toISOString().split('T')[0]
       })
       localStorage.setItem('malmoa-coaching-orders', JSON.stringify(coachingOrders))
-      alert(`👩‍🏫 Tutor Coaching Booked! Admin matching has started.`)
+      alert(`👩‍🏫 Tutor Coaching matching initialized! Redirecting to select your consultation slot.`)
     }
     setShowQuiz(false)
+    navigate('/waitlist')
   }
 
   return (
@@ -885,7 +887,7 @@ export function HomePage() {
                         <span style={{ fontSize: '0.72rem', color: 'var(--teal)' }}>DIGITAL COURSE</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.92rem' }}>Beginner Course Lock ($19)</h5>
                       </div>
-                      <Link to="/play-hub" className="edu-btn-secondary-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
+                      <Link to="/waitlist" className="edu-btn-secondary-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
                         Unlock Tier
                       </Link>
                     </div>
@@ -907,7 +909,7 @@ export function HomePage() {
                         <span style={{ fontSize: '0.72rem', color: 'var(--teal)' }}>DIGITAL COURSE</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.92rem' }}>Advanced News Course ($39)</h5>
                       </div>
-                      <Link to="/play-hub" className="edu-btn-secondary-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
+                      <Link to="/waitlist" className="edu-btn-secondary-3d" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
                         Unlock Tier
                       </Link>
                     </div>
