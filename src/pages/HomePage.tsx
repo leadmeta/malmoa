@@ -186,7 +186,7 @@ export function HomePage() {
           Subtitles translate words, but they lose the deep cultural context, honorific respect layers, and poetic wordplays. By understanding the linguistic structure, you connect directly to the heart of the Hallyu Wave.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem', marginBottom: '3.5rem' }}>
           <div className="edu-card-chunky">
             <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🎤</div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Sing Along to K-Pop</h3>
@@ -209,6 +209,26 @@ export function HomePage() {
             <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.92rem' }}>
               From reading street food menus in Seoul to following Korean skincare routines and cooking recipes. Literacy builds an authentic connection to modern Korean cuisine, cosmetics, and lifestyle trends beyond tourist guides.
             </p>
+          </div>
+        </div>
+
+        {/* 문맥에 맞는 K-pop 디코더 이미지 추가 */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+          <div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', marginBottom: '1rem' }}>The K-Pop Mnemonic Decoder</h3>
+            <p style={{ color: 'var(--ink-soft)', lineHeight: 1.6, fontSize: '0.95rem', marginBottom: '1.5rem' }}>
+              Our digital lyrics analyzer visualizes words in Korean pop tracks. Break down syllables, trace grammatical nodes, and understand slang terminology dynamically.
+            </p>
+            <Link to="/play-hub" className="edu-btn-3d">Try Lyrics Decoder</Link>
+          </div>
+          <div>
+            <div className="edu-card-chunky" style={{ padding: '1rem' }}>
+              <img 
+                src="/kpop_hangul_decoder.png" 
+                alt="K-pop Hangul lyrics decoder interface" 
+                style={{ width: '100%', height: 'auto', borderRadius: '18px', display: 'block' }}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -275,13 +295,22 @@ export function HomePage() {
             </div>
           </div>
           <div>
-            <div className="edu-chalkboard">
+            <div className="edu-chalkboard" style={{ marginBottom: '1.5rem' }}>
               <h4 style={{ color: 'white', fontFamily: 'var(--font-display)', fontSize: '1.25rem', marginBottom: '1rem' }}>"A wise man can learn it in one morning."</h4>
               <p style={{ color: '#a0aab8', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
                 Historical logs in the Hunminjeongeum Haerye record: <br/>
                 <em>"A wise man can acquaint himself with them before the morning is over; even a stupid man can learn them in the space of ten days."</em> <br/><br/>
                 Because Hangul is a <strong>featural alphabet</strong>, letters represent specific physical features of sound. When you understand the underlying creation principle, memorization becomes an analytical deduction rather than a chore.
               </p>
+            </div>
+            
+            {/* 문맥에 맞는 Tracing Canvas 이미지 추가 */}
+            <div className="edu-card-chunky" style={{ padding: '1rem' }}>
+              <img 
+                src="/hangul_stroke_tracing.png" 
+                alt="Hangul stroke order tracing simulator interface" 
+                style={{ width: '100%', height: 'auto', borderRadius: '18px', display: 'block' }}
+              />
             </div>
           </div>
         </div>
@@ -505,11 +534,11 @@ export function HomePage() {
       <section className="section shell" style={{ padding: '5rem 0', borderBottom: '1px solid var(--line)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'center' }}>
           <div>
-            <div className="edu-card-chunky" style={{ padding: '1.5rem' }}>
+            <div className="edu-card-chunky" style={{ padding: '1rem' }}>
               <img 
-                src="/wadiz-assets/wadiz_4.png" 
-                alt="Hanja root network mockup" 
-                style={{ width: '100%', height: 'auto', borderRadius: '20px', border: '1px solid var(--line)', display: 'block' }}
+                src="/hanja_root_network.png" 
+                alt="Hanja root etymology network mapping" 
+                style={{ width: '100%', height: 'auto', borderRadius: '20px', display: 'block' }}
               />
             </div>
           </div>
