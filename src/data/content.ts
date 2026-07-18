@@ -290,3 +290,225 @@ export const newsArticles: NewsArticle[] = [
     ]
   }
 ]
+
+export type JamoDetail = {
+  char: string
+  name: string
+  sound: string
+  strokesCount: number
+  writeGuide: string
+  paths: { x: number; y: number }[][]
+}
+
+export const jamoList: JamoDetail[] = [
+  {
+    char: 'ㄱ',
+    name: 'Giyeok',
+    sound: 'g/k',
+    strokesCount: 1,
+    writeGuide: 'Draw left-to-right, then down in one continuous stroke.',
+    paths: [
+      [
+        { x: 30, y: 30 },
+        { x: 70, y: 30 },
+        { x: 70, y: 70 }
+      ]
+    ]
+  },
+  {
+    char: 'ㄴ',
+    name: 'Nieun',
+    sound: 'n',
+    strokesCount: 1,
+    writeGuide: 'Draw top-to-bottom, then right in one continuous stroke.',
+    paths: [
+      [
+        { x: 30, y: 30 },
+        { x: 30, y: 70 },
+        { x: 70, y: 70 }
+      ]
+    ]
+  },
+  {
+    char: 'ㄷ',
+    name: 'Digeut',
+    sound: 'd/t',
+    strokesCount: 2,
+    writeGuide: '1: Draw top line left-to-right. 2: From left of top line, draw down then right.',
+    paths: [
+      [
+        { x: 30, y: 30 },
+        { x: 70, y: 30 }
+      ],
+      [
+        { x: 30, y: 30 },
+        { x: 30, y: 70 },
+        { x: 70, y: 70 }
+      ]
+    ]
+  },
+  {
+    char: 'ㄹ',
+    name: 'Rieul',
+    sound: 'r/l',
+    strokesCount: 3,
+    writeGuide: '1: Draw a "ㄱ". 2: Draw middle horizontal line. 3: Draw a "ㄴ" from the bottom left.',
+    paths: [
+      [
+        { x: 30, y: 30 },
+        { x: 70, y: 30 },
+        { x: 70, y: 50 }
+      ],
+      [
+        { x: 30, y: 50 },
+        { x: 70, y: 50 }
+      ],
+      [
+        { x: 30, y: 50 },
+        { x: 30, y: 70 },
+        { x: 70, y: 70 }
+      ]
+    ]
+  },
+  {
+    char: 'ㅏ',
+    name: 'Ah',
+    sound: 'a',
+    strokesCount: 2,
+    writeGuide: '1: Draw long vertical line top-to-bottom. 2: Draw short horizontal stroke left-to-right from the middle.',
+    paths: [
+      [
+        { x: 45, y: 20 },
+        { x: 45, y: 80 }
+      ],
+      [
+        { x: 45, y: 50 },
+        { x: 75, y: 50 }
+      ]
+    ]
+  },
+  {
+    char: 'ㅓ',
+    name: 'Eo',
+    sound: 'eo',
+    strokesCount: 2,
+    writeGuide: '1: Draw short horizontal stroke left-to-right. 2: Draw long vertical line top-to-bottom crossing the end.',
+    paths: [
+      [
+        { x: 20, y: 50 },
+        { x: 50, y: 50 }
+      ],
+      [
+        { x: 50, y: 20 },
+        { x: 50, y: 80 }
+      ]
+    ]
+  }
+]
+
+export type DialogueLine = {
+  speaker: string
+  korean: string
+  english: string
+}
+
+export type ConversationTopic = {
+  id: string
+  category: string
+  title: string
+  description: string
+  dialogue: DialogueLine[]
+}
+
+export const conversations: ConversationTopic[] = [
+  {
+    id: 'conv-1',
+    category: 'Greetings (인사)',
+    title: 'Meeting a Friend in Seoul',
+    description: 'Learn how to greet someone and ask basic well-being questions.',
+    dialogue: [
+      { speaker: 'Min-su (민수)', korean: '안녕하세요! 오랜만이에요.', english: 'Hello! Long time no see.' },
+      { speaker: 'John (존)', korean: '안녕하세요! 잘 지냈어요?', english: 'Hello! Have you been well?' },
+      { speaker: 'Min-su (민수)', korean: '네, 저는 잘 지내요. 요즘 한국어 공부는 어때요?', english: 'Yes, I am doing well. How is your Korean study these days?' },
+      { speaker: 'John (존)', korean: '조금 어렵지만, 말모아 덕분에 재미있어요!', english: 'It is a bit difficult, but thanks to Malmoa it is fun!' }
+    ]
+  },
+  {
+    id: 'conv-2',
+    category: 'Shopping (쇼핑)',
+    title: 'Buying Traditional Stickers',
+    description: 'Practice purchasing textbook items or stickers in a store.',
+    dialogue: [
+      { speaker: 'Clerk (점원)', korean: '어서 오세요! 찾으시는 물건이 있나요?', english: 'Welcome! Is there something you are looking for?' },
+      { speaker: 'Sarah (사라)', korean: '이 한글 자음 스티커 팩은 얼마예요?', english: 'How much is this Hangul consonant sticker pack?' },
+      { speaker: 'Clerk (점원)', korean: '그것은 오천 원(5,000 KRW)입니다.', english: 'That is five thousand won.' },
+      { speaker: 'Sarah (사라)', korean: '좋아요, 세 팩 주세요. 카드로 계산할게요.', english: 'Great, please give me three packs. I will pay by card.' }
+    ]
+  }
+]
+
+export type ProductItem = {
+  id: string
+  name: string
+  price: number
+  category: 'textbook' | 'coaching' | 'course'
+  description: string
+  badge: string
+}
+
+export const storeProducts: ProductItem[] = [
+  {
+    id: 'prod-book-pack',
+    name: 'Malmoa Visual Textbook & Sticker Package',
+    price: 39,
+    category: 'textbook',
+    description: 'Our award-winning printed textbook containing premium visual mnemonic stickers and active recall charts.',
+    badge: 'Best Seller 📦'
+  },
+  {
+    id: 'prod-coaching-1m',
+    name: '1-on-1 Native Literacy Coaching (1 Month)',
+    price: 89,
+    category: 'coaching',
+    description: 'Weekly video calls with a certified native Korean teacher to evaluate pronunciation, handwriting, and 어휘 network structure.',
+    badge: 'Highly Recommended 🎓'
+  },
+  {
+    id: 'prod-course-beginner',
+    name: 'Beginner Course Access (Vowels, Consonants, Writing)',
+    price: 19,
+    category: 'course',
+    description: 'Unlock absolute beginner video lessons and interactive stroke tracing canvas modules forever.',
+    badge: 'Level 1 Unlock 🔒'
+  },
+  {
+    id: 'prod-course-intermediate',
+    name: 'Intermediate Course Access (Daily Dialogue)',
+    price: 29,
+    category: 'course',
+    description: 'Unlock situational dialogues, interactive spelling worksheets, and vocabulary card databases.',
+    badge: 'Level 2 Unlock 🔒'
+  },
+  {
+    id: 'prod-course-advanced',
+    name: 'Advanced Course Access (News & Hanja Fusion)',
+    price: 39,
+    category: 'course',
+    description: 'Unlock deep reading, Hanja root mnemonic networks, advanced comprehension checkpoints, and official certificates.',
+    badge: 'Level 3 Unlock 🔒'
+  }
+]
+
+export type TeacherInfo = {
+  id: string
+  name: string
+  specialty: string
+  rating: number
+  avatar: string
+}
+
+export const coachingTeachers: TeacherInfo[] = [
+  { id: 'teacher-jiwon', name: 'Kim Ji-won (김지원)', specialty: 'Beginner Hangul & Phonetics', rating: 4.9, avatar: '👩‍🏫' },
+  { id: 'teacher-junho', name: 'Park Jun-ho (박준호)', specialty: 'Hanja Root Mnemonic Expert', rating: 4.8, avatar: '👨‍🏫' },
+  { id: 'teacher-minji', name: 'Lee Min-ji (이민지)', specialty: 'Conversational Dialogue & News Reading', rating: 5.0, avatar: '👩‍🏫' }
+]

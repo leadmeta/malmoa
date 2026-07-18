@@ -11,6 +11,10 @@ import { ShopPage } from './pages/ShopPage'
 import { NewsPage } from './pages/NewsPage'
 import { TypingGamePage } from './pages/TypingGamePage'
 import { RankPage } from './pages/RankPage'
+import { CurriculumPage } from './pages/CurriculumPage'
+import { DemoHubPage } from './pages/DemoHubPage'
+import { PlayHubPage } from './pages/PlayHubPage'
+import { AdminPage } from './pages/AdminPage'
 
 export default function App() {
   return (
@@ -20,6 +24,10 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="program" element={<ProgramPage />} />
           <Route path="method" element={<MethodPage />} />
+          <Route path="curriculum" element={<CurriculumPage />} />
+          <Route path="demo-hub" element={<DemoHubPage />} />
+          <Route path="play-hub" element={<PlayHubPage />} />
+          <Route path="admin" element={<AdminPage />} />
           <Route path="lesson/hangul-demo" element={<HangulDemoPage />} />
           <Route path="lesson/hanja-demo" element={<HanjaDemoPage />} />
           <Route path="board" element={<BoardPage />} />

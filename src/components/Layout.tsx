@@ -24,48 +24,23 @@ export function Layout() {
           </button>
           <ul id="primary-nav" className={`nav-links${open ? ' open' : ''}`}>
             <li>
-              <NavLink to="/method" onClick={close}>
-                Method
+              <NavLink to="/curriculum" onClick={close}>
+                📖 Method & Curriculum
               </NavLink>
             </li>
             <li>
-              <NavLink to="/program" onClick={close}>
-                Curriculum
+              <NavLink to="/demo-hub" onClick={close}>
+                ⚡ Demo Zone
               </NavLink>
             </li>
             <li>
-              <NavLink to="/lesson/hangul-demo" onClick={close}>
-                Hangul Demo
+              <NavLink to="/play-hub" onClick={close}>
+                🎮 Hangul Play
               </NavLink>
             </li>
             <li>
-              <NavLink to="/lesson/hanja-demo" onClick={close}>
-                Hanja Demo
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/news" onClick={close}>
-                📰 News
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/typing-game" onClick={close}>
-                ⌨️ Typing Game
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/ranking" onClick={close}>
-                🏆 Rankings
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/board" onClick={close}>
-                Community
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/shop" onClick={close}>
-                Store
+              <NavLink to="/admin" onClick={close}>
+                ⚙️ Admin
               </NavLink>
             </li>
             <li>
