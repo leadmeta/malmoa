@@ -545,7 +545,7 @@ export function PlayHubPage() {
         className="skyscraper-ranking-card edu-card-chunky hover-lift"
         style={{
           position: 'fixed',
-          left: 'max(0.5rem, calc((100vw - 1200px) / 2 - 190px))',
+          left: '1.5rem',
           top: '200px',
           width: '170px',
           background: 'white',
