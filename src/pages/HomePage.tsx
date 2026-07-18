@@ -746,7 +746,7 @@ export function HomePage() {
             </button>
             <Link 
               className="edu-btn-secondary-3d" 
-              style={{ background: 'transparent', borderColor: 'rgba(255,255,255,0.4)', color: 'white !important', borderBottomColor: 'rgba(255,255,255,0.3)', fontSize: '1.05rem', padding: '1rem 2.2rem' }} 
+              style={{ background: 'transparent', borderColor: 'rgba(255,255,255,0.4)', color: 'white', borderBottomColor: 'rgba(255,255,255,0.3)', fontSize: '1.05rem', padding: '1rem 2.2rem' }} 
               to="/waitlist"
             >
               Book a Free Consultation
@@ -889,7 +889,7 @@ export function HomePage() {
                         <span style={{ fontSize: '0.75rem', color: '#34d399', fontWeight: 'bold' }}>DIGITAL COURSE</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.98rem', fontWeight: 'bold' }}>Beginner Course Lock ($19)</h5>
                       </div>
-                      <Link to="/waitlist" className="edu-btn-secondary-3d" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
+                      <Link to="/waitlist" className="edu-btn-secondary-3d" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', color: 'var(--ink)', borderRadius: '10px' }}>
                         Unlock Tier
                       </Link>
                     </div>
@@ -911,7 +911,7 @@ export function HomePage() {
                         <span style={{ fontSize: '0.75rem', color: '#34d399', fontWeight: 'bold' }}>DIGITAL COURSE</span>
                         <h5 style={{ margin: 0, color: 'white', fontSize: '0.98rem', fontWeight: 'bold' }}>Advanced News Course ($39)</h5>
                       </div>
-                      <Link to="/waitlist" className="edu-btn-secondary-3d" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', color: 'var(--ink) !important', borderRadius: '10px' }}>
+                      <Link to="/waitlist" className="edu-btn-secondary-3d" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', color: 'var(--ink)', borderRadius: '10px' }}>
                         Unlock Tier
                       </Link>
                     </div>
