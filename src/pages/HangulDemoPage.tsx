@@ -184,37 +184,78 @@ export function HangulDemoPage() {
       )}
 
       {step === 'quiz' && current && (
-        <div style={{ animation: 'rise 0.4s ease both' }}>
-          <span style={{ fontSize: '1.05rem', color: 'var(--teal-deep)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '0.5rem' }}>
-            Consonant Game: Question {quizIndex + 1} of {quizzes.length}
-          </span>
-          <h2 style={{ fontSize: '1.85rem', color: 'var(--ink)', fontWeight: 'bold', fontFamily: 'var(--font-display)', lineHeight: 1.3, marginBottom: '2.5rem', marginTop: 0 }}>
-            {current.prompt}
-          </h2>
+        <div style={{ animation: 'rise 0.4s ease both', maxWidth: '38rem', margin: '0 auto' }}>
+          {/* Header Progress indicator */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '2px solid var(--line)', paddingBottom: '0.75rem' }}>
+            <span style={{ fontSize: '0.9rem', color: 'var(--teal-deep)', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              🧠 Mnemonic Quiz
+            </span>
+            <span style={{ fontSize: '0.9rem', color: 'var(--ink-soft)', fontWeight: '600' }}>
+              Question {quizIndex + 1} of {quizzes.length}
+            </span>
+          </div>
 
-          <div className="quiz-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', margin: '2rem 0' }}>
-            {current.choices.map((choice) => {
+          {/* Highlighted Blackboard Question Box */}
+          <div style={{ 
+            background: 'var(--teal-deep)', 
+            color: 'white', 
+            padding: '2rem 2.5rem', 
+            borderRadius: '24px', 
+            boxShadow: '0 8px 25px rgba(9,84,86,0.15)',
+            marginBottom: '2rem',
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{ position: 'absolute', top: '-10px', right: '-10px', fontSize: '5rem', opacity: 0.08, userSelect: 'none' }}>❓</div>
+            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 'bold' }}>
+              Solve the Mnemonic
+            </p>
+            <h2 style={{ fontSize: '1.75rem', color: 'white', fontWeight: 'bold', fontFamily: 'var(--font-display)', lineHeight: 1.35, margin: 0 }}>
+              {current.prompt}
+            </h2>
+          </div>
+
+          {/* Action Prompt */}
+          <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+            <span style={{ fontSize: '0.85rem', color: 'var(--ink-soft)', fontWeight: 'bold', letterSpacing: '0.05em', textTransform: 'uppercase', background: 'var(--paper-cool)', padding: '0.35rem 1rem', borderRadius: '999px', border: '1px solid var(--line)' }}>
+              👇 Click to Select Your Answer
+            </span>
+          </div>
+
+          {/* Interactive Answer Choices (with A, B, C badges) */}
+          <div className="quiz-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', margin: '1.5rem 0' }}>
+            {current.choices.map((choice, index) => {
+              const labelLetter = String.fromCharCode(65 + index) // A, B, C
               let bg = 'white'
               let border = '2px solid var(--line)'
               let textColor = 'var(--ink)'
-              let shadow = '0 4px 10px rgba(0,0,0,0.01)'
+              let shadow = '0 6px 18px rgba(0,0,0,0.02)'
+              let badgeBg = 'var(--paper-cool)'
+              let badgeColor = 'var(--ink-soft)'
 
               if (selected) {
                 if (choice === current.answer) {
-                  bg = 'color-mix(in srgb, var(--teal) 12%, white)'
+                  bg = 'color-mix(in srgb, var(--teal) 15%, white)'
                   border = '2px solid var(--teal)'
                   textColor = 'var(--teal-deep)'
-                  shadow = '0 4px 12px color-mix(in srgb, var(--teal) 15%, transparent)'
+                  shadow = '0 6px 15px color-mix(in srgb, var(--teal) 20%, transparent)'
+                  badgeBg = 'var(--teal)'
+                  badgeColor = 'white'
                 } else if (choice === selected) {
-                  bg = 'color-mix(in srgb, var(--ember) 12%, white)'
+                  bg = 'color-mix(in srgb, var(--ember) 15%, white)'
                   border = '2px solid var(--ember)'
                   textColor = 'var(--ember)'
                   shadow = 'none'
+                  badgeBg = 'var(--ember)'
+                  badgeColor = 'white'
                 } else {
                   bg = 'transparent'
-                  textColor = 'rgba(0,0,0,0.25)'
+                  textColor = 'rgba(0,0,0,0.2)'
                   border = '1px solid var(--line)'
                   shadow = 'none'
+                  badgeBg = 'rgba(0,0,0,0.04)'
+                  badgeColor = 'rgba(0,0,0,0.2)'
                 }
               }
 
@@ -225,18 +266,34 @@ export function HangulDemoPage() {
                   disabled={Boolean(selected)}
                   onClick={() => onChoose(choice)}
                   style={{
-                    padding: '2.5rem 1rem',
+                    padding: '2rem 1rem',
                     borderRadius: '24px',
                     background: bg,
                     border: border,
                     color: textColor,
                     boxShadow: shadow,
                     cursor: selected ? 'default' : 'pointer',
-                    transition: 'all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    transition: 'all 0.2s ease',
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '0.75rem'
                   }}
                   className={!selected ? 'board-post-card' : ''}
                 >
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '3rem', fontWeight: 'bold' }}>
+                  <span style={{ 
+                    fontSize: '0.8rem', 
+                    fontWeight: 'bold', 
+                    background: badgeBg, 
+                    color: badgeColor, 
+                    padding: '0.2rem 0.6rem', 
+                    borderRadius: '8px',
+                    transition: 'all 0.2s ease'
+                  }}>
+                    OPTION {labelLetter}
+                  </span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '3.2rem', fontWeight: 'bold', lineHeight: 1.1 }}>
                     {choice}
                   </span>
                 </button>
