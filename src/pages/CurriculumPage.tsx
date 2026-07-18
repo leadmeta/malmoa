@@ -117,14 +117,14 @@ export function CurriculumPage() {
       </div>
 
       {/* FINAL CALL-TO-ACTION BAND */}
-      <div className="edu-card-chunky" style={{ textAlign: 'center', background: 'var(--ink-dark)', color: 'white', borderBottomColor: 'var(--teal-deep)', padding: '3.5rem' }}>
-        <h3 style={{ color: 'white', fontFamily: 'var(--font-display)', fontSize: '1.8rem', marginBottom: '1rem' }}>
+      <div className="cta-band" style={{ textAlign: 'center', padding: '5rem 3rem', margin: '4rem 0 0 0' }}>
+        <h2 style={{ color: 'white', fontFamily: 'var(--font-display)', fontSize: '2.2rem', marginBottom: '1.25rem', fontWeight: 800 }}>
           Ready to attend your class?
-        </h3>
-        <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: '32rem', margin: '0 auto 2rem auto', fontSize: '0.95rem', lineHeight: 1.5 }}>
+        </h2>
+        <p style={{ color: 'rgba(255,255,255,0.8)', maxWidth: '34rem', margin: '0 auto 2.5rem auto', fontSize: '1.05rem', lineHeight: 1.6 }}>
           Classroom adapts to your licensed tier automatically. Non-members can try basic Hangul tracing exercises for free immediately.
         </p>
-        <Link to="/demo-hub" className="edu-btn-3d" style={{ padding: '1rem 3rem' }}>
+        <Link to="/demo-hub" className="edu-btn-secondary-3d" style={{ padding: '1rem 3rem', fontSize: '1.05rem' }}>
           Enter Classroom →
         </Link>
       </div>
