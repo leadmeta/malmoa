@@ -180,6 +180,10 @@ export function PlayHubPage() {
   const [typedInput, setTypedInput] = useState('')
   const inputRef = useRef<HTMLInputElement | null>(null)
   
+  // Game arena size & fullscreen triggers
+  const [isLargeSize, setIsLargeSize] = useState(false)
+  const arenaRef = useRef<HTMLDivElement | null>(null)
+  
   const [gameScore, setGameScore] = useState(0)
   const [gameLives, setGameLives] = useState(3)
   const [difficulty, setDifficulty] = useState(1.5) // Velocity multiplier
@@ -187,6 +191,17 @@ export function PlayHubPage() {
   const spawnTimerRef = useRef<number | null>(null)
   const movementIntervalRef = useRef<number | null>(null)
   const nextWordId = useRef(0)
+
+  const toggleFullscreen = () => {
+    if (!arenaRef.current) return
+    if (!document.fullscreenElement) {
+      arenaRef.current.requestFullscreen().catch(() => {
+        alert('Fullscreen mode is not supported by your browser.')
+      })
+    } else {
+      document.exitFullscreen()
+    }
+  }
 
   const startGame = () => {
     setGamePlaying(true)
@@ -563,7 +578,6 @@ export function PlayHubPage() {
         {/* RIGHT COLUMN: MAIN COMPONENT DISPLAY */}
         <div style={{ flexGrow: 1 }}>
 
-          {/* --- SUB-TAB 1: TYPING GAME --- */}
           {activeTab === 'game' && (
             <div style={{ animation: 'rise 0.4s ease both' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
@@ -571,14 +585,30 @@ export function PlayHubPage() {
                   Raindrop Typer (Level: <span style={{ color: 'var(--teal)' }}>{userProfile.tier}</span>)
                 </h3>
                 
-                <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}
+                    style={{ padding: '0.4rem 0.85rem', fontSize: '0.82rem', fontWeight: 'bold' }}
                     onClick={() => setIsMuted((m) => !m)}
                   >
                     <span>{isMuted ? '🔇 Muted' : '🔊 Sound ON'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ padding: '0.4rem 0.85rem', fontSize: '0.82rem', fontWeight: 'bold' }}
+                    onClick={() => setIsLargeSize((l) => !l)}
+                  >
+                    {isLargeSize ? '🔍 Normal Size' : '🔍 Theater Mode'}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ padding: '0.4rem 0.85rem', fontSize: '0.82rem', fontWeight: 'bold' }}
+                    onClick={toggleFullscreen}
+                  >
+                    🖥️ Fullscreen
                   </button>
                   <div style={{ fontSize: '0.9rem' }}>
                     Hearts: <span style={{ color: 'var(--ember)', fontSize: '1.15rem' }}>{'❤️'.repeat(gameLives) || '💀'}</span>
@@ -589,15 +619,18 @@ export function PlayHubPage() {
 
               {/* Game Canvas Arena - Click toggles Pause/Resume */}
               <div 
-                className="game-arena" 
+                ref={arenaRef}
+                className={`game-arena ${isLargeSize ? 'game-arena-large' : ''}`}
                 onClick={handleArenaClick}
                 style={{ 
-                  maxWidth: '800px', 
-                  height: '480px', 
+                  maxWidth: isLargeSize ? '100%' : '800px', 
+                  height: isLargeSize ? '620px' : '480px', 
                   margin: '0 auto', 
                   position: 'relative', 
                   cursor: gamePlaying ? 'pointer' : 'default',
-                  border: isPaused ? '3px solid var(--ember)' : '3px solid var(--line)'
+                  border: isPaused ? '3px solid var(--ember)' : '3px solid var(--line)',
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  background: '#0f172a'
                 }}
               >
                 {/* 1. START OVERLAY */}
