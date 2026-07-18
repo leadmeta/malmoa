@@ -539,56 +539,55 @@ export function PlayHubPage() {
         </div>
       </div>
 
-      {/* ==================== TWO COLUMN GRID LAYOUT (Left Side Mini Leaderboard Card Hidden in Theater Game Mode) ==================== */}
-      <div style={{ display: 'grid', gridTemplateColumns: (isLargeSize && activeTab === 'game') ? '1fr' : 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', alignItems: 'start' }}>
+      {/* ==================== SKY SCRAPER VERTICAL SIDEBAR RANKING (화면의 완전 좌측, 세로 광고 영역 고정형) ==================== */}
+      <div 
+        onClick={() => setActiveTab('rank')}
+        className="skyscraper-ranking-card edu-card-chunky hover-lift"
+        style={{
+          position: 'fixed',
+          left: 'max(0.5rem, calc((100vw - 1200px) / 2 - 190px))',
+          top: '200px',
+          width: '170px',
+          background: 'white',
+          border: '2.5px dashed var(--teal)', // 광고판 느낌의 점선 스타일링
+          borderRadius: '20px',
+          padding: '1.25rem 1rem',
+          cursor: 'pointer',
+          zIndex: 100,
+          boxShadow: '0 8px 24px rgba(15,23,42,0.05)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.65rem'
+        }}
+      >
+        <div style={{ background: 'var(--teal-deep)', color: 'white', fontSize: '0.68rem', fontWeight: 'bold', padding: '0.2rem 0.4rem', borderRadius: '4px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          📢 LIVE RANKINGS
+        </div>
         
-        {/* LEFT COLUMN: MINI LEADERBOARD CARD */}
-        {!(isLargeSize && activeTab === 'game') && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            <div 
-              onClick={() => setActiveTab('rank')}
-              style={{ 
-                background: 'white', 
-                border: '2px solid var(--line)', 
-                borderRadius: '24px', 
-                padding: '1.5rem', 
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.01)'
-              }}
-              className="edu-card-chunky hover-lift"
-            >
-              <h4 style={{ margin: '0 0 1rem 0', fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                🏆 Leaderboard Card
-              </h4>
-              <p style={{ fontSize: '0.78rem', color: 'var(--ink-soft)', margin: '0 0 1rem 0', lineHeight: 1.4 }}>
-                Click this card to expand full rankings sheet.
-              </p>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-                {miniRankers.map((ranker, i) => (
-                  <div key={ranker.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem', paddingBottom: '0.4rem', borderBottom: i < 2 ? '1px dashed var(--line)' : 'none' }}>
-                    <span style={{ fontWeight: 'bold', color: i === 0 ? 'var(--ember)' : 'var(--ink)' }}>
-                      {i + 1}. {ranker.name}
-                    </span>
-                    <span style={{ color: 'var(--teal-deep)', fontWeight: 'bold' }}>{ranker.xp} XP</span>
-                  </div>
-                ))}
-              </div>
-              
-              <div style={{ borderTop: '1px solid var(--line)', marginTop: '1rem', paddingTop: '0.75rem', fontSize: '0.82rem', color: 'var(--teal)', fontWeight: 'bold', textAlign: 'right' }}>
-                View Full Rankings ➔
-              </div>
+        <h4 style={{ margin: '0.15rem 0 0.25rem 0', fontFamily: 'var(--font-display)', fontSize: '0.9rem', fontWeight: 'bold', textAlign: 'center' }}>
+          🏆 Leaderboard
+        </h4>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+          {miniRankers.map((ranker, i) => (
+            <div key={ranker.name} style={{ display: 'flex', flexDirection: 'column', fontSize: '0.78rem', borderBottom: i < 2 ? '1px dashed var(--line)' : 'none', paddingBottom: '0.35rem' }}>
+              <span style={{ fontWeight: 'bold', color: i === 0 ? 'var(--ember)' : 'var(--ink)' }}>
+                {i + 1}. {ranker.name}
+              </span>
+              <span style={{ color: 'var(--teal-deep)', fontWeight: 'bold', fontSize: '0.72rem' }}>
+                {ranker.xp} XP
+              </span>
             </div>
+          ))}
+        </div>
+        
+        <div style={{ borderTop: '1px solid var(--line)', marginTop: '0.25rem', paddingTop: '0.5rem', fontSize: '0.75rem', color: 'var(--teal)', fontWeight: 'bold', textAlign: 'center' }}>
+          Expand Table ➔
+        </div>
+      </div>
 
-            <div style={{ background: '#fafbfd', border: '1px solid var(--line)', borderRadius: '24px', padding: '1.5rem', fontSize: '0.82rem', color: 'var(--ink-soft)', lineHeight: 1.5 }}>
-              💡 <strong>Protip:</strong> Pressing <strong>Space</strong> or <strong>Enter</strong> clears the typing buffer immediately for clean IME inputs. Clicking inside the game arena pauses/resumes the timer!
-            </div>
-          </div>
-        )}
-
-        {/* RIGHT COLUMN: MAIN COMPONENT DISPLAY */}
-        <div style={{ flexGrow: 1 }}>
+      {/* Main Single Column Content Block (Now takes full screen horizontally under Theater mode naturally) */}
+      <div style={{ width: '100%', marginTop: '1.5rem' }}>
 
           {activeTab === 'game' && (
             <div 
@@ -1004,8 +1003,6 @@ export function PlayHubPage() {
           )}
 
         </div>
-
-      </div>
 
     </div>
   )

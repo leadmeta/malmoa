@@ -664,3 +664,10 @@
   75% { transform: scale(1.1) translateY(-10px); opacity: 0.8; }
   100% { transform: scale(0.5) translateY(-30px); opacity: 0; }
 }
+
+/* Skyscraper Ranking Sidebar - Hide below 1340px viewport */
+@media (max-width: 1340px) {
+  .skyscraper-ranking-card {
+    display: none !important;
+  }
+}
