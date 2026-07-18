@@ -146,15 +146,9 @@ export function CurriculumPage() {
   }
 
   return (
-    <div className="shell page-hero reveal" style={{ paddingBottom: '4rem' }}>
-      <p className="section-label">Malmoa Syllabus</p>
-      <h1>Method & Curriculum</h1>
-      <p style={{ maxWidth: '42rem', color: 'var(--ink-soft)' }}>
-        Explore our complete teaching systems, interactive drawing sheets for consonants/vowels, situational dialogues, and news literacy integrations.
-      </p>
-
-      {/* Tabs Selector */}
-      <div style={{ display: 'flex', gap: '1rem', borderBottom: '2px solid var(--line)', paddingBottom: '1px', margin: '2.5rem 0', overflowX: 'auto' }}>
+    <div className="shell reveal" style={{ paddingBottom: '4rem', marginTop: '1.5rem' }}>
+      {/* Tabs Selector: Positioned immediately below header navigation */}
+      <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--line)', paddingBottom: '1px', marginBottom: '2.5rem', overflowX: 'auto' }}>
         {(['method', 'beginner', 'intermediate', 'advanced'] as const).map((tab) => (
           <button
             key={tab}
@@ -164,10 +158,10 @@ export function CurriculumPage() {
               padding: '0.75rem 1.5rem',
               border: 'none',
               background: 'transparent',
-              fontSize: '1rem',
+              fontSize: '0.85rem',
               fontWeight: 'bold',
               cursor: 'pointer',
-              color: activeTab === tab ? 'var(--teal)' : 'var(--ink-soft)',
+              color: activeTab === tab ? 'var(--teal-deep)' : 'var(--ink-soft)',
               borderBottom: activeTab === tab ? '3px solid var(--teal)' : '3px solid transparent',
               transition: 'all 0.2s ease',
               textTransform: 'uppercase',
